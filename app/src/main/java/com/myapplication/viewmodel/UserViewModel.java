@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.buendia.myrentalapp.model.User;
-import com.buendia.myrentalapp.repository.UserRepository;
+import com.myapplication.model.User;
+import com.myapplication.repository.UserRepository;
 
 import java.util.List;
 

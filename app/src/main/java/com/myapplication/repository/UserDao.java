@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import com.buendia.myrentalapp.model.User;
+import com.myapplication.model.User;
 import java.util.List;
 
 @Dao

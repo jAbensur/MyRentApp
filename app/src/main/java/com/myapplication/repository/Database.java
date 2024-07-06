@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import com.buendia.myrentalapp.model.User;
+import com.myapplication.model.User;
 
 @androidx.room.Database(entities = {User.class}, version = 1)
 public abstract class Database extends RoomDatabase {

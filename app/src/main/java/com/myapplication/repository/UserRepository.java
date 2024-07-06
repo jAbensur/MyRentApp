@@ -2,7 +2,7 @@ package com.myapplication.repository;
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
-import com.buendia.myrentalapp.model.User;
+import com.myapplication.model.User;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
