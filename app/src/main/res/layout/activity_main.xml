@@ -17,10 +17,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btnRegistrar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Registrar"
         tools:layout_editor_absoluteX="164dp"
         tools:layout_editor_absoluteY="400dp"
         tools:ignore="MissingConstraints" />

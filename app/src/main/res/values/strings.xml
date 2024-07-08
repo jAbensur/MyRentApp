@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MyRentApp</string>
+
+    <string name="hint_TnFirstName">Nombres:</string>
+    <string name="hint_TnLastName">Apellidos:</string>
+    <string name="hint_TnEmail">Correo Electrónico:</string>
+    <string name="hint_TnPhone">Teléfono:</string>
+    <string name="hint_TnDNI">DNI:</string>
+    <string name="hint_TnStatus">Estado:</string>
+    <string name="hint_TnType">Tipo:</string>
+    <string name="hint_TnGender">Género:</string>
+
+    <string name="btn_guarda">Guardar registro</string>
+    <string name="btn_regresar">Regresar</string>
+
+
 </resources>
