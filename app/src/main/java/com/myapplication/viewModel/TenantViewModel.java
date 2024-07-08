@@ -2,13 +2,17 @@ package com.myapplication.viewModel;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 import com.myapplication.MainActivity;
+import com.myapplication.model.Tenant;
 import com.myapplication.repository.DbRepository;
+
+import java.util.ArrayList;
 
 public class TenantViewModel extends DbRepository {
 
@@ -19,18 +23,6 @@ public class TenantViewModel extends DbRepository {
         this.context = context;
     }
 
-    /*
-    Tenant
-- TnID (PK)
-- TnFirstName
-- TnLastName
-- TnEmail
-- TnPhone
-- TnDNI
-- TnStatus
-- TnType
-- TnGender
-     */
     public long insertTenant(String TnFirstName, String TnLastName, String TnEmail
             , String TnPhone, String TnDNI, String TnStatus,String TnType, String TnGender) {
 
@@ -58,6 +50,37 @@ public class TenantViewModel extends DbRepository {
         }
 
         return id;
+    }
+
+    public ArrayList<Tenant> mostrarContactos() {
+        DbRepository dbHelper = new DbRepository(context);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ArrayList<Tenant> listaContactos = new ArrayList<>();
+        Tenant tenant = null;
+        Cursor cursorContactos = null;
+
+        cursorContactos = db.rawQuery("SELECT * FROM " + TABLE_TENANT, null);
+
+        if (cursorContactos.moveToFirst()) {
+            do {
+                tenant = new Tenant();
+                tenant.setTnID(cursorContactos.getInt(0));
+                tenant.setTnFirstName(cursorContactos.getString(1));
+                tenant.setTnLastName(cursorContactos.getString(2));
+                tenant.setTnEmail(cursorContactos.getString(3));
+                tenant.setTnPhone(cursorContactos.getString(4));
+                tenant.setTnDNI(cursorContactos.getString(5));
+                tenant.setTnStatus(cursorContactos.getString(6));
+                tenant.setTnType(cursorContactos.getString(7));
+                tenant.setTnGender(cursorContactos.getString(8));
+
+                listaContactos.add(tenant);
+            } while (cursorContactos.moveToNext());
+        }
+        cursorContactos.close();
+
+        return listaContactos;
     }
 
 }
