@@ -13,7 +13,10 @@
         android:theme="@style/Theme.MyRentApp"
         tools:targetApi="31">
         <activity
-            android:name="NewTenantActivity"
+            android:name=".viewTenantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewTenantActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.myapplication.MainActivity;
 import com.myapplication.model.Tenant;
 import com.myapplication.repository.DbRepository;
+import com.myapplication.viewTenantActivity;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,33 @@ public class TenantViewModel extends DbRepository {
         cursorContactos.close();
 
         return listaContactos;
+    }
+
+    public Tenant getTenantById(int id) {
+        DbRepository dbRepository = new DbRepository(context);
+        SQLiteDatabase db = dbRepository.getWritableDatabase();
+
+        Tenant tenant = null;
+        Cursor cursorContactos = null;
+
+        cursorContactos = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnID = " + id + " LIMIT 1", null);
+        Toast.makeText(context, "llego aca1", Toast.LENGTH_LONG).show();
+
+        if (cursorContactos.moveToFirst()) {
+            tenant = new Tenant();
+            tenant.setTnID(cursorContactos.getInt(0));
+            tenant.setTnFirstName(cursorContactos.getString(1));
+            tenant.setTnLastName(cursorContactos.getString(2));
+            tenant.setTnEmail(cursorContactos.getString(3));
+            tenant.setTnPhone(cursorContactos.getString(4));
+            tenant.setTnDNI(cursorContactos.getString(5));
+            tenant.setTnStatus(cursorContactos.getString(6));
+            tenant.setTnType(cursorContactos.getString(7));
+            tenant.setTnGender(cursorContactos.getString(8));
+        }
+        cursorContactos.close();
+
+        return tenant;
     }
 
 }

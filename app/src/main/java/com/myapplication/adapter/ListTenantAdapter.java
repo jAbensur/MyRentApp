@@ -1,15 +1,19 @@
 package com.myapplication.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.R;
 import com.myapplication.model.Tenant;
+import com.myapplication.viewTenantActivity;
 
 import java.util.ArrayList;
 
@@ -46,6 +50,8 @@ public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.Te
 
     public class TenantViewHolder extends RecyclerView.ViewHolder {
 
+//        asigna listas de nuestra vista a la pantilla individual
+
         TextView viewTnFirstName, viewTnLastName, viewTnPhone, viewTnEmail, viewTnType;
 
         public TenantViewHolder(@NonNull View itemView) {
@@ -56,6 +62,18 @@ public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.Te
             viewTnEmail = itemView.findViewById(R.id.viewTnEmail);
             viewTnType = itemView.findViewById(R.id.viewTnType);
 
+
+//            al dar click a uno de los item's
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = view.getContext();
+                    Intent intent = new Intent(context, viewTenantActivity.class);
+                    intent.putExtra("TnID", listTenant.get(getAdapterPosition()).getTnID());
+
+                    context.startActivity(intent);
+                }
+            });
 
         }
     }
