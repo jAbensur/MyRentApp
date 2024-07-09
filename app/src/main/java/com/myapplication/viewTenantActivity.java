@@ -9,12 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.model.Tenant;
@@ -23,12 +19,12 @@ import com.myapplication.viewModel.TenantViewModel;
 public class viewTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
-    Button btnGuarda, btnRegresar;
+    Button btnSave, btnReturn;
 
     FloatingActionButton fabUpdate, fatDelete;
 
     Tenant tenant;
-    int id = 0;
+    int TnID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,31 +40,31 @@ public class viewTenantActivity extends AppCompatActivity {
         txtTnType = findViewById(R.id.txtTnType);
         txtTnGender = findViewById(R.id.txtTnGender);
 
-        btnGuarda = findViewById(R.id.btnGuarda);
-        btnRegresar = findViewById(R.id.btnRegresar);
+        btnSave = findViewById(R.id.btnSave);
+        btnReturn = findViewById(R.id.btnReturn);
         fabUpdate = findViewById(R.id.fabUpdate);
         fatDelete = findViewById(R.id.fatDelete);
 
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
+        btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                regresar();
+                returnToMain();
             }
         });
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                id = Integer.parseInt(null);
+                TnID = Integer.parseInt(null);
             } else {
-                id = extras.getInt("TnID");
+                TnID = extras.getInt("TnID");
             }
         } else {
-            id = (int) savedInstanceState.getSerializable("TnID");
+            TnID = (int) savedInstanceState.getSerializable("TnID");
         }
 
         TenantViewModel dbContactos = new TenantViewModel(viewTenantActivity.this);
-        tenant = dbContactos.getTenantById(id);
+        tenant = dbContactos.getTenantById(TnID);
 
 
         if (tenant != null) {
@@ -81,7 +77,7 @@ public class viewTenantActivity extends AppCompatActivity {
             txtTnType.setText(tenant.getTnType());
             txtTnGender.setText(tenant.getTnGender());
 
-            btnGuarda.setVisibility(View.INVISIBLE);
+            btnSave.setVisibility(View.INVISIBLE);
 
             txtTnFirstName.setInputType(InputType.TYPE_NULL);
             txtTnLastName.setInputType(InputType.TYPE_NULL);
@@ -97,7 +93,7 @@ public class viewTenantActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(viewTenantActivity.this, UpdateTenantActivity.class);
-                intent.putExtra("TnID", id);
+                intent.putExtra("TnID", TnID);
                 startActivity(intent);
             }
         });
@@ -110,8 +106,8 @@ public class viewTenantActivity extends AppCompatActivity {
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (dbContactos.deleteTenant(id)) {
-                                    lista();
+                                if (dbContactos.deleteTenant(TnID)) {
+                                    returnToMain();
                                     Toast.makeText(viewTenantActivity.this, "Se elimino el registro", Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -127,12 +123,7 @@ public class viewTenantActivity extends AppCompatActivity {
 
     }
 
-    private void lista() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-    private void regresar(){
+    private void returnToMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

@@ -16,10 +16,10 @@
             android:name=".viewTenantActivity"
             android:exported="false" />
         <activity
-            android:name=".UpdateTenantActivity"
+            android:name="UpdateTenantActivity"
             android:exported="false" />
         <activity
-            android:name=".NewTenantActivity"
+            android:name="NewTenantActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

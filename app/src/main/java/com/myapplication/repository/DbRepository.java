@@ -17,6 +17,7 @@ public class DbRepository extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        // Creating the Tenant table with necessary columns
         sqLiteDatabase.execSQL("CREATE TABLE " + TABLE_TENANT + "(" +
                 "TnID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "TnFirstName TEXT NOT NULL," +
@@ -31,7 +32,9 @@ public class DbRepository extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        // Dropping the old Tenant table if it exists
         sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TENANT);
+        // Recreating the Tenant table
         onCreate(sqLiteDatabase);
     }
 }

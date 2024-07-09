@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +17,12 @@ import com.myapplication.viewTenantActivity;
 import java.util.ArrayList;
 
 public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.TenantViewHolder> {
-    // Class designed to work with a RecyclerView
-    // Allows recycling of views
+    // Class designed to work with a RecyclerView, Allows recycling of views
 
-    ArrayList<Tenant> listTenant;
+    ArrayList<Tenant> tenantList;
 
-    public ListTenantAdapter(ArrayList<Tenant> tenantList){
-        this.listTenant = tenantList;
+    public ListTenantAdapter(ArrayList<Tenant> tenantList) {
+        this.tenantList = tenantList;
     }
 
     @NonNull
@@ -36,22 +34,22 @@ public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.Te
 
     @Override
     public void onBindViewHolder(@NonNull TenantViewHolder holder, int position) {
-        holder.viewTnFirstName.setText(listTenant.get(position).getTnFirstName());
-        holder.viewTnLastName.setText(listTenant.get(position).getTnLastName());
-        holder.viewTnPhone.setText(listTenant.get(position).getTnPhone());
-        holder.viewTnEmail.setText(listTenant.get(position).getTnEmail());
-        holder.viewTnType.setText(listTenant.get(position).getTnType());
+//        binds the data to the views (TextViews) in each item of the RecyclerView
+        holder.viewTnFirstName.setText(tenantList.get(position).getTnFirstName());
+        holder.viewTnLastName.setText(tenantList.get(position).getTnLastName());
+        holder.viewTnPhone.setText(tenantList.get(position).getTnPhone());
+        holder.viewTnEmail.setText(tenantList.get(position).getTnEmail());
+        holder.viewTnType.setText(tenantList.get(position).getTnType());
     }
 
     @Override
     public int getItemCount() {
-        return listTenant.size();
+        return tenantList.size();
     }
 
     public class TenantViewHolder extends RecyclerView.ViewHolder {
 
-//        asigna listas de nuestra vista a la pantilla individual
-
+        //  Assigns views from layout to individual template
         TextView viewTnFirstName, viewTnLastName, viewTnPhone, viewTnEmail, viewTnType;
 
         public TenantViewHolder(@NonNull View itemView) {
@@ -63,13 +61,13 @@ public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.Te
             viewTnType = itemView.findViewById(R.id.viewTnType);
 
 
-//            al dar click a uno de los item's
+//            when you click on any of the elements
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, viewTenantActivity.class);
-                    intent.putExtra("TnID", listTenant.get(getAdapterPosition()).getTnID());
+                    intent.putExtra("TnID", tenantList.get(getAdapterPosition()).getTnID());
 
                     context.startActivity(intent);
                 }

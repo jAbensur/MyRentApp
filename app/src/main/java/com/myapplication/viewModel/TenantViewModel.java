@@ -27,14 +27,13 @@ public class TenantViewModel extends DbRepository {
     public long insertTenant(String TnFirstName, String TnLastName, String TnEmail
             , String TnPhone, String TnDNI, String TnStatus,String TnType, String TnGender) {
 
-        long id = 0;
+        long TnID = 0;
 
         try {
             DbRepository dbRespository = new DbRepository(context);
             SQLiteDatabase db = dbRespository.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-
             values.put("TnFirstName", TnFirstName);
             values.put("TnLastName", TnLastName);
             values.put("TnEmail", TnEmail);
@@ -44,68 +43,68 @@ public class TenantViewModel extends DbRepository {
             values.put("TnType", TnType);
             values.put("TnGender", TnGender);
 
-            id = db.insert(TABLE_TENANT, null, values);
+            TnID = db.insert(TABLE_TENANT, null, values);
         } catch (Exception ex) {
             Toast.makeText(context, "Error al insertar registro", Toast.LENGTH_LONG).show();
             ex.toString();
         }
 
-        return id;
+        return TnID;
     }
 
-    public ArrayList<Tenant> mostrarContactos() {
+    public ArrayList<Tenant> mostrarContactos() { // aca hay que cambiar de nombre a 'getAllTenants'
         DbRepository dbHelper = new DbRepository(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ArrayList<Tenant> listaContactos = new ArrayList<>();
+        ArrayList<Tenant> tenantList = new ArrayList<>();
         Tenant tenant = null;
-        Cursor cursorContactos = null;
+        Cursor cursor = null;
 
-        cursorContactos = db.rawQuery("SELECT * FROM " + TABLE_TENANT, null);
+        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT, null);
 
-        if (cursorContactos.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 tenant = new Tenant();
-                tenant.setTnID(cursorContactos.getInt(0));
-                tenant.setTnFirstName(cursorContactos.getString(1));
-                tenant.setTnLastName(cursorContactos.getString(2));
-                tenant.setTnEmail(cursorContactos.getString(3));
-                tenant.setTnPhone(cursorContactos.getString(4));
-                tenant.setTnDNI(cursorContactos.getString(5));
-                tenant.setTnStatus(cursorContactos.getString(6));
-                tenant.setTnType(cursorContactos.getString(7));
-                tenant.setTnGender(cursorContactos.getString(8));
+                tenant.setTnID(cursor.getInt(0));
+                tenant.setTnFirstName(cursor.getString(1));
+                tenant.setTnLastName(cursor.getString(2));
+                tenant.setTnEmail(cursor.getString(3));
+                tenant.setTnPhone(cursor.getString(4));
+                tenant.setTnDNI(cursor.getString(5));
+                tenant.setTnStatus(cursor.getString(6));
+                tenant.setTnType(cursor.getString(7));
+                tenant.setTnGender(cursor.getString(8));
 
-                listaContactos.add(tenant);
-            } while (cursorContactos.moveToNext());
+                tenantList.add(tenant);
+            } while (cursor.moveToNext());
         }
-        cursorContactos.close();
+        cursor.close();
 
-        return listaContactos;
+        return tenantList;
     }
 
-    public Tenant getTenantById(int id) {
+    public Tenant getTenantById(int TnID) {
         DbRepository dbRepository = new DbRepository(context);
         SQLiteDatabase db = dbRepository.getWritableDatabase();
 
         Tenant tenant = null;
-        Cursor cursorContactos = null;
+        Cursor cursor = null;
 
-        cursorContactos = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnID = " + id + " LIMIT 1", null);
+        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnID = " + TnID + " LIMIT 1", null);
 
-        if (cursorContactos.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             tenant = new Tenant();
-            tenant.setTnID(cursorContactos.getInt(0));
-            tenant.setTnFirstName(cursorContactos.getString(1));
-            tenant.setTnLastName(cursorContactos.getString(2));
-            tenant.setTnEmail(cursorContactos.getString(3));
-            tenant.setTnPhone(cursorContactos.getString(4));
-            tenant.setTnDNI(cursorContactos.getString(5));
-            tenant.setTnStatus(cursorContactos.getString(6));
-            tenant.setTnType(cursorContactos.getString(7));
-            tenant.setTnGender(cursorContactos.getString(8));
+            tenant.setTnID(cursor.getInt(0));
+            tenant.setTnFirstName(cursor.getString(1));
+            tenant.setTnLastName(cursor.getString(2));
+            tenant.setTnEmail(cursor.getString(3));
+            tenant.setTnPhone(cursor.getString(4));
+            tenant.setTnDNI(cursor.getString(5));
+            tenant.setTnStatus(cursor.getString(6));
+            tenant.setTnType(cursor.getString(7));
+            tenant.setTnGender(cursor.getString(8));
         }
-        cursorContactos.close();
+        cursor.close();
 
         return tenant;
     }

@@ -16,11 +16,11 @@ import com.myapplication.viewModel.TenantViewModel;
 public class UpdateTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
-    Button btnGuarda, btnRegresar;
+    Button btnSave, btnReturn;
     FloatingActionButton fabUpdate, fatDelete;
 
     Tenant tenant;
-    int id = 0;
+    int TnID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +36,8 @@ public class UpdateTenantActivity extends AppCompatActivity {
         txtTnType = findViewById(R.id.txtTnType);
         txtTnGender = findViewById(R.id.txtTnGender);
 
-        btnGuarda = findViewById(R.id.btnGuarda);
-        btnRegresar = findViewById(R.id.btnRegresar);
+        btnSave = findViewById(R.id.btnSave);
+        btnReturn = findViewById(R.id.btnReturn);
 
         fabUpdate = findViewById(R.id.fabUpdate);
         fabUpdate.setVisibility(View.INVISIBLE);
@@ -45,26 +45,26 @@ public class UpdateTenantActivity extends AppCompatActivity {
         fatDelete = findViewById(R.id.fatDelete);
         fatDelete.setVisibility(View.INVISIBLE);
 
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
+        btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                regresar();
+                returnToMain();
             }
         });
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                id = Integer.parseInt(null);
+                TnID = Integer.parseInt(null);
             } else {
-                id = extras.getInt("TnID");
+                TnID = extras.getInt("TnID");
             }
         } else {
-            id = (int) savedInstanceState.getSerializable("TnID");
+            TnID = (int) savedInstanceState.getSerializable("TnID");
         }
 
         TenantViewModel dbContactos = new TenantViewModel(UpdateTenantActivity.this);
-        tenant = dbContactos.getTenantById(id);
+        tenant = dbContactos.getTenantById(TnID);
 
 
         if (tenant != null) {
@@ -78,7 +78,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
             txtTnGender.setText(tenant.getTnGender());
         }
 
-        btnGuarda.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String firstName = txtTnFirstName.getText().toString();
@@ -93,11 +93,11 @@ public class UpdateTenantActivity extends AppCompatActivity {
                 if(!firstName.equals("") && !lastName.equals("") && !email.equals("") && !phone.equals("")
                         && !dni.equals("") && !status.equals("") && !type.equals("") && !gender.equals("")){
 
-                    boolean isUpdated = dbContactos.updateTenant(id, firstName, lastName, email, phone, dni, status, type, gender);
+                    boolean isUpdated = dbContactos.updateTenant(TnID, firstName, lastName, email, phone, dni, status, type, gender);
 
                     if (isUpdated) {
                         Toast.makeText(UpdateTenantActivity.this, "Registro actualizado correctamente", Toast.LENGTH_LONG).show();
-                        verRegistro();
+                        viewRecord();
                     } else {
                         Toast.makeText(UpdateTenantActivity.this, "Error al actualizar registro", Toast.LENGTH_LONG).show();
                     }
@@ -109,13 +109,14 @@ public class UpdateTenantActivity extends AppCompatActivity {
 
     }
 
-    private void regresar(){
+    private void returnToMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    private void verRegistro(){
+    private void viewRecord(){
         Intent intent = new Intent(this, viewTenantActivity.class);
+        intent.putExtra("TnID", TnID);
         startActivity(intent);
     }
 }

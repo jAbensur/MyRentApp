@@ -7,30 +7,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.myapplication.repository.DbRepository;
 import com.myapplication.viewModel.TenantViewModel;
 
 public class NewTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
-    Button btnGuarda, btnRegresar;
+    Button btnSave, btnReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_new_tenant);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
         txtTnFirstName = findViewById(R.id.txtTnFirstName);
         txtTnLastName = findViewById(R.id.txtTnLastName);
@@ -41,17 +30,17 @@ public class NewTenantActivity extends AppCompatActivity {
         txtTnType = findViewById(R.id.txtTnType);
         txtTnGender = findViewById(R.id.txtTnGender);
 
-        btnGuarda = findViewById(R.id.btnGuarda);
-        btnRegresar = findViewById(R.id.btnRegresar);
+        btnSave = findViewById(R.id.btnSave);
+        btnReturn = findViewById(R.id.btnReturn);
 
-        btnRegresar.setOnClickListener(new View.OnClickListener() {
+        btnReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                regresar();
+                returnToMain();
             }
         });
 
-        btnGuarda.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TenantViewModel dbRepository = new TenantViewModel(NewTenantActivity.this);
@@ -65,22 +54,20 @@ public class NewTenantActivity extends AppCompatActivity {
                 String type = txtTnType.getText().toString();
                 String gender = txtTnGender.getText().toString();
 
+                long TnID = dbRepository.insertTenant(firstName, lastName, email, phone, dni, status, type, gender);
 
-                long id = dbRepository.insertTenant(firstName, lastName, email, phone, dni, status, type, gender);
-
-                if (id > 0) {
+                if (TnID > 0) {
                     Toast.makeText(NewTenantActivity.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
-                    limpiar();
-                    regresar();
+                    clearFields();
+                    returnToMain();
                 } else {
                     Toast.makeText(NewTenantActivity.this, "ERROR AL GUARDAR REGISTRO", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
 
-    private void limpiar() {
+    private void clearFields() {
         txtTnFirstName.setText("");
         txtTnLastName.setText("");
         txtTnEmail.setText("");
@@ -91,7 +78,7 @@ public class NewTenantActivity extends AppCompatActivity {
         txtTnGender.setText("");
     }
 
-    private void regresar(){
+    private void returnToMain(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
