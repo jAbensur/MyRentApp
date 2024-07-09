@@ -2,28 +2,20 @@ package com.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.model.Tenant;
 import com.myapplication.viewModel.TenantViewModel;
 
-public class viewTenantActivity extends AppCompatActivity {
+public class UpdateTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
     Button btnGuarda, btnRegresar;
-
-    FloatingActionButton fabUpdate;
 
     Tenant tenant;
     int id = 0;
@@ -44,7 +36,6 @@ public class viewTenantActivity extends AppCompatActivity {
 
         btnGuarda = findViewById(R.id.btnGuarda);
         btnRegresar = findViewById(R.id.btnRegresar);
-        fabUpdate = findViewById(R.id.fabUpdate);
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +55,7 @@ public class viewTenantActivity extends AppCompatActivity {
             id = (int) savedInstanceState.getSerializable("TnID");
         }
 
-        TenantViewModel dbContactos = new TenantViewModel(viewTenantActivity.this);
+        TenantViewModel dbContactos = new TenantViewModel(UpdateTenantActivity.this);
         tenant = dbContactos.getTenantById(id);
 
 
@@ -77,25 +68,34 @@ public class viewTenantActivity extends AppCompatActivity {
             txtTnStatus.setText(tenant.getTnStatus());
             txtTnType.setText(tenant.getTnType());
             txtTnGender.setText(tenant.getTnGender());
-
-            btnGuarda.setVisibility(View.INVISIBLE);
-
-            txtTnFirstName.setInputType(InputType.TYPE_NULL);
-            txtTnLastName.setInputType(InputType.TYPE_NULL);
-            txtTnEmail.setInputType(InputType.TYPE_NULL);
-            txtTnPhone.setInputType(InputType.TYPE_NULL);
-            txtTnDNI.setInputType(InputType.TYPE_NULL);
-            txtTnStatus.setInputType(InputType.TYPE_NULL);
-            txtTnType.setInputType(InputType.TYPE_NULL);
-            txtTnGender.setInputType(InputType.TYPE_NULL);
         }
 
-        fabUpdate.setOnClickListener(new View.OnClickListener() {
+        btnGuarda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(viewTenantActivity.this, UpdateTenantActivity.class);
-                intent.putExtra("TnID", id);
-                startActivity(intent);
+                String firstName = txtTnFirstName.getText().toString();
+                String lastName = txtTnLastName.getText().toString();
+                String email = txtTnEmail.getText().toString();
+                String phone = txtTnPhone.getText().toString();
+                String dni = txtTnDNI.getText().toString();
+                String status = txtTnStatus.getText().toString();
+                String type = txtTnType.getText().toString();
+                String gender = txtTnGender.getText().toString();
+
+                if(!firstName.equals("") && !lastName.equals("") && !email.equals("") && !phone.equals("")
+                        && !dni.equals("") && !status.equals("") && !type.equals("") && !gender.equals("")){
+
+                    boolean isUpdated = dbContactos.updateTenant(id, firstName, lastName, email, phone, dni, status, type, gender);
+
+                    if (isUpdated) {
+                        Toast.makeText(UpdateTenantActivity.this, "Registro actualizado correctamente", Toast.LENGTH_LONG).show();
+                        verRegistro();
+                    } else {
+                        Toast.makeText(UpdateTenantActivity.this, "Error al actualizar registro", Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(UpdateTenantActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -103,6 +103,11 @@ public class viewTenantActivity extends AppCompatActivity {
 
     private void regresar(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void verRegistro(){
+        Intent intent = new Intent(this, viewTenantActivity.class);
         startActivity(intent);
     }
 }

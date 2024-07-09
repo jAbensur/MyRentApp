@@ -92,7 +92,6 @@ public class TenantViewModel extends DbRepository {
         Cursor cursorContactos = null;
 
         cursorContactos = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnID = " + id + " LIMIT 1", null);
-        Toast.makeText(context, "llego aca1", Toast.LENGTH_LONG).show();
 
         if (cursorContactos.moveToFirst()) {
             tenant = new Tenant();
@@ -111,4 +110,40 @@ public class TenantViewModel extends DbRepository {
         return tenant;
     }
 
+    public boolean updateTenant(int TnID, String TnFirstName, String TnLastName, String TnEmail
+            , String TnPhone, String TnDNI, String TnStatus,String TnType, String TnGender) {
+
+        boolean isUpdated = false;
+
+        DbRepository dbRespository = new DbRepository(context);
+        SQLiteDatabase db = dbRespository.getWritableDatabase();
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put("TnFirstName", TnFirstName);
+            values.put("TnLastName", TnLastName);
+            values.put("TnEmail", TnEmail);
+            values.put("TnPhone", TnPhone);
+            values.put("TnDNI", TnDNI);
+            values.put("TnStatus", TnStatus);
+            values.put("TnType", TnType);
+            values.put("TnGender", TnGender);
+
+            String whereClause = "TnID=?";
+            String[] whereArgs = {String.valueOf(TnID)};
+
+            int rowsAffected = db.update(TABLE_TENANT, values, whereClause, whereArgs);
+
+            if (rowsAffected > 0) {
+                isUpdated = true;
+            } else {
+                Toast.makeText(context, "Error al actualizar registro", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception ex) {
+            Toast.makeText(context, "Error al actualizar registro: " + ex.toString(), Toast.LENGTH_LONG).show();
+        } finally {
+            db.close();
+        }
+        return isUpdated;
+    }
 }

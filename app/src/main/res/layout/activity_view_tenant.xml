@@ -135,4 +135,12 @@
         android:backgroundTint="@color/cardview_dark_background"
         android:textSize="24sp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:clickable="true"
+        android:src="@drawable/ic_edit" />
+
 </LinearLayout>
