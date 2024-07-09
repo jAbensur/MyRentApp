@@ -146,4 +146,23 @@ public class TenantViewModel extends DbRepository {
         }
         return isUpdated;
     }
+
+    public boolean deleteTenant(int TnID) {
+
+        boolean isDelete = false;
+
+        DbRepository dbRespository = new DbRepository(context);
+        SQLiteDatabase db = dbRespository.getWritableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM " + TABLE_TENANT + " WHERE TnID = '" + TnID + "'");
+            isDelete = true;
+        } catch (Exception ex) {
+            Toast.makeText(context, "Error al actualizar registro: " + ex.toString(), Toast.LENGTH_LONG).show();
+            isDelete = false;
+        } finally {
+            db.close();
+        }
+        return isDelete;
+    }
 }

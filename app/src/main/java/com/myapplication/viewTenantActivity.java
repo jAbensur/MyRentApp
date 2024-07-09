@@ -1,5 +1,6 @@
 package com.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,7 +25,7 @@ public class viewTenantActivity extends AppCompatActivity {
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
     Button btnGuarda, btnRegresar;
 
-    FloatingActionButton fabUpdate;
+    FloatingActionButton fabUpdate, fatDelete;
 
     Tenant tenant;
     int id = 0;
@@ -45,6 +47,7 @@ public class viewTenantActivity extends AppCompatActivity {
         btnGuarda = findViewById(R.id.btnGuarda);
         btnRegresar = findViewById(R.id.btnRegresar);
         fabUpdate = findViewById(R.id.fabUpdate);
+        fatDelete = findViewById(R.id.fatDelete);
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +102,34 @@ public class viewTenantActivity extends AppCompatActivity {
             }
         });
 
+        fatDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(viewTenantActivity.this);
+                builder.setMessage("¿Desea eliminar este contacto?")
+                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (dbContactos.deleteTenant(id)) {
+                                    lista();
+                                    Toast.makeText(viewTenantActivity.this, "Se elimino el registro", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(viewTenantActivity.this, "No se elimino el registro", Toast.LENGTH_LONG).show();
+                            }
+                        }).show();
+            }
+        });
+
+    }
+
+    private void lista() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void regresar(){
