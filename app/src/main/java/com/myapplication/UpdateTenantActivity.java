@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.model.Tenant;
 import com.myapplication.viewModel.TenantViewModel;
 
@@ -16,6 +17,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
     Button btnGuarda, btnRegresar;
+    FloatingActionButton fabUpdate, fatDelete;
 
     Tenant tenant;
     int id = 0;
@@ -36,6 +38,12 @@ public class UpdateTenantActivity extends AppCompatActivity {
 
         btnGuarda = findViewById(R.id.btnGuarda);
         btnRegresar = findViewById(R.id.btnRegresar);
+
+        fabUpdate = findViewById(R.id.fabUpdate);
+        fabUpdate.setVisibility(View.INVISIBLE);
+
+        fatDelete = findViewById(R.id.fatDelete);
+        fatDelete.setVisibility(View.INVISIBLE);
 
         btnRegresar.setOnClickListener(new View.OnClickListener() {
             @Override

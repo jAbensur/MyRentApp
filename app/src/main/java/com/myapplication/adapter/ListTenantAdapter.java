@@ -18,13 +18,13 @@ import com.myapplication.viewTenantActivity;
 import java.util.ArrayList;
 
 public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.TenantViewHolder> {
-//    clase diseñada para trabajar con un RecyclerView
-//    permite reciclar vistas
+    // Class designed to work with a RecyclerView
+    // Allows recycling of views
 
     ArrayList<Tenant> listTenant;
 
-    public ListTenantAdapter(ArrayList<Tenant> listaContactos){
-        this.listTenant = listaContactos;
+    public ListTenantAdapter(ArrayList<Tenant> tenantList){
+        this.listTenant = tenantList;
     }
 
     @NonNull
