@@ -10,6 +10,8 @@
     <string name="hint_TnType">Tipo:</string>
     <string name="hint_TnGender">Género:</string>
 
+    <string name="text_title">Gestión de Inquilinos</string>
+
     <string name="btn_guarda">Guardar registro</string>
     <string name="btn_editar">Editar registro</string>
     <string name="btn_regresar">Regresar</string>
