@@ -5,21 +5,31 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
 
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_regresar"
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="400dp"
-        tools:ignore="MissingConstraints" />
+<!--    <Button-->
+<!--        android:id="@+id/btnRegister"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/btn_regresar"-->
+<!--        tools:layout_editor_absoluteX="164dp"-->
+<!--        tools:layout_editor_absoluteY="400dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listTenant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:src="@drawable/ic_add" />
 
 </LinearLayout>

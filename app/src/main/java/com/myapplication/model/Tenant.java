@@ -15,7 +15,7 @@ public class Tenant {
     public Tenant(){
 
     }
-    // Constructor
+
     public Tenant(int TnID, String TnFirstName, String TnLastName, String TnEmail, String TnPhone, String TnDNI, String TnStatus, String TnType, String TnGender) {
         this.TnID = TnID;
         this.TnFirstName = TnFirstName;
@@ -28,7 +28,6 @@ public class Tenant {
         this.TnGender = TnGender;
     }
 
-    // Getters and Setters
     public int getTnID() {
         return TnID;
     }

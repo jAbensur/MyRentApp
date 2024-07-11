@@ -8,10 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.myapplication.MainActivity;
 import com.myapplication.model.Tenant;
 import com.myapplication.repository.DbRepository;
-import com.myapplication.viewTenantActivity;
 
 import java.util.ArrayList;
 

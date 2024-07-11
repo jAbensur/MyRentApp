@@ -16,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.model.Tenant;
 import com.myapplication.viewModel.TenantViewModel;
 
-public class viewTenantActivity extends AppCompatActivity {
+public class ViewTenantActivity extends AppCompatActivity {
 
     EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
     Button btnSave, btnReturn;
@@ -63,7 +63,7 @@ public class viewTenantActivity extends AppCompatActivity {
             TnID = (int) savedInstanceState.getSerializable("TnID");
         }
 
-        TenantViewModel dbContactos = new TenantViewModel(viewTenantActivity.this);
+        TenantViewModel dbContactos = new TenantViewModel(ViewTenantActivity.this);
         tenant = dbContactos.getTenantById(TnID);
 
 
@@ -92,7 +92,7 @@ public class viewTenantActivity extends AppCompatActivity {
         fabUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(viewTenantActivity.this, UpdateTenantActivity.class);
+                Intent intent = new Intent(ViewTenantActivity.this, UpdateTenantActivity.class);
                 intent.putExtra("TnID", TnID);
                 startActivity(intent);
             }
@@ -101,21 +101,21 @@ public class viewTenantActivity extends AppCompatActivity {
         fatDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(viewTenantActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewTenantActivity.this);
                 builder.setMessage("¿Desea eliminar este contacto?")
                         .setPositiveButton("SI", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 if (dbContactos.deleteTenant(TnID)) {
                                     returnToMain();
-                                    Toast.makeText(viewTenantActivity.this, "Se elimino el registro", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ViewTenantActivity.this, "Se elimino el registro", Toast.LENGTH_LONG).show();
                                 }
                             }
                         })
                         .setNegativeButton("NO", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(viewTenantActivity.this, "No se elimino el registro", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ViewTenantActivity.this, "No se elimino el registro", Toast.LENGTH_LONG).show();
                             }
                         }).show();
             }

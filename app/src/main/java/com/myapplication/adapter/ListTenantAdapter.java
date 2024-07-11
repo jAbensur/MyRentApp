@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.R;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewTenantActivity;
+import com.myapplication.ViewTenantActivity;
 
 import java.util.ArrayList;
 
@@ -60,13 +60,12 @@ public class ListTenantAdapter extends RecyclerView.Adapter<ListTenantAdapter.Te
             viewTnEmail = itemView.findViewById(R.id.viewTnEmail);
             viewTnType = itemView.findViewById(R.id.viewTnType);
 
-
 //            when you click on any of the elements
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, viewTenantActivity.class);
+                    Intent intent = new Intent(context, ViewTenantActivity.class);
                     intent.putExtra("TnID", tenantList.get(getAdapterPosition()).getTnID());
 
                     context.startActivity(intent);

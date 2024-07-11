@@ -115,7 +115,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
     }
 
     private void viewRecord(){
-        Intent intent = new Intent(this, viewTenantActivity.class);
+        Intent intent = new Intent(this, ViewTenantActivity.class);
         intent.putExtra("TnID", TnID);
         startActivity(intent);
     }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.adapter.ListTenantAdapter;
 import com.myapplication.model.Tenant;
 import com.myapplication.viewModel.TenantViewModel;
@@ -20,21 +21,30 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView listTenant;
     ArrayList<Tenant> tenantArrayList;
 
-    Button btnRegister;
+//    Button btnRegister;
+    FloatingActionButton fabRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnRegister = findViewById(R.id.btnRegister);
+//        btnRegister = findViewById(R.id.btnRegister);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        fabRegister = findViewById(R.id.fabRegister);
+        fabRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 newRegistration();
             }
         });
+
+//        btnRegister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                newRegistration();
+//            }
+//        });
 
         listTenant = findViewById(R.id.listTenant);
         listTenant.setLayoutManager(new LinearLayoutManager(this));
