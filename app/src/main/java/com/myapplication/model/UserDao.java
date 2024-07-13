@@ -1,4 +1,4 @@
-package com.myapplication.repository;
+package com.myapplication.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -6,7 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import com.myapplication.model.User;
+
 import java.util.List;
 
 @Dao

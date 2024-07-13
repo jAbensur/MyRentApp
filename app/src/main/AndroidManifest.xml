@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRentApp"
         tools:targetApi="31">
+        <activity android:name=".view.AddPropertyActivity"/>
+        <activity android:name=".view.PropertyActivity"/>
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
