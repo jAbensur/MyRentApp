@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.RentCreateActivity">
+
+    <!-- Título en la parte superior -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrar Renta"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Campo de fecha de inicio -->
+    <EditText
+        android:id="@+id/etStartDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fecha desde (YYYY-MM-DD)"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:inputType="date"/>
+
+    <!-- Campo de fecha de fin -->
+    <EditText
+        android:id="@+id/etEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Fecha hasta (YYYY-MM-DD)"
+        app:layout_constraintTop_toBottomOf="@id/etStartDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:inputType="date"/>
+
+    <!-- Campo de precio -->
+    <EditText
+        android:id="@+id/etPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Precio"
+        app:layout_constraintTop_toBottomOf="@id/etEndDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/searchTenant"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Filtrar inquilinos"
+        app:layout_constraintTop_toBottomOf="@id/etPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerTenants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Clientes"
+        app:layout_constraintTop_toBottomOf="@id/searchTenant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <EditText
+        android:id="@+id/searchChamber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Filtrar habitaciones"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTenants"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <Spinner
+        android:id="@+id/spinnerChambers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Ubicación"
+        app:layout_constraintTop_toBottomOf="@id/searchChamber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+    <!-- Botones de cancelar y registrar -->
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cancelar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnRegister"
+        android:layout_margin="16dp" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Registrar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

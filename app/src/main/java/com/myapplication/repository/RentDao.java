@@ -6,17 +6,17 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-import com.myapplication.model.User;
+import com.myapplication.model.Rent;
 import java.util.List;
 
 @Dao
-public interface UserDao {
+public interface RentDao {
     @Insert
-    void insert(User user);
+    void insert(Rent rent);
     @Update
-    void update(User user);
+    void update(Rent rent);
     @Delete
-    void delete(User user);
-    @Query("SELECT * FROM users ORDER BY name ASC")
-    LiveData<List<User>> getAllUsers();
+    void delete(Rent rent);
+    @Query("SELECT * FROM rents")
+    LiveData<List<Rent>> getAllRents();
 }
