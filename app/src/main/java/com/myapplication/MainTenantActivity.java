@@ -23,9 +23,6 @@ public class MainTenantActivity extends AppCompatActivity {
     ArrayList<Tenant> tenantArrayList;
     FloatingActionButton fabRegister;
 
-    Spinner spinner;
-//    String[] opciones = {"Seleccione", "Masculino", "Femenino"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +35,6 @@ public class MainTenantActivity extends AppCompatActivity {
                 newRegistration();
             }
         });
-        spinner = findViewById(R.id.spinner);
-
 
         listTenant = findViewById(R.id.listTenant);
         listTenant.setLayoutManager(new LinearLayoutManager(this));
@@ -49,14 +44,6 @@ public class MainTenantActivity extends AppCompatActivity {
 
         ListTenantAdapter listTenantAdapter = new ListTenantAdapter(tenantViewModel.mostrarContactos());
         listTenant.setAdapter(listTenantAdapter);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, opciones);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner2_options, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-
     }
 
     private void newRegistration(){

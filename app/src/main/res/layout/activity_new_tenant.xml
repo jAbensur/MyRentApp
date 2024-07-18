@@ -66,6 +66,7 @@
         android:ems="10"
         android:hint="@string/hint_TnPhone"
         android:inputType="phone"
+        android:maxLength="9"
         android:textSize="24sp" />
 
     <TextView
@@ -80,7 +81,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_TnDNI"
-        android:inputType="text"
+        android:inputType="number"
+        android:maxLength="8"
         android:textSize="24sp" />
 
     <TextView
@@ -104,14 +106,14 @@
         android:layout_height="wrap_content"
         android:text="@string/hint_TnType" />
 
-    <EditText
-        android:id="@+id/txtTnType"
+    <Spinner
+        android:id="@+id/spnrType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_TnType"
-        android:inputType="text"
-        android:textSize="24sp" />
+        android:padding="10dp"
+        android:textSize="24sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/viewGenero"
@@ -119,14 +121,18 @@
         android:layout_height="wrap_content"
         android:text="@string/hint_TnGender" />
 
-    <EditText
-        android:id="@+id/txtTnGender"
+    <Spinner
+        android:id="@+id/spnrGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_TnGender"
-        android:inputType="text"
-        android:textSize="24sp" />
+        android:padding="10dp"
+        android:textSize="24sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/btnSave"

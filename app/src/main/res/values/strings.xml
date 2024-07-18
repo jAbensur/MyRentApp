@@ -16,18 +16,18 @@
     <string name="btn_edit">Editar registro</string>
     <string name="btn_back">Regresar</string>
 
-    <string-array name="spinner1_options">
-        <item name="spiner1_Option1">-- Seleccione--</item>
-        <item name="spiner1_Option2">Masculino</item>
-        <item name="spiner1_Option3">Femenino</item>
+    <string-array name="spnrGender">
+        <item name="spnrItm1">-- Seleccione--</item>
+        <item name="spnrItm2">Masculino</item>
+        <item name="spnrItm3">Femenino</item>
     </string-array>
 
-    <string-array name="spinner2_options">
-        <item name="spiner2_Option1">-- Seleccione --</item>
-        <item name="spiner2_Option2">Universitario UNU</item>
-        <item name="spiner2_Option3">Preuniversitartio UNU</item>
-        <item name="spiner2_Option4">Universitario UTP</item>
-        <item name="spiner2_Option4">Otro</item>
+    <string-array name="spnrType">
+        <item name="spnrItm1">-- Seleccione --</item>
+        <item name="spnrItm2">Universitario UNU</item>
+        <item name="spnrItm3">Preuniversitartio UNU</item>
+        <item name="spnrItm4">Universitario UTP</item>
+        <item name="spnrItm5">Otro</item>
     </string-array>
 
 </resources>

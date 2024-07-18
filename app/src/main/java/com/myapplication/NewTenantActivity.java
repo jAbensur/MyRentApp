@@ -2,9 +2,12 @@ package com.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,74 +16,127 @@ import com.myapplication.viewModel.TenantViewModel;
 
 public class NewTenantActivity extends AppCompatActivity {
 
-    EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
-    Button btnSave, btnReturn;
+    private EditText firstNameField, lastNameField, emailField, phoneField, dniField, statusField;
+    private Spinner genderSpinner, typeSpinner;
+    private Button saveButton, returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tenant);
 
-        txtTnFirstName = findViewById(R.id.txtTnFirstName);
-        txtTnLastName = findViewById(R.id.txtTnLastName);
-        txtTnEmail = findViewById(R.id.txtTnEmail);
-        txtTnPhone = findViewById(R.id.txtTnPhone);
-        txtTnDNI = findViewById(R.id.txtTnDNI);
-        txtTnStatus = findViewById(R.id.txtTnStatus);
-        txtTnType = findViewById(R.id.txtTnType);
-        txtTnGender = findViewById(R.id.txtTnGender);
+        initializeFields();
+        setupSpinners();
+        setupButtons();
+    }
 
-        btnSave = findViewById(R.id.btnSave);
-        btnReturn = findViewById(R.id.btnReturn);
+    private void initializeFields() {
+        firstNameField = findViewById(R.id.txtTnFirstName);
+        lastNameField = findViewById(R.id.txtTnLastName);
+        emailField = findViewById(R.id.txtTnEmail);
+        phoneField = findViewById(R.id.txtTnPhone);
+        dniField = findViewById(R.id.txtTnDNI);
+        statusField = findViewById(R.id.txtTnStatus);
+        genderSpinner = findViewById(R.id.spnrGender);
+        typeSpinner = findViewById(R.id.spnrType);
+        saveButton = findViewById(R.id.btnSave);
+        returnButton = findViewById(R.id.btnReturn);
+    }
 
-        btnReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                returnToMain();
-            }
-        });
+    private void setupSpinners() {
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
+                R.array.spnrGender, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TenantViewModel dbRepository = new TenantViewModel(NewTenantActivity.this);
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
+                R.array.spnrType, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+    }
 
-                String firstName = txtTnFirstName.getText().toString();
-                String lastName = txtTnLastName.getText().toString();
-                String email = txtTnEmail.getText().toString();
-                String phone = txtTnPhone.getText().toString();
-                String dni = txtTnDNI.getText().toString();
-                String status = txtTnStatus.getText().toString();
-                String type = txtTnType.getText().toString();
-                String gender = txtTnGender.getText().toString();
+    private void setupButtons() {
+        returnButton.setOnClickListener(view -> returnToMain());
 
-                long TnID = dbRepository.insertTenant(firstName, lastName, email, phone, dni, status, type, gender);
+        saveButton.setOnClickListener(view -> saveTenant());
+    }
 
-                if (TnID > 0) {
-                    Toast.makeText(NewTenantActivity.this, "REGISTRO GUARDADO", Toast.LENGTH_LONG).show();
-                    clearFields();
-                    returnToMain();
-                } else {
-                    Toast.makeText(NewTenantActivity.this, "ERROR AL GUARDAR REGISTRO", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+    private void saveTenant() {
+        if (!validateInputs()) {
+            return;
+        }
+
+        TenantViewModel dbRepository = new TenantViewModel(NewTenantActivity.this);
+
+        String firstName = firstNameField.getText().toString();
+        String lastName = lastNameField.getText().toString();
+        String email = emailField.getText().toString();
+        String phone = phoneField.getText().toString();
+        String dni = dniField.getText().toString();
+        String status = statusField.getText().toString();
+        String type = typeSpinner.getSelectedItem().toString();
+        String gender = genderSpinner.getSelectedItem().toString();
+
+        long tenantId = dbRepository.insertTenant(firstName, lastName, email, phone, dni, status, type, gender);
+
+        if (tenantId <= 0) {
+            showToast("ERROR AL GUARDAR REGISTRO");
+            return;
+        }
+
+        showToast("REGISTRO GUARDADO");
+        clearFields();
+        returnToMain();
+    }
+
+    private boolean validateInputs() {
+        String firstName = firstNameField.getText().toString();
+        String lastName = lastNameField.getText().toString();
+        String email = emailField.getText().toString();
+        String phone = phoneField.getText().toString();
+        String dni = dniField.getText().toString();
+        String status = statusField.getText().toString();
+        String type = typeSpinner.getSelectedItem().toString();
+        String gender = genderSpinner.getSelectedItem().toString();
+
+        if (dni.length() < 8) {
+            showToast("El DNI debe tener al menos 8 dígitos");
+            return false;
+        }
+
+        if (phone.length() < 9) {
+            showToast("El Teléfono debe tener al menos 9 dígitos");
+            return false;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showToast("Por favor, ingrese un correo electrónico válido");
+            return false;
+        }
+
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || dni.isEmpty() || status.isEmpty() || typeSpinner.getSelectedItemPosition() == 0 || genderSpinner.getSelectedItemPosition() == 0) {
+            showToast("Por favor, complete todos los campos");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(NewTenantActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     private void clearFields() {
-        txtTnFirstName.setText("");
-        txtTnLastName.setText("");
-        txtTnEmail.setText("");
-        txtTnPhone.setText("");
-        txtTnDNI.setText("");
-        txtTnStatus.setText("");
-        txtTnType.setText("");
-        txtTnGender.setText("");
+        firstNameField.setText("");
+        lastNameField.setText("");
+        emailField.setText("");
+        phoneField.setText("");
+        dniField.setText("");
+        statusField.setText("");
     }
 
-    private void returnToMain(){
+    private void returnToMain() {
         Intent intent = new Intent(this, MainTenantActivity.class);
         startActivity(intent);
     }
-
 }
