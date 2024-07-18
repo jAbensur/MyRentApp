@@ -110,7 +110,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
     }
 
     private void returnToMain(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, MainTenantActivity.class);
         startActivity(intent);
     }
 

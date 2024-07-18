@@ -3,7 +3,6 @@ package com.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,20 +15,17 @@ import com.myapplication.viewModel.TenantViewModel;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainTenantActivity extends AppCompatActivity {
 
     RecyclerView listTenant;
     ArrayList<Tenant> tenantArrayList;
 
-//    Button btnRegister;
     FloatingActionButton fabRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-//        btnRegister = findViewById(R.id.btnRegister);
+        setContentView(R.layout.activity_main_tenant);
 
         fabRegister = findViewById(R.id.fabRegister);
         fabRegister.setOnClickListener(new View.OnClickListener() {
@@ -39,17 +35,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                newRegistration();
-//            }
-//        });
-
         listTenant = findViewById(R.id.listTenant);
         listTenant.setLayoutManager(new LinearLayoutManager(this));
 
-        TenantViewModel tenantViewModel = new TenantViewModel(MainActivity.this);
+        TenantViewModel tenantViewModel = new TenantViewModel(MainTenantActivity.this);
         tenantArrayList = new ArrayList<>();
 
         ListTenantAdapter adapter = new ListTenantAdapter(tenantViewModel.mostrarContactos());
