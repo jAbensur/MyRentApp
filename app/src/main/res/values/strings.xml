@@ -12,9 +12,22 @@
 
     <string name="text_title">Gestión de Inquilinos</string>
 
-    <string name="btn_guarda">Guardar registro</string>
-    <string name="btn_editar">Editar registro</string>
-    <string name="btn_regresar">Regresar</string>
+    <string name="btn_save">Guardar registro</string>
+    <string name="btn_edit">Editar registro</string>
+    <string name="btn_back">Regresar</string>
 
+    <string-array name="spinner1_options">
+        <item name="spiner1_Option1">-- Seleccione--</item>
+        <item name="spiner1_Option2">Masculino</item>
+        <item name="spiner1_Option3">Femenino</item>
+    </string-array>
+
+    <string-array name="spinner2_options">
+        <item name="spiner2_Option1">-- Seleccione --</item>
+        <item name="spiner2_Option2">Universitario UNU</item>
+        <item name="spiner2_Option3">Preuniversitartio UNU</item>
+        <item name="spiner2_Option4">Universitario UTP</item>
+        <item name="spiner2_Option4">Otro</item>
+    </string-array>
 
 </resources>

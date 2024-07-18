@@ -124,14 +124,14 @@
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_editar"
+        android:text="@string/btn_edit"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/btnReturn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_regresar"
+        android:text="@string/btn_back"
         android:backgroundTint="@color/cardview_dark_background"
         android:textSize="24sp" />
 
