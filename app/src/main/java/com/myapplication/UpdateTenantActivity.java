@@ -33,8 +33,8 @@ public class UpdateTenantActivity extends AppCompatActivity {
         txtTnPhone = findViewById(R.id.txtTnPhone);
         txtTnDNI = findViewById(R.id.txtTnDNI);
         txtTnStatus = findViewById(R.id.txtTnStatus);
-        txtTnType = findViewById(R.id.txtTnType);
-        txtTnGender = findViewById(R.id.txtTnGender);
+//        txtTnType = findViewById(R.id.txtTnType);
+//        txtTnGender = findViewById(R.id.txtTnGender);
 
         btnSave = findViewById(R.id.btnSave);
         btnReturn = findViewById(R.id.btnReturn);

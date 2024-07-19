@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,113 +20,151 @@ import com.myapplication.viewModel.TenantViewModel;
 
 public class ViewTenantActivity extends AppCompatActivity {
 
-    EditText txtTnFirstName, txtTnLastName, txtTnEmail, txtTnPhone, txtTnDNI, txtTnStatus, txtTnType, txtTnGender;
-    Button btnSave, btnReturn;
+    private EditText firstNameField, lastNameField, emailField, phoneField, dniField, statusField;
+    private Button saveButton, returnButton;
+    private FloatingActionButton updateButton, deleteButton;
+    private Spinner genderSpinner, typeSpinner;
 
-    FloatingActionButton fabUpdate, fatDelete;
-
-    Tenant tenant;
-    int TnID = 0;
+    private Tenant tenant;
+    private int tenantId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_tenant);
 
-        txtTnFirstName = findViewById(R.id.txtTnFirstName);
-        txtTnLastName = findViewById(R.id.txtTnLastName);
-        txtTnEmail = findViewById(R.id.txtTnEmail);
-        txtTnPhone = findViewById(R.id.txtTnPhone);
-        txtTnDNI = findViewById(R.id.txtTnDNI);
-        txtTnStatus = findViewById(R.id.txtTnStatus);
-        txtTnType = findViewById(R.id.txtTnType);
-        txtTnGender = findViewById(R.id.txtTnGender);
+        initializeFields();
+        setupSpinners();
+        setupButtons();
 
-        btnSave = findViewById(R.id.btnSave);
-        btnReturn = findViewById(R.id.btnReturn);
-        fabUpdate = findViewById(R.id.fabUpdate);
-        fatDelete = findViewById(R.id.fatDelete);
+        tenantId = getTenantIdFromIntent(savedInstanceState);
 
-        btnReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                returnToMain();
-            }
-        });
-
-        if (savedInstanceState == null) {
-            Bundle extras = getIntent().getExtras();
-            if (extras == null) {
-                TnID = Integer.parseInt(null);
-            } else {
-                TnID = extras.getInt("TnID");
-            }
-        } else {
-            TnID = (int) savedInstanceState.getSerializable("TnID");
-        }
-
-        TenantViewModel dbContactos = new TenantViewModel(ViewTenantActivity.this);
-        tenant = dbContactos.getTenantById(TnID);
-
+        TenantViewModel tenantViewModel = new TenantViewModel(ViewTenantActivity.this);
+        tenant = tenantViewModel.getTenantById(tenantId);
 
         if (tenant != null) {
-            txtTnFirstName.setText(tenant.getTnFirstName());
-            txtTnLastName.setText(tenant.getTnLastName());
-            txtTnEmail.setText(tenant.getTnEmail());
-            txtTnPhone.setText(tenant.getTnPhone());
-            txtTnDNI.setText(tenant.getTnDNI());
-            txtTnStatus.setText(tenant.getTnStatus());
-            txtTnType.setText(tenant.getTnType());
-            txtTnGender.setText(tenant.getTnGender());
-
-            btnSave.setVisibility(View.INVISIBLE);
-
-            txtTnFirstName.setInputType(InputType.TYPE_NULL);
-            txtTnLastName.setInputType(InputType.TYPE_NULL);
-            txtTnEmail.setInputType(InputType.TYPE_NULL);
-            txtTnPhone.setInputType(InputType.TYPE_NULL);
-            txtTnDNI.setInputType(InputType.TYPE_NULL);
-            txtTnStatus.setInputType(InputType.TYPE_NULL);
-            txtTnType.setInputType(InputType.TYPE_NULL);
-            txtTnGender.setInputType(InputType.TYPE_NULL);
+            populateFields();
+            disableInputFields();
         }
-
-        fabUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewTenantActivity.this, UpdateTenantActivity.class);
-                intent.putExtra("TnID", TnID);
-                startActivity(intent);
-            }
-        });
-
-        fatDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ViewTenantActivity.this);
-                builder.setMessage("¿Desea eliminar este contacto?")
-                        .setPositiveButton("SI", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (dbContactos.deleteTenant(TnID)) {
-                                    returnToMain();
-                                    Toast.makeText(ViewTenantActivity.this, "Se elimino el registro", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(ViewTenantActivity.this, "No se elimino el registro", Toast.LENGTH_LONG).show();
-                            }
-                        }).show();
-            }
-        });
-
     }
 
-    private void returnToMain(){
+    private void initializeFields() {
+        firstNameField = findViewById(R.id.txtTnFirstName);
+        lastNameField = findViewById(R.id.txtTnLastName);
+        emailField = findViewById(R.id.txtTnEmail);
+        phoneField = findViewById(R.id.txtTnPhone);
+        dniField = findViewById(R.id.txtTnDNI);
+        statusField = findViewById(R.id.txtTnStatus);
+//        typeField = findViewById(R.id.txtTnType);
+//        genderField = findViewById(R.id.txtTnGender);
+
+        genderSpinner = findViewById(R.id.spnrGender);
+        typeSpinner = findViewById(R.id.spnrType);
+
+        saveButton = findViewById(R.id.btnSave);
+        returnButton = findViewById(R.id.btnReturn);
+        updateButton = findViewById(R.id.fabUpdate);
+        deleteButton = findViewById(R.id.fatDelete);
+    }
+
+    private void setupSpinners() {
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(this,
+                R.array.spnrGender, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
+
+        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this,
+                R.array.spnrType, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSpinner.setAdapter(typeAdapter);
+    }
+
+    private void setupButtons() {
+        returnButton.setOnClickListener(view -> returnToMain());
+
+        updateButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ViewTenantActivity.this, UpdateTenantActivity.class);
+            intent.putExtra("TnID", tenantId);
+            startActivity(intent);
+        });
+
+        deleteButton.setOnClickListener(view -> showDeleteConfirmationDialog());
+    }
+
+    private int getTenantIdFromIntent(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("TnID")) {
+            return intent.getIntExtra("TnID", 0);
+        }
+        return 0;
+    }
+
+    private void populateFields() {
+        firstNameField.setText(tenant.getTnFirstName());
+        lastNameField.setText(tenant.getTnLastName());
+        emailField.setText(tenant.getTnEmail());
+        phoneField.setText(tenant.getTnPhone());
+        dniField.setText(tenant.getTnDNI());
+        statusField.setText(tenant.getTnStatus());
+
+//        typeField.setText(tenant.getTnType());
+//        genderField.setText(tenant.getTnGender());
+
+//        genderSpinner.setSelection(1);
+//        typeSpinner.setSelection(1);
+
+        setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
+        setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
+
+        saveButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void setSpinnerSelection(Spinner spinner, int arrayResourceId, String value) {
+        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) spinner.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++) {
+            if (adapter.getItem(i).toString().equals(value)) {
+                spinner.setSelection(i);
+                break;
+            }
+        }
+    }
+
+    private void disableInputFields() {
+        firstNameField.setInputType(InputType.TYPE_NULL);
+        lastNameField.setInputType(InputType.TYPE_NULL);
+        emailField.setInputType(InputType.TYPE_NULL);
+        phoneField.setInputType(InputType.TYPE_NULL);
+        dniField.setInputType(InputType.TYPE_NULL);
+        statusField.setInputType(InputType.TYPE_NULL);
+//        typeField.setInputType(InputType.TYPE_NULL);
+//        genderField.setInputType(InputType.TYPE_NULL);
+
+
+        // Interceptar clics en los Spinners
+        genderSpinner.setOnTouchListener((v, event) -> true);
+        typeSpinner.setOnTouchListener((v, event) -> true);
+    }
+
+    private void showDeleteConfirmationDialog() {
+        new AlertDialog.Builder(ViewTenantActivity.this)
+                .setMessage("¿Desea eliminar este contacto?")
+                .setPositiveButton("SI", (dialogInterface, i) -> {
+                    TenantViewModel tenantViewModel = new TenantViewModel(ViewTenantActivity.this);
+                    if (tenantViewModel.deleteTenant(tenantId)) {
+                        returnToMain();
+                        showToast("Se eliminó el registro");
+                    }
+                })
+                .setNegativeButton("NO", (dialogInterface, i) -> showToast("No se eliminó el registro"))
+                .show();
+    }
+
+    private void returnToMain() {
         Intent intent = new Intent(this, MainTenantActivity.class);
         startActivity(intent);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(ViewTenantActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }

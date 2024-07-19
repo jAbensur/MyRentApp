@@ -20,13 +20,14 @@
         <item name="spnrItm1">-- Seleccione--</item>
         <item name="spnrItm2">Masculino</item>
         <item name="spnrItm3">Femenino</item>
+        <item name="spnrItm4">Prefiero no decirlo</item>
     </string-array>
 
     <string-array name="spnrType">
         <item name="spnrItm1">-- Seleccione --</item>
         <item name="spnrItm2">Universitario UNU</item>
-        <item name="spnrItm3">Preuniversitartio UNU</item>
-        <item name="spnrItm4">Universitario UTP</item>
+        <item name="spnrItm3">Pre-universitario UNU</item>
+        <item name="spnrItm4">Tecnólogo Suiza</item>
         <item name="spnrItm5">Otro</item>
     </string-array>
 

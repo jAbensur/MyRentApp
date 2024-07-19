@@ -37,8 +37,10 @@ public class NewTenantActivity extends AppCompatActivity {
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
         statusField = findViewById(R.id.txtTnStatus);
+
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
+
         saveButton = findViewById(R.id.btnSave);
         returnButton = findViewById(R.id.btnReturn);
     }
