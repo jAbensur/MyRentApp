@@ -17,6 +17,8 @@ public interface RentDao {
     void update(Rent rent);
     @Delete
     void delete(Rent rent);
-    @Query("SELECT * FROM rents")
+    @Query("SELECT * FROM rents WHERE state = 1")
     LiveData<List<Rent>> getAllRents();
+    @Query("SELECT * FROM rents WHERE id = :rentId")
+    LiveData<Rent> getRentById(int rentId);
 }

@@ -5,37 +5,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import androidx.annotation.NonNull;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.model.Rent;
 import com.myapplication.R;
-import java.util.ArrayList;
+import com.myapplication.viewmodel.RentViewModel;
+import androidx.lifecycle.Observer;
 import java.util.List;
 
 public class RentActivity extends AppCompatActivity {
     private EditText etSearch;
     private Button btnSearch;
-    private RecyclerView rvRentals;
-    private FloatingActionButton btnAdd;
-    private RentAdapter rentalAdapter;
+    private RecyclerView recyclerView;
+    private FloatingActionButton btnAdd, btnBack;
+    private RentAdapter rentAdapter;
     private List<Rent> rentalList;
+    private RentViewModel rentViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent);
 
+        recyclerView = findViewById(R.id.rvRentals);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         etSearch = findViewById(R.id.etSearch);
         btnSearch = findViewById(R.id.btnSearch);
-        rvRentals = findViewById(R.id.rvRentals);
         btnAdd = findViewById(R.id.btnAdd);
+        btnBack = findViewById(R.id.btnBack);
 
-        rentalList = new ArrayList<>();
-        rentalAdapter = new RentAdapter(rentalList, this);
-        rvRentals.setLayoutManager(new LinearLayoutManager(this));
-        rvRentals.setAdapter(rentalAdapter);
+        rentViewModel =  new ViewModelProvider(this).get(RentViewModel.class);
+
+        rentViewModel.getAllRents().observe(this, new Observer<List<Rent>>() {
+            @Override
+            public void onChanged(List<Rent> rents) {
+                rentAdapter = new RentAdapter(RentActivity.this,rents,rentViewModel);
+                recyclerView.setAdapter(rentAdapter);
+            }
+        });
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +62,13 @@ public class RentActivity extends AppCompatActivity {
             }
         });
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         loadRentals();
     }
     private void searchRentals(String query) {
@@ -62,5 +80,8 @@ public class RentActivity extends AppCompatActivity {
     }
     private void loadRentals() {
         // Implementar lógica para cargar los registros iniciales
+    }
+    private void message(String text){
+        Toast.makeText(RentActivity.this, text, Toast.LENGTH_LONG).show();
     }
 }

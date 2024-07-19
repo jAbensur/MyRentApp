@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.myapplication.model.Chamber;
+import com.myapplication.model.Rent;
 import com.myapplication.model.Tenant;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface ChamberDao {
     LiveData<List<Chamber>> getAllChambers();
     @Query("SELECT * FROM chambers WHERE name LIKE :filter")
     LiveData<List<Chamber>> getChambers(String filter);
+    @Query("SELECT * FROM chambers WHERE id = :chamberId")
+    LiveData<Chamber> getChamberById(int chamberId);
 }

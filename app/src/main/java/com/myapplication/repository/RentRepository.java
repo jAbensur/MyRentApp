@@ -37,4 +37,7 @@ public class RentRepository {
     public LiveData<List<Rent>> getAllRents() {
         return allRents;
     }
+    public LiveData<Rent> getRentById(int rentId){
+        return rentDao.getRentById(rentId);
+    }
 }

@@ -3,7 +3,6 @@ package com.myapplication.view;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,8 +11,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import com.myapplication.R;
 import com.myapplication.model.Chamber;
 import com.myapplication.model.Rent;
@@ -22,13 +21,11 @@ import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
 import com.myapplication.viewmodel.TenantViewModel;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
-public class RentCreateActivity extends AppCompatActivity {
+public class RentUpdateActivity extends AppCompatActivity {
     private EditText etStartDate, etEndDate, etPrice;
     private TextView tvTitle;
     private Button btnCancel, btnRegister;
@@ -37,11 +34,14 @@ public class RentCreateActivity extends AppCompatActivity {
     private RentViewModel rentViewModel;
     private Spinner tenantSpinner;
     private Spinner chamberSpinner;
-
+    private int rentId;
+    private Rent rent;
+    private List<Tenant> tenantList;
+    private List<Chamber> chamberList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rent_create);
+        setContentView(R.layout.activity_rent_update);
 
         EditText editTextFilterTenant = findViewById(R.id.searchTenant);
         EditText editTextFilterChamber = findViewById(R.id.searchChamber);
@@ -55,57 +55,76 @@ public class RentCreateActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         tvTitle = findViewById(R.id.tvTitle);
 
+        rentId = getIntent().getIntExtra("id", -1);
+
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
         chamberViewModel = new ViewModelProvider(this).get(ChamberViewModel.class);
         rentViewModel = new ViewModelProvider(this).get(RentViewModel.class);
 
-        try {
-
-            //tenantViewModel.insert(new Tenant("Tenant 1"));
-            //tenantViewModel.insert(new Tenant("Tenant 2"));
-            //tenantViewModel.insert(new Tenant("Tenant 3"));
-            //chamberViewModel.insert(new Chamber("Chamber 1"));
-            //chamberViewModel.insert(new Chamber("Chamber 2"));
-            //chamberViewModel.insert(new Chamber("Chamber 3"));
-
-            tenantViewModel.getAllTenants().observe(this, new Observer<List<Tenant>>() {
-                @Override
-                public void onChanged(List<Tenant> tenants) {
-                    if (tenants == null || tenants.isEmpty()) {
-                        Toast.makeText(RentCreateActivity.this, "No hay inquilinos disponibles", Toast.LENGTH_LONG).show();
-                    } else {
-                        ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, tenants);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        tenantSpinner.setAdapter(adapter);
-                    }
+        tenantViewModel.getAllTenants().observe(this, new Observer<List<Tenant>>() {
+            @Override
+            public void onChanged(List<Tenant> tenants) {
+                if (tenants == null || tenants.isEmpty()) {
+                    Toast.makeText(RentUpdateActivity.this, "No hay inquilinos disponibles", Toast.LENGTH_LONG).show();
+                } else {
+                    tenantList = tenants;
+                    ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, tenants);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    tenantSpinner.setAdapter(adapter);
+                    rentViewModel.getRentById(rentId).observe(RentUpdateActivity.this,new Observer<Rent>() {
+                        @Override
+                        public void onChanged(Rent rent) {
+                            if (rent != null) {
+                                etStartDate.setText(rent.getStartDate());
+                                etEndDate.setText(rent.getEndDate());
+                                etPrice.setText(String.valueOf(rent.getPrice()));
+                                if (tenantList != null) {
+                                    for (int i = 0; i < tenantList.size(); i++) {
+                                        if (tenantList.get(i).getId() == rent.getTenantId()) {
+                                            tenantSpinner.setSelection(i);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(RentUpdateActivity.this, "Renta no encontrada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
+            }
 
-            });
-            chamberViewModel.getAllChambers().observe(this, new Observer<List<Chamber>>() {
-                @Override
-                public void onChanged(List<Chamber> chambers) {
-                    if (chambers == null || chambers.isEmpty()) {
-                        Toast.makeText(RentCreateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
-                    } else {
-                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, chambers);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        chamberSpinner.setAdapter(adapter);
-                    }
+        });
+        chamberViewModel.getAllChambers().observe(this, new Observer<List<Chamber>>() {
+            @Override
+            public void onChanged(List<Chamber> chambers) {
+                if (chambers == null || chambers.isEmpty()) {
+                    Toast.makeText(RentUpdateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
+                } else {
+                    chamberList = chambers;
+                    ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    chamberSpinner.setAdapter(adapter);
+                    rentViewModel.getRentById(rentId).observe(RentUpdateActivity.this,new Observer<Rent>() {
+                        @Override
+                        public void onChanged(Rent rent) {
+                            if (rent != null) {
+                                if (chamberList != null) {
+                                    for (int i = 0; i < chamberList.size(); i++) {
+                                        if (chamberList.get(i).getId() == rent.getChamberId()) {
+                                            chamberSpinner.setSelection(i);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else {
+                                Toast.makeText(RentUpdateActivity.this, "Renta no encontrada", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
-            });
-
-            tvTitle.setText("Registrar Alquiler");
-
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            String currentDate = dateFormat.format(calendar.getTime());
-
-            etStartDate.setText(currentDate);
-            etEndDate.setText(currentDate);
-            etPrice.setText("0");
-        } catch (Exception e) {
-            Log.e("MyRentalApp", "Error al inicializar ViewModel o insertar Tenant", e);
-        }
+            }
+        });
 
         editTextFilterTenant.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,10 +132,10 @@ public class RentCreateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                tenantViewModel.getTenants(s.toString()).observe(RentCreateActivity.this, new Observer<List<Tenant>>() {
+                tenantViewModel.getTenants(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Tenant>>() {
                     @Override
                     public void onChanged(List<Tenant> tenants) {
-                        ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, tenants);
+                        ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, tenants);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         tenantSpinner.setAdapter(adapter);
                     }
@@ -133,10 +152,10 @@ public class RentCreateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                chamberViewModel.getChambers(s.toString()).observe(RentCreateActivity.this, new Observer<List<Chamber>>() {
+                chamberViewModel.getChambers(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Chamber>>() {
                     @Override
                     public void onChanged(List<Chamber> chambers) {
-                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         chamberSpinner.setAdapter(adapter);
                     }
@@ -157,15 +176,16 @@ public class RentCreateActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerRental();
+                updateRental();
             }
         });
     }
+
     private void cancelRegistration() {
         finish();
     }
 
-    private void registerRental() {
+    private void updateRental() {
         String startDate = etStartDate.getText().toString();
         String endDate = etEndDate.getText().toString();
         String price = etPrice.getText().toString();
@@ -174,8 +194,10 @@ public class RentCreateActivity extends AppCompatActivity {
 
         if(isValidInputs(startDate, endDate, price, selectedTenant.getId(), selectedChamber.getId())){
             message("Success");
-            rentViewModel.insert(new Rent(startDate,endDate,Double.parseDouble(price),
-                    selectedTenant.getId(), selectedChamber.getId()));
+            Rent rent = new Rent(startDate,endDate,Double.parseDouble(price),
+                    selectedTenant.getId(), selectedChamber.getId());
+            rent.setId(rentId);
+            rentViewModel.update(rent);
             finish();
         }
     }
@@ -210,10 +232,6 @@ public class RentCreateActivity extends AppCompatActivity {
         return true;
     }
 
-    private void message(String text){
-        Toast.makeText(RentCreateActivity.this, text, Toast.LENGTH_LONG).show();
-    }
-
     private static boolean isValidDate(String date){
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         sdf.setLenient(false);
@@ -224,5 +242,9 @@ public class RentCreateActivity extends AppCompatActivity {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    private void message(String text){
+        Toast.makeText(RentUpdateActivity.this, text, Toast.LENGTH_LONG).show();
     }
 }

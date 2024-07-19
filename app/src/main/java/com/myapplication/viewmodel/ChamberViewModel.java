@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.myapplication.model.Chamber;
+import com.myapplication.model.Rent;
 import com.myapplication.model.Tenant;
 import com.myapplication.repository.ChamberRepository;
 import java.util.List;

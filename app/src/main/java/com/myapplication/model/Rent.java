@@ -21,16 +21,16 @@ public class Rent {
     private String startDate;
     private String endDate;
     private double price;
-    private int state;
     private int tenantId;
     private int chamberId;
-    public Rent(String startDate, String endDate, double price) {
+    private int state;
+    public Rent(String startDate, String endDate, double price, int tenantId, int chamberId) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.price = price;
-    }
-    public Rent() {
-
+        this.tenantId = tenantId;
+        this.chamberId = chamberId;
+        this.state = 1;
     }
     public int getId() {
         return id;
