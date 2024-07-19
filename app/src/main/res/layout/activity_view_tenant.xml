@@ -121,14 +121,6 @@
         android:layout_height="wrap_content"
         android:text="@string/hint_TnGender" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/txtTnGender"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="text"-->
-<!--        android:textSize="24sp" />-->
-
     <Spinner
         android:id="@+id/spnrGender"
         android:layout_width="match_parent"

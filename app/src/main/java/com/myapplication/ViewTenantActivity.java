@@ -55,8 +55,6 @@ public class ViewTenantActivity extends AppCompatActivity {
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
         statusField = findViewById(R.id.txtTnStatus);
-//        typeField = findViewById(R.id.txtTnType);
-//        genderField = findViewById(R.id.txtTnGender);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -107,12 +105,6 @@ public class ViewTenantActivity extends AppCompatActivity {
         dniField.setText(tenant.getTnDNI());
         statusField.setText(tenant.getTnStatus());
 
-//        typeField.setText(tenant.getTnType());
-//        genderField.setText(tenant.getTnGender());
-
-//        genderSpinner.setSelection(1);
-//        typeSpinner.setSelection(1);
-
         setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
         setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
 
@@ -136,11 +128,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         phoneField.setInputType(InputType.TYPE_NULL);
         dniField.setInputType(InputType.TYPE_NULL);
         statusField.setInputType(InputType.TYPE_NULL);
-//        typeField.setInputType(InputType.TYPE_NULL);
-//        genderField.setInputType(InputType.TYPE_NULL);
 
-
-        // Interceptar clics en los Spinners
         genderSpinner.setOnTouchListener((v, event) -> true);
         typeSpinner.setOnTouchListener((v, event) -> true);
     }
