@@ -58,7 +58,8 @@ public class TenantViewModel extends DbRepository {
         Tenant tenant = null;
         Cursor cursor = null;
 
-        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT, null);
+//        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT , null); // muestra todos los no eliminados logicamente
+        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnStatus != 'deleted'", null);
 
         if (cursor.moveToFirst()) {
             do {
@@ -144,22 +145,45 @@ public class TenantViewModel extends DbRepository {
         return isUpdated;
     }
 
-    public boolean deleteTenant(int TnID) {
+//    public boolean deleteTenant(int TnID) { // eliminacion fisica
+//
+//        boolean isDelete = false;
+//
+//        DbRepository dbRespository = new DbRepository(context);
+//        SQLiteDatabase db = dbRespository.getWritableDatabase();
+//
+//        try {
+//            db.execSQL("DELETE FROM " + TABLE_TENANT + " WHERE TnID = '" + TnID + "'");
+//            isDelete = true;
+//        } catch (Exception ex) {
+//            Toast.makeText(context, "Error al actualizar registro: " + ex.toString(), Toast.LENGTH_LONG).show();
+//            isDelete = false;
+//        } finally {
+//            db.close();
+//        }
+//        return isDelete;
+//    }
 
-        boolean isDelete = false;
+    public boolean deleteTenant(int TnID) { // eliminacion logica
+        boolean isDeleted = false;
 
-        DbRepository dbRespository = new DbRepository(context);
-        SQLiteDatabase db = dbRespository.getWritableDatabase();
+        DbRepository dbRepository = new DbRepository(context);
+        SQLiteDatabase db = dbRepository.getWritableDatabase();
 
         try {
-            db.execSQL("DELETE FROM " + TABLE_TENANT + " WHERE TnID = '" + TnID + "'");
-            isDelete = true;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("TnStatus", "deleted"); // Indicador de eliminación lógica
+
+            int rowsAffected = db.update(TABLE_TENANT, contentValues, "TnID = ?", new String[]{String.valueOf(TnID)});
+            if (rowsAffected > 0) {
+                isDeleted = true;
+            }
         } catch (Exception ex) {
             Toast.makeText(context, "Error al actualizar registro: " + ex.toString(), Toast.LENGTH_LONG).show();
-            isDelete = false;
+            isDeleted = false;
         } finally {
             db.close();
         }
-        return isDelete;
+        return isDeleted;
     }
 }

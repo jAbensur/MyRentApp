@@ -78,19 +78,19 @@
         android:inputType="text"
         android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/viewStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnStatus" />
+<!--    <TextView-->
+<!--        android:id="@+id/viewStatus"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/hint_TnStatus" />-->
 
-    <EditText
-        android:id="@+id/txtTnStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="24sp" />
+<!--    <EditText-->
+<!--        android:id="@+id/txtTnStatus"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="text"-->
+<!--        android:textSize="24sp" />-->
 
     <TextView
         android:id="@+id/viewTipo"

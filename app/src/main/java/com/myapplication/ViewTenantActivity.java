@@ -20,7 +20,7 @@ import com.myapplication.viewModel.TenantViewModel;
 
 public class ViewTenantActivity extends AppCompatActivity {
 
-    private EditText firstNameField, lastNameField, emailField, phoneField, dniField, statusField;
+    private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Button saveButton, returnButton;
     private FloatingActionButton updateButton, deleteButton;
     private Spinner genderSpinner, typeSpinner;
@@ -54,7 +54,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-        statusField = findViewById(R.id.txtTnStatus);
+//        statusField = findViewById(R.id.txtTnStatus);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -103,7 +103,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         emailField.setText(tenant.getTnEmail());
         phoneField.setText(tenant.getTnPhone());
         dniField.setText(tenant.getTnDNI());
-        statusField.setText(tenant.getTnStatus());
+//        statusField.setText(tenant.getTnStatus());
 
         setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
         setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
@@ -127,7 +127,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         emailField.setInputType(InputType.TYPE_NULL);
         phoneField.setInputType(InputType.TYPE_NULL);
         dniField.setInputType(InputType.TYPE_NULL);
-        statusField.setInputType(InputType.TYPE_NULL);
+//        statusField.setInputType(InputType.TYPE_NULL);
 
         genderSpinner.setOnTouchListener((v, event) -> true);
         typeSpinner.setOnTouchListener((v, event) -> true);

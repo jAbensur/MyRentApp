@@ -16,7 +16,7 @@ import com.myapplication.viewModel.TenantViewModel;
 
 public class NewTenantActivity extends AppCompatActivity {
 
-    private EditText firstNameField, lastNameField, emailField, phoneField, dniField, statusField;
+    private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Spinner genderSpinner, typeSpinner;
     private Button saveButton, returnButton;
 
@@ -36,7 +36,7 @@ public class NewTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-        statusField = findViewById(R.id.txtTnStatus);
+//        statusField = findViewById(R.id.txtTnStatus);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -75,7 +75,7 @@ public class NewTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String status = statusField.getText().toString();
+        String status = "active"; // no eliminado
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
@@ -97,7 +97,7 @@ public class NewTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String status = statusField.getText().toString();
+//        String status = statusField.getText().toString();
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
@@ -116,7 +116,7 @@ public class NewTenantActivity extends AppCompatActivity {
             return false;
         }
 
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || dni.isEmpty() || status.isEmpty() || typeSpinner.getSelectedItemPosition() == 0 || genderSpinner.getSelectedItemPosition() == 0) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || dni.isEmpty() || typeSpinner.getSelectedItemPosition() == 0 || genderSpinner.getSelectedItemPosition() == 0) {
             showToast("Por favor, complete todos los campos");
             return false;
         }
@@ -134,7 +134,7 @@ public class NewTenantActivity extends AppCompatActivity {
         emailField.setText("");
         phoneField.setText("");
         dniField.setText("");
-        statusField.setText("");
+//        statusField.setText("");
     }
 
     private void returnToMain() {

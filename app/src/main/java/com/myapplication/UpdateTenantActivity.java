@@ -18,7 +18,7 @@ import com.myapplication.viewModel.TenantViewModel;
 
 public class UpdateTenantActivity extends AppCompatActivity {
 
-    private EditText firstNameField, lastNameField, emailField, phoneField, dniField, statusField;
+    private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Spinner genderSpinner, typeSpinner;
     private Button saveButton, returnButton;
     private FloatingActionButton updateButton, deleteButton;
@@ -51,7 +51,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-        statusField = findViewById(R.id.txtTnStatus);
+//        statusField = findViewById(R.id.txtTnStatus);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -93,7 +93,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
         emailField.setText(tenant.getTnEmail());
         phoneField.setText(tenant.getTnPhone());
         dniField.setText(tenant.getTnDNI());
-        statusField.setText(tenant.getTnStatus());
+//        statusField.setText(tenant.getTnStatus());
 
         setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
         setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
@@ -122,7 +122,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String status = statusField.getText().toString();
+        String status = "active";
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
@@ -142,7 +142,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String status = statusField.getText().toString();
+//        String status = statusField.getText().toString();
 
         if (dni.length() < 8) {
             showToast("El DNI debe tener al menos 8 dígitos");
@@ -159,7 +159,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
             return false;
         }
 
-        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || dni.isEmpty() || status.isEmpty() || typeSpinner.getSelectedItemPosition() == 0 || genderSpinner.getSelectedItemPosition() == 0) {
+        if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || phone.isEmpty() || dni.isEmpty() || typeSpinner.getSelectedItemPosition() == 0 || genderSpinner.getSelectedItemPosition() == 0) {
             showToast("Por favor, complete todos los campos");
             return false;
         }
