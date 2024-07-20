@@ -1,59 +1,69 @@
 package com.myapplication;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.myapplication.repository.DbRepository;
-import com.myapplication.viewModel.TenantViewModel;
 import com.myapplication.viewModel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
-    Button button, btnLogin;
-    private EditText txtEmailLogin, txtPasswordLogin;
+    private Button btnInsertDefaultUser, btnLogin;
+    private EditText emailLoginField, passwordLoginField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        button= findViewById(R.id.button);
-        btnLogin= findViewById(R.id.btnLogin);
+        initializeFields();
+        setupButtons();
+    }
 
-        txtEmailLogin = findViewById(R.id.txtEmail_Login);
-        txtPasswordLogin = findViewById(R.id.txtPassword_Login);
+    private void initializeFields() {
+        emailLoginField = findViewById(R.id.txtEmail_Login);
+        passwordLoginField = findViewById(R.id.txtPassword_Login);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = txtEmailLogin.getText().toString();
-                String password = txtPasswordLogin.getText().toString();
+        btnInsertDefaultUser = findViewById(R.id.button);
+        btnLogin = findViewById(R.id.btnLogin);
+    }
 
-                String message = "Email: " + email + "\nPassword: " + password;
-                showToast(message);
-            }
-        });
+    private void setupButtons() {
+        btnLogin.setOnClickListener(view -> handleLogin());
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // linea para probar insersion
-//                showAllUsers(); // linea para ver todos los usuarios
-            }
+        btnInsertDefaultUser.setOnClickListener(view -> {
+            // insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // línea para probar inserción
+            // showAllUsers(); // línea para ver todos los usuarios
         });
     }
 
-    private void insertDefaultUser(String firstName, String lastName, String userName,
-                                   String password, String email) {
+    private void handleLogin() {
+        String email = emailLoginField.getText().toString();
+        String password = passwordLoginField.getText().toString();
+
+        if (validateLoginInputs(email, password)) {
+            String message = "Email: " + email + "\nPassword: " + password;
+            showToast(message);
+        }
+    }
+
+    private boolean validateLoginInputs(String email, String password) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            showToast("Por favor, ingrese un correo electrónico válido");
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            showToast("Por favor, complete todos los campos");
+            return false;
+        }
+        return true;
+    }
+
+    private void insertDefaultUser(String firstName, String lastName, String userName, String password, String email) {
         UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
 
         long userId = userViewModel.insertUser(firstName, lastName, userName, password, email);
@@ -62,13 +72,12 @@ public class LoginActivity extends AppCompatActivity {
             showToast("ERROR AL GUARDAR REGISTRO");
             return;
         }
-
         showToast("REGISTRO GUARDADO");
     }
 
     private void showAllUsers(){
-        UserViewModel tenantViewModel = new UserViewModel(LoginActivity.this);
-        tenantViewModel.getAllUsers();
+        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
+        userViewModel.getAllUsers();
     }
 
     private void showToast(String message) {
