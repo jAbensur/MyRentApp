@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="roomModel"
+            type="com.myapplication.model.RoomModel" />
+
+        <variable
+            name="listener"
+            type="com.myapplication.onClickInterface.OnClikItemInterfaceRoom" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp">
+
+           <TextView
+               android:id="@+id/txtRName"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginVertical="10dp"
+               android:layout_marginStart="10dp"
+               android:text="@{roomModel.nameR, default=Room}"
+               android:textColor="@color/black"
+               android:textSize="20sp"
+               android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblCapacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtRName"
+                android:layout_alignStart="@+id/txtRName"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_capacity"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCapacity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtRName"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/lblCapacity"
+                android:drawablePadding="3dp"
+                android:text="@{roomModel.capacity, default=Capacity}"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:drawableTint="@color/black"
+                app:drawableEndCompat="@drawable/ic_people"/>
+
+            <TextView
+                android:id="@+id/lblPricePerMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCapacity"
+                android:layout_alignStart="@+id/lblCapacity"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_price_per_month"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtPricePerMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblCapacity"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/lblPricePerMonth"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/black"
+                android:text= "@{'$' + String.valueOf(roomModel.pricePerMonth), default=Price}"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCapacity"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/txtPricePerMonth"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/black"
+                android:text="@string/lbl_month"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblPricePerMonth"
+                android:layout_alignStart="@+id/lblPricePerMonth"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_available"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblPricePerMonth"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/lblAvailable"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/black"
+                android:text= '@{roomModel.available == 1 ? "Disponible" : "Ocupado"}'
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblAvailable"
+                android:layout_alignStart="@+id/lblAvailable"
+                android:layout_marginEnd="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_state"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblAvailable"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/lblState"
+                android:drawablePadding="3dp"
+                android:drawableTint="@color/black"
+                android:text= '@{roomModel.state == 1 ? "Activo" : "Inactivo"}'
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="10dp"
+                android:onClick="@{()->listener.onClickItem(roomModel,false)}"
+                android:src="@drawable/ic_delete"
+                app:tint="#000000" />
+
+            <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgDelete"
+                android:layout_alignParentEnd="true"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="10dp"
+                android:onClick="@{()->listener.onClickItem(roomModel,true)}"
+                android:src="@drawable/ic_edit"
+                app:tint="#000000" />
+
+            <ImageView
+                android:id="@+id/imgDisabled"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgEdit"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginVertical="10dp"
+                android:onClick="@{()->listener.onClickItemModel(roomModel)}"
+                android:src="@drawable/ic_disabled"
+                app:tint="#000000" />
+
+            <ImageView
+                android:id="@+id/imgInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgDisabled"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginVertical="10dp"
+                android:onClick="@{()->listener.onClickItemModel(roomModel)}"
+                android:src="@drawable/ic_info"
+                app:tint="#000000" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>
