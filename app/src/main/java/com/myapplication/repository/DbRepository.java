@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DbRepository extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "rent.db";
     public static final String TABLE_TENANT = "t_Tenant";
     public static final String TABLE_USER = "t_User";
@@ -42,8 +42,9 @@ public class DbRepository extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         // Dropping the old Tenant table if it exists
-        sqLiteDatabase.execSQL("DROP TABLE " + TABLE_TENANT);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TENANT);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+
         // Recreating the Tenant table
         onCreate(sqLiteDatabase);
     }

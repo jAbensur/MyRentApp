@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.myapplication.repository.DbRepository;
+import com.myapplication.viewModel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     Button button;
@@ -27,16 +28,25 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DbRepository dbRepository = new DbRepository(LoginActivity.this);
-                SQLiteDatabase db = dbRepository.getWritableDatabase();
+//                insertDefaultUser();
+                insertDefaultUser("Russell Nobaru", "Cucho Cuevas", "Togata", "admin123", "rusel@gmail.com");
 
-                if (db != null){
-                    showToast("Base de datos creada u.u");
-                } else {
-                    showToast("error al crear Base de datos u.u");
-                }
             }
         });
+    }
+
+    private void insertDefaultUser(String firstName, String lastName, String userName,
+                                   String password, String email) {
+        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
+
+        long userId = userViewModel.insertUser(firstName, lastName, userName, password, email);
+
+        if (userId <= 0) {
+            showToast("ERROR AL GUARDAR REGISTRO");
+            return;
+        }
+
+        showToast("REGISTRO GUARDADO");
     }
 
     private void showToast(String message) {
