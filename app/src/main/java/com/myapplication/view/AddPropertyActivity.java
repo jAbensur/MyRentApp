@@ -1,39 +1,40 @@
 package com.myapplication.view;
 
 import android.os.Bundle;
-import android.widget.Toast;
-
+import android.view.View;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.myapplication.databinding.ActivityAddPropertyBinding;
-import com.myapplication.model.PropertyModel;
+import com.google.android.material.textfield.TextInputEditText;
+import com.myapplication.R;
+import com.myapplication.model.Property;
 import com.myapplication.viewmodel.PropertyViewModel;
 
 public class AddPropertyActivity extends AppCompatActivity {
 
-    private ActivityAddPropertyBinding _binding;
-    private String _property, _description, _address;
-    private int _state;
-    private PropertyViewModel _propertyViewModel;
-    private PropertyModel _propertyModel;
+    private PropertyViewModel propertyViewModel;
+    private Property property;
     private boolean _isEdit = false;
-
+    private Button btnAdd;
+    private TextInputEditText edtProperty, edtDescription, edtAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_property);
 
-        _binding = ActivityAddPropertyBinding.inflate(getLayoutInflater());
-        setContentView(_binding.getRoot());
-        _propertyViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(PropertyViewModel.class);
+        edtProperty = findViewById(R.id.edtProperty);
+        edtDescription = findViewById(R.id.edtDescription);
+        edtAddress = findViewById(R.id.edtAddress);
+        btnAdd = findViewById(R.id.btnAddProperty);
 
+        propertyViewModel =  new ViewModelProvider(this).get(PropertyViewModel.class);
         if (getIntent().hasExtra("model"))
         {
-            _propertyModel = getIntent().getParcelableExtra("model");
-            _binding.edtProperty.setText(_propertyModel.nameP);
-            _binding.edtDescription.setText(_propertyModel.description);
-            _binding.edtAddress.setText(_propertyModel.address);
+            property = getIntent().getParcelableExtra("model");
+            edtProperty.setText(property.nameP);
+            edtDescription.setText(property.description);
+            edtAddress.setText(property.address);
             _isEdit = true;
         }
 
@@ -44,33 +45,26 @@ public class AddPropertyActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Nueva Propiedad");
 
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        _binding.btnAddProperty.setOnClickListener(view -> {
-
-            _property = _binding.edtProperty.getText().toString().trim();
-            _description = _binding.edtDescription.getText().toString().trim();
-            _address = _binding.edtAddress.getText().toString().trim();
-
-            if (_isEdit){
-                _propertyModel.nameP = _property;
-                _propertyModel.description = _description;
-                _propertyModel.address = _address;
-
-                _propertyViewModel.updateProperty(_propertyModel);
-
-                Toast.makeText(this, "UPDATED", Toast.LENGTH_SHORT).show();
-            }else{
-                _propertyModel = new PropertyModel();
-                _propertyModel.nameP = _property;
-                _propertyModel.description = _description;
-                _propertyModel.address = _address;
-                _propertyModel.state = 1;
-
-                _propertyViewModel.insertProperty(_propertyModel);
-                Toast.makeText(this, "INSERTED", Toast.LENGTH_SHORT).show();
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (_isEdit){
+                    property.nameP = edtProperty.getText().toString();
+                    property.description = edtDescription.getText().toString();
+                    property.address = edtAddress.getText().toString();
+                    property.state = 1;
+                    propertyViewModel.updateProperty(property);
+                }else{
+                    property = new Property();
+                    property.nameP = edtProperty.getText().toString();
+                    property.description = edtDescription.getText().toString();
+                    property.address = edtAddress.getText().toString();
+                    property.state = 1;
+                    propertyViewModel.insertProperty(property);
+                }
+                finish();
             }
-            finish();
         });
     }
 

@@ -2,14 +2,13 @@ package com.myapplication.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "property")
-public class PropertyModel implements Parcelable {
+@Entity(tableName = "properties")
+public class Property implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -23,9 +22,9 @@ public class PropertyModel implements Parcelable {
     @ColumnInfo(name = "p_state")
     public int state;
 
-    public PropertyModel() { }
+    public Property() { }
 
-    protected PropertyModel(Parcel in){
+    protected Property(Parcel in){
         id = in.readInt();
         nameP = in.readString();
         description = in.readString();
@@ -47,15 +46,15 @@ public class PropertyModel implements Parcelable {
         dest.writeInt(state);
     }
 
-    public static final Creator<PropertyModel> CREATOR = new Creator<PropertyModel>() {
+    public static final Creator<Property> CREATOR = new Creator<Property>() {
         @Override
-        public PropertyModel createFromParcel(Parcel in) {
-            return new PropertyModel(in);
+        public Property createFromParcel(Parcel in) {
+            return new Property(in);
         }
 
         @Override
-        public PropertyModel[] newArray(int size) {
-            return new PropertyModel[size];
+        public Property[] newArray(int size) {
+            return new Property[size];
         }
     };
 }

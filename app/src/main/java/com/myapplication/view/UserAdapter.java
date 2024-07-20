@@ -1,4 +1,4 @@
-package com.myapplication.adapter;
+package com.myapplication.view;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.myapplication.R;
 import com.myapplication.model.User;
-
 import java.util.ArrayList;
 import java.util.List;
 

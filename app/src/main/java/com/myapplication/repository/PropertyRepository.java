@@ -1,13 +1,9 @@
 package com.myapplication.repository;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-
 import com.myapplication.database.Database;
-import com.myapplication.model.PropertyDao;
-import com.myapplication.model.PropertyModel;
-
+import com.myapplication.model.Property;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -27,40 +23,40 @@ public class PropertyRepository {
         _executorService = Executors.newFixedThreadPool(2);
     }
 
-    public void insertProperty(PropertyModel property)
+    public void insertProperty(Property property)
     {
         _executorService.execute( () -> _propertyDao.insertProperty(property));
     }
 
-    public void updateProperty(PropertyModel property)
+    public void updateProperty(Property property)
     {
         _executorService.execute( () -> _propertyDao.updateProperty(property));
     }
 
-    public void deleteProperty(PropertyModel property)
+    public void deleteProperty(Property property)
     {
         _executorService.execute( () -> _propertyDao.deleteProperty(property));
     }
 
-    public List<PropertyModel> getAllPropertiesFuture() throws ExecutionException, InterruptedException
+    public List<Property> getAllPropertiesFuture() throws ExecutionException, InterruptedException
     {
-        Callable<List<PropertyModel>> callable = new Callable<List<PropertyModel>>() {
+        Callable<List<Property>> callable = new Callable<List<Property>>() {
             @Override
-            public List<PropertyModel> call() throws Exception {
+            public List<Property> call() throws Exception {
                 return _propertyDao.getAllPropertiesFuture();
             }
         };
 
-        Future<List<PropertyModel>> future = Executors.newSingleThreadExecutor().submit(callable);
+        Future<List<Property>> future = Executors.newSingleThreadExecutor().submit(callable);
         return future.get();
     }
 
-    public LiveData<List<PropertyModel>> getAllPropertiesLive()
+    public LiveData<List<Property>> getAllPropertiesLive()
     {
         return _propertyDao.getAllPropertiesLive();
     }
 
-    public PropertyModel getPropertyById(int id)
+    public Property getPropertyById(int id)
     {
         return  _propertyDao.getPropertyById(id);
     }

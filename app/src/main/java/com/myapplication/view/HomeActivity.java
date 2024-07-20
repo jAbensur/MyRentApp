@@ -31,7 +31,8 @@ public class HomeActivity extends AppCompatActivity {
         buttonPropertiesIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Propiedades");
+                Intent intent = new Intent(HomeActivity.this, PropertyActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -6,7 +6,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import com.myapplication.model.User;
 import com.myapplication.repository.UserRepository;
-
 import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {

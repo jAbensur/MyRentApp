@@ -8,9 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 import com.myapplication.model.Chamber;
-import com.myapplication.model.Rent;
-import com.myapplication.model.Tenant;
-
 import java.util.List;
 
 @Dao

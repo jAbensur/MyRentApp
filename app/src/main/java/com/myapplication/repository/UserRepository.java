@@ -2,11 +2,8 @@ package com.myapplication.repository;
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
-
 import com.myapplication.database.Database;
 import com.myapplication.model.User;
-import com.myapplication.model.UserDao;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

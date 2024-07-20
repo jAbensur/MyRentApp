@@ -18,6 +18,13 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
     private List<Rent> rentList;
     private Context context;
     private RentViewModel rentViewModel;
+
+    public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel) {
+        this.context = context;
+        this.rentList = rentList;
+        this.rentViewModel = rentViewModel;
+    }
+
     public static class RentViewHolder extends RecyclerView.ViewHolder {
         TextView tvStartDate;
         TextView tvEndDate;
@@ -36,11 +43,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
             btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
-    public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel) {
-        this.context = context;
-        this.rentList = rentList;
-        this.rentViewModel = rentViewModel;
-    }
+
     @NonNull
     @Override
     public RentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
