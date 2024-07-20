@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.myapplication.repository.DbRepository;
+import com.myapplication.viewModel.TenantViewModel;
 import com.myapplication.viewModel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,9 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                insertDefaultUser();
-                insertDefaultUser("Russell Nobaru", "Cucho Cuevas", "Togata", "admin123", "rusel@gmail.com");
-
+//                insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // linea para probar la insersion
+                showAllUsers();
             }
         });
     }
@@ -47,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         showToast("REGISTRO GUARDADO");
+    }
+
+    private void showAllUsers(){
+        UserViewModel tenantViewModel = new UserViewModel(LoginActivity.this);
+        tenantViewModel.getAllUsers();
     }
 
     private void showToast(String message) {
