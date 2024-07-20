@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,7 +18,8 @@ import com.myapplication.viewModel.TenantViewModel;
 import com.myapplication.viewModel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
-    Button button;
+    Button button, btnLogin;
+    private EditText txtEmailLogin, txtPasswordLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +27,27 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         button= findViewById(R.id.button);
+        btnLogin= findViewById(R.id.btnLogin);
+
+        txtEmailLogin = findViewById(R.id.txtEmail_Login);
+        txtPasswordLogin = findViewById(R.id.txtPassword_Login);
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = txtEmailLogin.getText().toString();
+                String password = txtPasswordLogin.getText().toString();
+
+                String message = "Email: " + email + "\nPassword: " + password;
+                showToast(message);
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // linea para probar la insersion
-                showAllUsers();
+//                insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // linea para probar insersion
+//                showAllUsers(); // linea para ver todos los usuarios
             }
         });
     }
