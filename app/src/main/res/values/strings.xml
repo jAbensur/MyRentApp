@@ -1,5 +1,34 @@
 <resources>
     <string name="app_name">MyRentApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="hint_TnFirstName">Nombres:</string>
+    <string name="hint_TnLastName">Apellidos:</string>
+    <string name="hint_TnEmail">Correo Electrónico:</string>
+    <string name="hint_TnPhone">Teléfono:</string>
+    <string name="hint_TnDNI">DNI:</string>
+    <string name="hint_TnStatus">Estado:</string>
+    <string name="hint_TnType">Tipo:</string>
+    <string name="hint_TnGender">Género:</string>
+
+    <string name="text_title">Gestión de Inquilinos</string>
+
+    <string name="btn_save">Guardar registro</string>
+    <string name="btn_edit">Editar registro</string>
+    <string name="btn_back">Regresar</string>
+
+    <string-array name="spnrGender">
+        <item name="spnrItm1">-- Seleccione--</item>
+        <item name="spnrItm2">Masculino</item>
+        <item name="spnrItm3">Femenino</item>
+        <item name="spnrItm4">Prefiero no decirlo</item>
+    </string-array>
+
+    <string-array name="spnrType">
+        <item name="spnrItm1">-- Seleccione --</item>
+        <item name="spnrItm2">Universitario UNU</item>
+        <item name="spnrItm3">Pre-universitario UNU</item>
+        <item name="spnrItm4">Tecnólogo Suiza</item>
+        <item name="spnrItm5">Otro</item>
+    </string-array>
+
 </resources>
