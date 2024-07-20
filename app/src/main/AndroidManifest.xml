@@ -13,19 +13,23 @@
         android:theme="@style/Theme.MyRentApp"
         tools:targetApi="31">
         <activity
+            android:name=".MainTenantActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewTenantActivity"
             android:exported="false" />
         <activity
-            android:name="UpdateTenantActivity"
+            android:name=".UpdateTenantActivity"
             android:exported="false" />
         <activity
             android:name=".NewTenantActivity"
             android:exported="false" />
         <activity
-            android:name=".MainTenantActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
