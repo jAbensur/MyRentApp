@@ -9,21 +9,21 @@ import com.myapplication.repository.UserRepository;
 import java.util.List;
 
 public class UserViewModel extends AndroidViewModel {
-    private UserRepository repository;
+    private UserRepository userRepository;
     private LiveData<List<User>> allUsers;
     public UserViewModel(@NonNull Application application) {
         super(application);
-        repository = new UserRepository(application);
-        allUsers = repository.getAllUsers();
+        userRepository = new UserRepository(application);
+        allUsers = userRepository.getAllUsers();
     }
     public void insert(User user) {
-        repository.insert(user);
+        userRepository.insert(user);
     }
     public void update(User user) {
-        repository.update(user);
+        userRepository.update(user);
     }
     public void delete(User user) {
-        repository.delete(user);
+        userRepository.delete(user);
     }
     public LiveData<List<User>> getAllUsers() {
         return allUsers;

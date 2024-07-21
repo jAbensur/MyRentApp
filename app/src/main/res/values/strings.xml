@@ -10,6 +10,16 @@
     <string name="hint_TnType">Tipo:</string>
     <string name="hint_TnGender">Género:</string>
 
+    <string name="hint_Password_Login">Contraseña:</string>
+    <string name="hint_Email_Login">Correo:</string>
+    <string name="btn_Ingresar_Login">Ingresar</string>
+
+    <string name="hint_UserFirstName">Nombres:</string>
+    <string name="hint_UserLastName">Apellidos:</string>
+    <string name="hint_UserName">Nombre usuario:</string>
+    <string name="hint_UserPassword">Contraseña:</string>
+    <string name="hint_UserEmail">Email:</string>
+
     <string name="text_title">Gestión de Inquilinos</string>
 
     <string name="btn_save">Guardar registro</string>
