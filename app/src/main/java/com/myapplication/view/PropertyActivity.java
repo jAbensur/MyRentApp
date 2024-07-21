@@ -47,7 +47,7 @@ public class PropertyActivity extends AppCompatActivity {
         addPropertyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PropertyActivity.this, AddPropertyActivity.class);
+                Intent intent = new Intent(PropertyActivity.this, PropertyAddActivity.class);
                 startActivity(intent);
             }
         });

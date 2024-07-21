@@ -1,6 +1,5 @@
-package com.myapplication;
+package com.myapplication.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
@@ -10,13 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.myapplication.R;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewModel.TenantViewModel;
+import com.myapplication.viewmodel.TenantViewModel;
 
 public class ViewTenantActivity extends AppCompatActivity {
 
@@ -27,6 +27,7 @@ public class ViewTenantActivity extends AppCompatActivity {
 
     private Tenant tenant;
     private int tenantId = 0;
+    private TenantViewModel tenantViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,14 @@ public class ViewTenantActivity extends AppCompatActivity {
 
         tenantId = getTenantIdFromIntent(savedInstanceState);
 
-        TenantViewModel tenantViewModel = new TenantViewModel(ViewTenantActivity.this);
-        tenant = tenantViewModel.getTenantById(tenantId);
+        tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+
+        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this,new Observer<Tenant>() {
+            @Override
+            public void onChanged(Tenant tenant) {
+                tenant = tenant;
+            }
+        });
 
         if (tenant != null) {
             populateFields();
@@ -54,7 +61,6 @@ public class ViewTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-//        statusField = findViewById(R.id.txtTnStatus);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -81,7 +87,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         returnButton.setOnClickListener(view -> returnToMain());
 
         updateButton.setOnClickListener(view -> {
-            Intent intent = new Intent(ViewTenantActivity.this, UpdateTenantActivity.class);
+            Intent intent = new Intent(ViewTenantActivity.this, TenantUpdateActivity.class);
             intent.putExtra("TnID", tenantId);
             startActivity(intent);
         });
@@ -98,15 +104,14 @@ public class ViewTenantActivity extends AppCompatActivity {
     }
 
     private void populateFields() {
-        firstNameField.setText(tenant.getTnFirstName());
-        lastNameField.setText(tenant.getTnLastName());
-        emailField.setText(tenant.getTnEmail());
-        phoneField.setText(tenant.getTnPhone());
-        dniField.setText(tenant.getTnDNI());
-//        statusField.setText(tenant.getTnStatus());
+        firstNameField.setText(tenant.getFirstName());
+        lastNameField.setText(tenant.getLastName());
+        emailField.setText(tenant.getEmail());
+        phoneField.setText(tenant.getPhone());
+        dniField.setText(tenant.getDni());
 
-        setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
-        setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
+        setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getGender());
+        setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getType());
 
         saveButton.setVisibility(View.INVISIBLE);
     }
@@ -127,7 +132,6 @@ public class ViewTenantActivity extends AppCompatActivity {
         emailField.setInputType(InputType.TYPE_NULL);
         phoneField.setInputType(InputType.TYPE_NULL);
         dniField.setInputType(InputType.TYPE_NULL);
-//        statusField.setInputType(InputType.TYPE_NULL);
 
         genderSpinner.setOnTouchListener((v, event) -> true);
         typeSpinner.setOnTouchListener((v, event) -> true);
@@ -137,18 +141,19 @@ public class ViewTenantActivity extends AppCompatActivity {
         new AlertDialog.Builder(ViewTenantActivity.this)
                 .setMessage("¿Desea eliminar este contacto?")
                 .setPositiveButton("SI", (dialogInterface, i) -> {
-                    TenantViewModel tenantViewModel = new TenantViewModel(ViewTenantActivity.this);
-                    if (tenantViewModel.deleteTenant(tenantId)) {
+                    /*
+                    tenantViewModel.delete();
+                    if (tenantViewModel.delete(tenantId)) {
                         returnToMain();
                         showToast("Se eliminó el registro");
-                    }
+                    }*/
                 })
                 .setNegativeButton("NO", (dialogInterface, i) -> showToast("No se eliminó el registro"))
                 .show();
     }
 
     private void returnToMain() {
-        Intent intent = new Intent(this, MainTenantActivity.class);
+        Intent intent = new Intent(this, TenantActivity.class);
         startActivity(intent);
     }
 

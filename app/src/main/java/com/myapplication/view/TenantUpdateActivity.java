@@ -1,4 +1,4 @@
-package com.myapplication;
+package com.myapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.myapplication.R;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewModel.TenantViewModel;
+import com.myapplication.viewmodel.TenantViewModel;
 
-public class UpdateTenantActivity extends AppCompatActivity {
+public class TenantUpdateActivity extends AppCompatActivity {
 
     private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Spinner genderSpinner, typeSpinner;
@@ -37,9 +38,14 @@ public class UpdateTenantActivity extends AppCompatActivity {
 
         tenantId = getTenantIdFromIntent(savedInstanceState);
 
-        TenantViewModel tenantViewModel = new TenantViewModel(UpdateTenantActivity.this);
-        tenant = tenantViewModel.getTenantById(tenantId);
+        TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
+        tenantViewModel.getTenantById(tenantId).observe(TenantUpdateActivity.this,new Observer<Tenant>() {
+            @Override
+            public void onChanged(Tenant tenant) {
+                tenant = tenant;
+            }
+        });
         if (tenant != null) {
             populateFields();
         }
@@ -51,7 +57,6 @@ public class UpdateTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-//        statusField = findViewById(R.id.txtTnStatus);
 
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
@@ -88,15 +93,14 @@ public class UpdateTenantActivity extends AppCompatActivity {
     }
 
     private void populateFields() {
-        firstNameField.setText(tenant.getTnFirstName());
-        lastNameField.setText(tenant.getTnLastName());
-        emailField.setText(tenant.getTnEmail());
-        phoneField.setText(tenant.getTnPhone());
-        dniField.setText(tenant.getTnDNI());
-//        statusField.setText(tenant.getTnStatus());
+        firstNameField.setText(tenant.getFirstName());
+        lastNameField.setText(tenant.getLastName());
+        emailField.setText(tenant.getEmail());
+        phoneField.setText(tenant.getPhone());
+        dniField.setText(tenant.getDni());
 
-        setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getTnGender());
-        setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getTnType());
+        setSpinnerSelection(genderSpinner, R.array.spnrGender, tenant.getGender());
+        setSpinnerSelection(typeSpinner, R.array.spnrType, tenant.getType());
 
     }
 
@@ -115,7 +119,7 @@ public class UpdateTenantActivity extends AppCompatActivity {
             return;
         }
 
-        TenantViewModel tenantViewModel = new TenantViewModel(UpdateTenantActivity.this);
+        TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
         String firstName = firstNameField.getText().toString();
         String lastName = lastNameField.getText().toString();
@@ -126,14 +130,26 @@ public class UpdateTenantActivity extends AppCompatActivity {
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
-        boolean isUpdated = tenantViewModel.updateTenant(tenantId, firstName, lastName, email, phone, dni, status, type, gender);
+        Tenant tenant = new Tenant();
+        tenant.setId(tenantId);
+        tenant.setFirstName(firstName);
+        tenant.setLastName(lastName);
+        tenant.setEmail(email);
+        tenant.setPhone(phone);
+        tenant.setDni(dni);
+        tenant.setStatus(status);
+        tenant.setType(type);
+        tenant.setGender(gender);
 
+        tenantViewModel.update(tenant);
+        //boolean isUpdated = tenantViewModel.update(tenant);
+        /*
         if (isUpdated) {
             showToast("Registro actualizado correctamente");
             viewRecord();
         } else {
             showToast("Error al actualizar registro");
-        }
+        }*/
     }
 
     private boolean validateInputs() {
@@ -142,7 +158,6 @@ public class UpdateTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-//        String status = statusField.getText().toString();
 
         if (dni.length() < 8) {
             showToast("El DNI debe tener al menos 8 dígitos");
@@ -168,11 +183,11 @@ public class UpdateTenantActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(UpdateTenantActivity.this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(TenantUpdateActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     private void returnToMain() {
-        Intent intent = new Intent(this, MainTenantActivity.class);
+        Intent intent = new Intent(this, TenantActivity.class);
         startActivity(intent);
     }
 

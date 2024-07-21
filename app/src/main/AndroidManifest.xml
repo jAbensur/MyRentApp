@@ -12,23 +12,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyRentApp"
         tools:targetApi="31">
-        <activity android:name=".view.AddPropertyActivity"/>
-        <activity android:name=".view.PropertyActivity"/>
         <activity
             android:name=".view.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".view.RentUpdateActivity"
+            android:name=".view.PropertyActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.PropertyAddActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.RentActivity"
             android:exported="false" />
         <activity
             android:name=".view.RentCreateActivity"
             android:exported="false" />
         <activity
-            android:name=".view.RentActivity"
+            android:name=".view.RentUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.TenantActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.TenantAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.TenantUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.ViewTenantActivity"
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

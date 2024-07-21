@@ -24,7 +24,7 @@ public class TenantSpinnerAdapter extends ArrayAdapter<Tenant> {
 
         Tenant tenant = getItem(position);
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(tenant.getName());
+        textView.setText(tenant.getDni());
 
         return convertView;
     }
@@ -37,7 +37,7 @@ public class TenantSpinnerAdapter extends ArrayAdapter<Tenant> {
 
         Tenant tenant = getItem(position);
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(tenant.getName());
+        textView.setText(tenant.getDni());
 
         return convertView;
     }

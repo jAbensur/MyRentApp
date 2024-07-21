@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey;
 public class Tenant {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    private String name;
     private String firstName;
     private String lastName;
     private String email;
@@ -16,20 +15,26 @@ public class Tenant {
     private String status;
     private String type;
     private String gender;
-    public Tenant(String name) {
-        this.name = name;
+
+    public Tenant(){
+
+    }
+    public Tenant(String firstName, String lastName, String email, String phone, String dni,
+                  String status, String type, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.dni = dni;
+        this.status = status;
+        this.type = type;
+        this.gender = gender;
     }
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getFirstName() {
@@ -98,6 +103,6 @@ public class Tenant {
 
     @Override
     public String toString() {
-        return name;
+        return dni;
     }
 }

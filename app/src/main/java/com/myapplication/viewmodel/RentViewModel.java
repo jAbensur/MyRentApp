@@ -16,19 +16,15 @@ public class RentViewModel extends AndroidViewModel {
         rentRepository = new RentRepository(application);
         allRents = rentRepository.getAllRents();
     }
-
     public void insert(Rent rent) {
         rentRepository.insert(rent);
     }
-
     public void update(Rent rent) {
         rentRepository.update(rent);
     }
-
     public void delete(Rent rent) {
         rentRepository.delete(rent);
     }
-
     public LiveData<List<Rent>> getAllRents() {
         return allRents;
     }

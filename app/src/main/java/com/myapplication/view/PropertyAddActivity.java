@@ -10,8 +10,7 @@ import com.myapplication.R;
 import com.myapplication.model.Property;
 import com.myapplication.viewmodel.PropertyViewModel;
 
-public class AddPropertyActivity extends AppCompatActivity {
-
+public class PropertyAddActivity extends AppCompatActivity {
     private PropertyViewModel propertyViewModel;
     private Property property;
     private boolean _isEdit = false;

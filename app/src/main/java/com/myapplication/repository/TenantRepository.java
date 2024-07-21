@@ -31,6 +31,9 @@ public class TenantRepository {
     public LiveData<List<Tenant>> getTenants(String filter) {
         return tenantDao.getTenants("%" + filter + "%");
     }
+    public LiveData<Tenant> getTenantById(int tenantId){
+        return tenantDao.getTenantById(tenantId);
+    }
     public void insert(Tenant tenant) {
         new insertAsyncTask(tenantDao).execute(tenant);
     }

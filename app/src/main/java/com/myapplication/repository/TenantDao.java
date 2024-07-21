@@ -20,6 +20,8 @@ public interface TenantDao {
     void delete(Tenant tenant);
     @Query("SELECT * FROM tenants")
     LiveData<List<Tenant>> getAllTenants();
-    @Query("SELECT * FROM tenants WHERE name LIKE :filter")
+    @Query("SELECT * FROM tenants WHERE dni LIKE :filter")
     LiveData<List<Tenant>> getTenants(String filter);
+    @Query("SELECT * FROM tenants WHERE id = :tenantId")
+    LiveData<Tenant> getTenantById(int tenantId);
 }

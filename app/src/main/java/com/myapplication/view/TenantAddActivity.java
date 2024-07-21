@@ -1,20 +1,21 @@
-package com.myapplication;
+package com.myapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.myapplication.viewModel.TenantViewModel;
+import com.myapplication.R;
+import com.myapplication.model.Tenant;
+import com.myapplication.viewmodel.TenantViewModel;
 
-public class NewTenantActivity extends AppCompatActivity {
+public class TenantAddActivity extends AppCompatActivity {
 
     private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Spinner genderSpinner, typeSpinner;
@@ -24,7 +25,6 @@ public class NewTenantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_tenant);
-
         initializeFields();
         setupSpinners();
         setupButtons();
@@ -36,11 +36,8 @@ public class NewTenantActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
-//        statusField = findViewById(R.id.txtTnStatus);
-
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
-
         saveButton = findViewById(R.id.btnSave);
         returnButton = findViewById(R.id.btnReturn);
     }
@@ -59,7 +56,6 @@ public class NewTenantActivity extends AppCompatActivity {
 
     private void setupButtons() {
         returnButton.setOnClickListener(view -> returnToMain());
-
         saveButton.setOnClickListener(view -> saveTenant());
     }
 
@@ -68,23 +64,23 @@ public class NewTenantActivity extends AppCompatActivity {
             return;
         }
 
-        TenantViewModel dbRepository = new TenantViewModel(NewTenantActivity.this);
+        TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
         String firstName = firstNameField.getText().toString();
         String lastName = lastNameField.getText().toString();
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String status = "active"; // no eliminado
+        String status = "active";
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
-        long tenantId = dbRepository.insertTenant(firstName, lastName, email, phone, dni, status, type, gender);
-
+        tenantViewModel.insert( new Tenant(firstName, lastName, email, phone, dni, status, type, gender));
+/*
         if (tenantId <= 0) {
             showToast("ERROR AL GUARDAR REGISTRO");
             return;
-        }
+        }*/
 
         showToast("REGISTRO GUARDADO");
         clearFields();
@@ -97,7 +93,6 @@ public class NewTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-//        String status = statusField.getText().toString();
         String type = typeSpinner.getSelectedItem().toString();
         String gender = genderSpinner.getSelectedItem().toString();
 
@@ -125,7 +120,7 @@ public class NewTenantActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(NewTenantActivity.this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(TenantAddActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
     private void clearFields() {
@@ -134,11 +129,10 @@ public class NewTenantActivity extends AppCompatActivity {
         emailField.setText("");
         phoneField.setText("");
         dniField.setText("");
-//        statusField.setText("");
     }
 
     private void returnToMain() {
-        Intent intent = new Intent(this, MainTenantActivity.class);
+        Intent intent = new Intent(this, TenantActivity.class);
         startActivity(intent);
     }
 }

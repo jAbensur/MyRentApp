@@ -31,4 +31,7 @@ public class TenantViewModel extends AndroidViewModel {
     public LiveData<List<Tenant>> getAllTenants() {
         return allTenants;
     }
+    public LiveData<Tenant> getTenantById(int tenantId){
+        return tenantRepository.getTenantById(tenantId);
+    }
 }

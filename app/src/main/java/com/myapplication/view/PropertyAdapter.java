@@ -18,9 +18,7 @@ import com.myapplication.viewmodel.PropertyViewModel;
 import java.util.List;
 
 public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder> {
-
     List<Property> propertyList;
-
     private Context context;
     private PropertyViewModel propertyViewModel;
 
@@ -88,7 +86,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
         holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddPropertyActivity.class);
+                Intent intent = new Intent(context, PropertyAddActivity.class);
                 intent.putExtra("model",property);
                 context.startActivity(intent);
             }
