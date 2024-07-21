@@ -41,4 +41,11 @@
         <item name="spnrItm5">Otro</item>
     </string-array>
 
+
+    <string name="lbl_state">Estado:</string>
+
+    <string name="lbl_capacity">Capacidad:</string>
+    <string name="lbl_price_per_month">Precio:</string>
+    <string name="lbl_month">mensual</string>
+    <string name="lbl_available">Disponible:</string>
 </resources>

@@ -19,6 +19,7 @@ import com.myapplication.repository.RentDao;
         Property.class},exportSchema = false, version = 1)
 public abstract class Database extends RoomDatabase {
     private static Database instance;
+
     public abstract UserDao userDao();
     public abstract TenantDao tenantDao();
     public abstract ChamberDao chamberDao();
