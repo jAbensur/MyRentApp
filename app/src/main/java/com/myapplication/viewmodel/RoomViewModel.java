@@ -14,12 +14,12 @@ import java.util.List;
 public class RoomViewModel extends AndroidViewModel {
 
     private final RoomRepository _repository;
-    private final LiveData<List<RoomModel>> _allRooms;
+    //private final LiveData<List<RoomModel>> _allRooms;
 
     public RoomViewModel(@NonNull Application application) {
         super(application);
         _repository = new RoomRepository(application);
-        _allRooms = _repository.getAllRooms();
+        //_allRooms = _repository.getAllRooms();
     }
 
     public void insertRoom(RoomModel roomModel){ _repository.insertRoom(roomModel); }
@@ -28,7 +28,7 @@ public class RoomViewModel extends AndroidViewModel {
 
     public void deleteRoom(RoomModel roomModel){ _repository.deleteRoom(roomModel); }
 
-    public LiveData<List<RoomModel>> getAllRooms(){ return _allRooms; }
+    //public LiveData<List<RoomModel>> getAllRooms(){ return _allRooms; }
 
-    public RoomModel getRoomById(int id){ return _repository.getRoomById(id); }
+    //public RoomModel getRoomById(int id){ return _repository.getRoomById(id); }
 }
