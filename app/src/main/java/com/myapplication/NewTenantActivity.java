@@ -134,11 +134,11 @@ public class NewTenantActivity extends AppCompatActivity {
         emailField.setText("");
         phoneField.setText("");
         dniField.setText("");
-//        statusField.setText("");
     }
 
     private void returnToMain() {
         Intent intent = new Intent(this, MainTenantActivity.class);
         startActivity(intent);
     }
+
 }
