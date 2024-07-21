@@ -37,12 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             handleLogin();
 
-//            deleteUser(8); // linea para eliminar
+//            deleteUser(1); // linea para eliminar
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
-             insertDefaultUser("Russell Nobaru", "Prueba", "Prueba", "admin", "ruselcucho@gmail.com"); // línea para probar inserción
-//            showAllUsers(); // línea para ver todos los usuarios
+//             insertDefaultUser("Russell Nobaru", "Prueba", "Prueba", "admin", "ruselcucho@gmail.com"); // línea para probar inserción
+            showAllUsers(); // línea para ver todos los usuarios
 //            showToast("Boton presionado");
         });
     }
@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToHome() {
-        Intent intent = new Intent(this, MainTenantActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 
