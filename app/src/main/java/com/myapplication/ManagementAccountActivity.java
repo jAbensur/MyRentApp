@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.myapplication.viewModel.TenantViewModel;
+import com.myapplication.viewModel.UserViewModel;
+
 public class ManagementAccountActivity extends AppCompatActivity {
 
     private EditText txtFirstName, txtLastName, txtUserName, txtEmail, txtPassword;
@@ -34,23 +37,39 @@ public class ManagementAccountActivity extends AppCompatActivity {
 
     private void setupButtons() {
         btnSave.setOnClickListener(view -> {
-//            if (!validateInputs()) {
-//                return;
-//            }
 
+//            poner el actualizar
+
+            if (!validateInputs()) {
+                return;
+            }
+
+            UserViewModel userViewModel = new UserViewModel(ManagementAccountActivity.this);
+
+                int tenantId = 9;
                 String firstName = txtFirstName.getText().toString();
                 String lastName = txtLastName.getText().toString();
                 String userName = txtUserName.getText().toString();
                 String email = txtEmail.getText().toString();
                 String password = txtPassword.getText().toString();
 
-                String message = "First Name: " + firstName + "\n" +
-                        "Last Name: " + lastName + "\n" +
-                        "User Name: " + userName + "\n" +
-                        "Email: " + email + "\n" +
-                        "Password: " + password;
+            boolean isUpdated = userViewModel.updateUser(tenantId, firstName, lastName, userName, email, password);
+//            boolean isUpdated = userViewModel.updateUser(9, "Russell Nobaru", "Prueba2", "Prueba", "admin", "ruselcucho@gmail.com");
 
-                showToast(message);
+            if (isUpdated) {
+                showToast("Registro actualizado correctamente");
+//                viewRecord();
+            } else {
+                showToast("Error al actualizar registro");
+            }
+//
+//                String message = "First Name: " + firstName + "\n" +
+//                        "Last Name: " + lastName + "\n" +
+//                        "User Name: " + userName + "\n" +
+//                        "Email: " + email + "\n" +
+//                        "Password: " + password;
+//
+//                showToast(message);
 
         });
     }

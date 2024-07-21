@@ -98,10 +98,6 @@ public class UserViewModel extends DbRepository {
         return loginSuccessful;
     }
 
-    private void showToast(String message) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-    }
-
     public boolean deleteUser(int UsrID) { // eliminacion fisica
 
         boolean isDelete = false;
@@ -119,6 +115,45 @@ public class UserViewModel extends DbRepository {
             db.close();
         }
         return isDelete;
+    }
+
+    public boolean updateUser(int UsrID, String UsrFirstName, String UsrLastName, String UsrName,
+                                String UsrPassword, String UsrEmail) {
+
+        boolean isUpdated = false;
+
+        DbRepository dbRepository = new DbRepository(context);
+        SQLiteDatabase db = dbRepository.getWritableDatabase();
+
+        try {
+            ContentValues values = new ContentValues();
+            values.put("UsrFirstName", UsrFirstName);
+            values.put("UsrLastName", UsrLastName);
+            values.put("UsrName", UsrName);
+            values.put("UsrPassword", UsrPassword);
+            values.put("UsrEmail", UsrEmail);
+
+            String whereClause = "UsrID=?";
+            String[] whereArgs = {String.valueOf(UsrID)};
+
+            int rowsAffected = db.update(TABLE_USER, values, whereClause, whereArgs);
+
+            if (rowsAffected > 0) {
+                isUpdated = true;
+            } else {
+                showToast("Error al actualizar registro");
+            }
+        } catch (Exception ex) {
+            showToast("Error al actualizar registro: " + ex.toString());
+        } finally {
+            db.close();
+        }
+
+        return isUpdated;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 }

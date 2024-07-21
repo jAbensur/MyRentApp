@@ -142,7 +142,6 @@ public class UpdateTenantActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-//        String status = statusField.getText().toString();
 
         if (dni.length() < 8) {
             showToast("El DNI debe tener al menos 8 dígitos");

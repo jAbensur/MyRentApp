@@ -142,6 +142,7 @@ public class TenantViewModel extends DbRepository {
         } finally {
             db.close();
         }
+
         return isUpdated;
     }
 
