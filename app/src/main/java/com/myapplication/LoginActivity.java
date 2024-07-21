@@ -1,5 +1,6 @@
 package com.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.myapplication.viewModel.TenantViewModel;
 import com.myapplication.viewModel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,13 +34,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupButtons() {
-        btnLogin.setOnClickListener(view -> handleLogin());
+        btnLogin.setOnClickListener(view -> {
+            handleLogin();
+
+//            deleteUser(8); // linea para eliminar
+        });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
-            // insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // línea para probar inserción
-            showAllUsers(); // línea para ver todos los usuarios
+             insertDefaultUser("Russell Nobaru", "Prueba", "Prueba", "admin", "ruselcucho@gmail.com"); // línea para probar inserción
+//            showAllUsers(); // línea para ver todos los usuarios
 //            showToast("Boton presionado");
         });
+    }
+
+    private void deleteUser(int userId) {
+        UserViewModel tenantViewModel = new UserViewModel(LoginActivity.this);
+        if (tenantViewModel.deleteUser(userId)) {
+//        returnToMain();
+            showToast("Se eliminó el registro");
+        }
     }
 
     private void handleLogin() {
@@ -50,12 +64,16 @@ public class LoginActivity extends AppCompatActivity {
 //            showToast(message);
 //        }
 
+        if (!validateLoginInputs(email, password)) {
+            return;
+        }
+
         UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
         boolean isLoggedIn = userViewModel.login(email, password);
 
         if (isLoggedIn) {
             showToast("Inicio de sesión exitoso");
-            // Aquí puedes redirigir a otra actividad o realizar alguna acción adicional
+            goToHome();
         } else {
             showToast("Credenciales incorrectas");
         }
@@ -94,4 +112,10 @@ public class LoginActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_LONG).show();
     }
+
+    private void goToHome() {
+        Intent intent = new Intent(this, MainTenantActivity.class);
+        startActivity(intent);
+    }
+
 }

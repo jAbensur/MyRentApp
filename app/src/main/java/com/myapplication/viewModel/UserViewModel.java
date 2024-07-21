@@ -65,7 +65,7 @@ public class UserViewModel extends DbRepository {
 
                     Log.i(TAG, "User ID: " + UsrID + ", First Name: " + UsrFirstName +
                             ", Last Name: " + UsrLastName + ", Username: " + UsrName +
-                            ", Password: " + UsrPassword + ", Email: " + UsrEmail+ "\n");
+                            ", Password: " + UsrPassword + ", Email: " + UsrEmail + "\n");
                 } while (cursor.moveToNext());
             }
 
@@ -102,5 +102,23 @@ public class UserViewModel extends DbRepository {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
+    public boolean deleteUser(int UsrID) { // eliminacion fisica
+
+        boolean isDelete = false;
+
+        DbRepository dbRespository = new DbRepository(context);
+        SQLiteDatabase db = dbRespository.getWritableDatabase();
+
+        try {
+            db.execSQL("DELETE FROM " + TABLE_USER + " WHERE UsrID = '" + UsrID + "'");
+            isDelete = true;
+        } catch (Exception ex) {
+            Toast.makeText(context, "Error al eliminar registro: " + ex.toString(), Toast.LENGTH_LONG).show();
+            isDelete = false;
+        } finally {
+            db.close();
+        }
+        return isDelete;
+    }
 
 }

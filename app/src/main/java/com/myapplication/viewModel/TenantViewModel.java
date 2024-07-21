@@ -186,4 +186,5 @@ public class TenantViewModel extends DbRepository {
         }
         return isDeleted;
     }
+
 }
