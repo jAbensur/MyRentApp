@@ -14,7 +14,7 @@ public class TenantViewModel extends AndroidViewModel {
     public TenantViewModel(@NonNull Application application) {
         super(application);
         tenantRepository = new TenantRepository(application);
-        allTenants = tenantRepository.getAllTenants();
+        allTenants = tenantRepository.getAllTenants();//
     }
     public void insert(Tenant tenant) {
         tenantRepository.insert(tenant);
