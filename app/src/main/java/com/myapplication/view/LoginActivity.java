@@ -38,42 +38,35 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupButtons() {
         btnLogin.setOnClickListener(view -> {
-//            insertDefaultUser("Togata", "ruselcucho@gmail.com", "admin"); // línea para probar inserción
 
-            showToast("Boton login presionado");
-//            handleLogin();
+//            showToast("Boton login presionado");
+            handleLogin();
 
-//            deleteUser(1); // linea para eliminar
+//            insertDefaultUser("Prueba", "prueba@gmail.com", "prueba"); // línea para probar inserción
+//            deleteUser(2); // linea para eliminar
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
             showToast("Boton prueba presionado");
-
             showAllUsers(); // línea para ver todos los usuarios
         });
     }
 
-    private void deleteUser(int userId) {
-        /*
-        UserViewModel tenantViewModel = new UserViewModel(LoginActivity.this);
-        if (tenantViewModel.deleteUser(userId)) {
-//        returnToMain();
-            showToast("Se eliminó el registro");
-        }*/
+    private void deleteUser(int indice) {
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.deleteById(indice);
     }
 
     private void handleLogin() {
         String email = emailLoginField.getText().toString();
         String password = passwordLoginField.getText().toString();
 
-//        if (validateLoginInputs(email, password)) {
-//            String message = "Email: " + email + "\nPassword: " + password;
-//            showToast(message);
-//        }
-
         if (!validateLoginInputs(email, password)) {
             return;
         }
+
+        String message = "Email: " + email + "\nPassword: " + password;
+        showToast(message);
 
 //        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
 //        boolean isLoggedIn = userViewModel.login(email, password);
@@ -103,17 +96,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void insertDefaultUser(String name, String email, String password) {
-        /*
-        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-
-        long userId = userViewModel.insertUser(firstName, lastName, userName, password, email);
-
-        if (userId <= 0) {
-            showToast("ERROR AL GUARDAR REGISTRO");
-            return;
-        }
-        showToast("REGISTRO GUARDADO");*/
-
         UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.insert( new User(name, email, password));
     }

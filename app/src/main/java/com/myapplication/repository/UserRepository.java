@@ -32,6 +32,10 @@ public class UserRepository {
         executorService.execute(() -> userDao.delete(user));
     }
 
+    public void deleteById(int userId) {
+        executorService.execute(() -> userDao.deleteById(userId));
+    }
+
     public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }

@@ -38,6 +38,10 @@ public class UserViewModel extends AndroidViewModel {
         userRepository.delete(user);
     }
 
+    public void deleteById(int userId) {
+        userRepository.deleteById(userId);
+    }
+
 //    public LiveData<List<User>> getAllUsers() {
 //
 //
