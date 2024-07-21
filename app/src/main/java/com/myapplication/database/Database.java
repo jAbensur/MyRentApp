@@ -16,7 +16,7 @@ import com.myapplication.repository.ChamberDao;
 import com.myapplication.repository.RentDao;
 
 @androidx.room.Database(entities = {User.class, Tenant.class, Chamber.class, Rent.class,
-        Property.class},exportSchema = false, version = 1)
+        Property.class},exportSchema = false, version = 2)
 public abstract class Database extends RoomDatabase {
     private static Database instance;
 
