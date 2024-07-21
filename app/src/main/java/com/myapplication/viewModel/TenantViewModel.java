@@ -58,7 +58,7 @@ public class TenantViewModel extends DbRepository {
         Tenant tenant = null;
         Cursor cursor = null;
 
-//        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT , null); // muestra todos los no eliminados logicamente
+//        cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT , null); // muestra todos los no eliminados fisicamente
         cursor = db.rawQuery("SELECT * FROM " + TABLE_TENANT + " WHERE TnStatus != 'deleted'", null);
 
         if (cursor.moveToFirst()) {

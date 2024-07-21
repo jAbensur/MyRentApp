@@ -75,6 +75,28 @@ public class UserViewModel extends DbRepository {
         }
     }
 
+    public boolean login(String UsrEmail, String UsrPassword) {
+        boolean loginSuccessful = false;
+
+        try {
+            DbRepository dbRepository = new DbRepository(context);
+            SQLiteDatabase db = dbRepository.getReadableDatabase();
+
+            String query = "SELECT * FROM " + TABLE_USER + " WHERE UsrEmail = ? AND UsrPassword = ?";
+            Cursor cursor = db.rawQuery(query, new String[]{UsrEmail, UsrPassword});
+
+            if (cursor.moveToFirst()) {
+                loginSuccessful = true;
+            }
+
+            cursor.close();
+        } catch (Exception ex) {
+            Log.i(TAG, "Error al realizar login: " + ex);
+            ex.printStackTrace();
+        }
+
+        return loginSuccessful;
+    }
 
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();

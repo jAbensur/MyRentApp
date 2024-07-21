@@ -36,7 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btnInsertDefaultUser.setOnClickListener(view -> {
             // insertDefaultUser("Prueba", "Prueba", "Prueba", "admin123", "rusel@gmail.com"); // línea para probar inserción
-            // showAllUsers(); // línea para ver todos los usuarios
+            showAllUsers(); // línea para ver todos los usuarios
+//            showToast("Boton presionado");
         });
     }
 
@@ -44,9 +45,19 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailLoginField.getText().toString();
         String password = passwordLoginField.getText().toString();
 
-        if (validateLoginInputs(email, password)) {
-            String message = "Email: " + email + "\nPassword: " + password;
-            showToast(message);
+//        if (validateLoginInputs(email, password)) {
+//            String message = "Email: " + email + "\nPassword: " + password;
+//            showToast(message);
+//        }
+
+        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
+        boolean isLoggedIn = userViewModel.login(email, password);
+
+        if (isLoggedIn) {
+            showToast("Inicio de sesión exitoso");
+            // Aquí puedes redirigir a otra actividad o realizar alguna acción adicional
+        } else {
+            showToast("Credenciales incorrectas");
         }
     }
 
@@ -75,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         showToast("REGISTRO GUARDADO");
     }
 
-    private void showAllUsers(){
+    private void showAllUsers() {
         UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
         userViewModel.getAllUsers();
     }
