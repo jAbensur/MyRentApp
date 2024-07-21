@@ -18,12 +18,18 @@ import androidx.room.PrimaryKey;
 public class Rent {
     @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String startDate;
     private String endDate;
     private double price;
     private int tenantId;
     private int chamberId;
     private int state;
+
+    public Rent(){
+
+    }
+
     public Rent(String startDate, String endDate, double price, int tenantId, int chamberId) {
         this.startDate = startDate;
         this.endDate = endDate;

@@ -54,7 +54,6 @@ public class PropertyAddActivity extends AppCompatActivity {
                     property.nameP = edtProperty.getText().toString();
                     property.description = edtDescription.getText().toString();
                     property.address = edtAddress.getText().toString();
-                    property.state = 1;
                     propertyViewModel.updateProperty(property);
                 }else{
                     property = new Property();

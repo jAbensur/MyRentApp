@@ -1,6 +1,8 @@
 package com.myapplication.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,5 +50,19 @@ public class RoomActivity extends AppCompatActivity {
                 }
             }
         });
+
+        addRoomButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RoomActivity.this, AddRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

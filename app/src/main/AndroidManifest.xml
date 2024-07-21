@@ -19,6 +19,12 @@
             android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".view.RoomActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".view.AddRoomActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.PropertyActivity"
             android:exported="false"/>
         <activity

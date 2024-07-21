@@ -24,7 +24,8 @@ public class HomeActivity extends AppCompatActivity {
         buttonChambersIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Habitaciones");
+                Intent intent = new Intent(HomeActivity.this, RoomActivity.class);
+                startActivity(intent);
             }
         });
 

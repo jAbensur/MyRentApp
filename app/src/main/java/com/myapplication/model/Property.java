@@ -57,4 +57,12 @@ public class Property implements Parcelable {
             return new Property[size];
         }
     };
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNameP() {
+        return nameP;
+    }
 }

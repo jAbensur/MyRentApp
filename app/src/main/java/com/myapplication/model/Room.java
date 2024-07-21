@@ -10,11 +10,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "room",
-        foreignKeys = @ForeignKey(  entity = Room.class,
+        foreignKeys = @ForeignKey(  entity = Property.class,
                                     parentColumns = "id",
                                     childColumns = "propertyId",
-                                    onDelete = ForeignKey.CASCADE),
-        indices = {@Index(value = "propertyId")})
+                                    onDelete = ForeignKey.CASCADE))
 public class Room implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
