@@ -6,5 +6,7 @@ public interface OnClikItemInterfaceRoom {
 
     void onClickItem(RoomModel roomModel, boolean isEdit);
 
-    void onClickItemModel(RoomModel roomModel);
+    void onClickItemDeactive(RoomModel roomModel);
+
+    void onClickItemInfo(RoomModel roomModel);
 }
