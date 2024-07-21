@@ -27,4 +27,9 @@ public interface UserDao {
 
     @Query("SELECT * FROM users ORDER BY name ASC")
     LiveData<List<User>> getAllUsers();
+
+    // Nueva consulta para verificar el login
+    @Query("SELECT EXISTS(SELECT 1 FROM users WHERE email = :email AND password = :password)")
+    boolean isUserValid(String email, String password);
+
 }

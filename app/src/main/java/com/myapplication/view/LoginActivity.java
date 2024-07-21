@@ -61,23 +61,21 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailLoginField.getText().toString();
         String password = passwordLoginField.getText().toString();
 
+//        String email = "prueba@gmail.com";
+//        String password = "prueba";
         if (!validateLoginInputs(email, password)) {
             return;
         }
+//        String message = "Email: " + email + "\nPassword: " + password;
+//        showToast(message);
 
-        String message = "Email: " + email + "\nPassword: " + password;
-        showToast(message);
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        boolean valid = userViewModel.isUserValid(email, password);
 
-//        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-//        boolean isLoggedIn = userViewModel.login(email, password);
-        /*
-        if (isLoggedIn) {
-            showToast("Inicio de sesión exitoso");
-            goToHome();
-        } else {
-            showToast("Credenciales incorrectas");
-        }*/
-
+        if (!valid) {
+            showToast("Credenciales incorrectas.");
+            return;
+        }
         showToast("Inicio de sesión exitoso");
         goToHome();
     }

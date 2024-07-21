@@ -41,14 +41,12 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteById(int userId) {
         userRepository.deleteById(userId);
     }
-
 //    public LiveData<List<User>> getAllUsers() {
 //
 //
 //        Log.i(TAG, "Error al insertar registro de usuario");
 //        return allUsers;
 //    }
-
     public void logAllUsers() {
 //        Log.i(TAG, "Llego")
         allUsers.observeForever(users -> {
@@ -60,6 +58,10 @@ public class UserViewModel extends AndroidViewModel {
                 Log.i(TAG, "No users found.");
             }
         });
+    }
+
+    public boolean isUserValid(String email, String password) {
+        return userRepository.isUserValid(email, password);
     }
 
 }
