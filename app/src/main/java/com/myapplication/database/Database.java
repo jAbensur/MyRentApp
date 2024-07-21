@@ -10,13 +10,14 @@ import com.myapplication.model.Rent;
 import com.myapplication.model.Tenant;
 import com.myapplication.model.User;
 import com.myapplication.repository.PropertyDao;
+import com.myapplication.repository.RoomDao;
 import com.myapplication.repository.UserDao;
 import com.myapplication.repository.TenantDao;
 import com.myapplication.repository.ChamberDao;
 import com.myapplication.repository.RentDao;
 
 @androidx.room.Database(entities = {User.class, Tenant.class, Chamber.class, Rent.class,
-        Property.class},exportSchema = false, version = 1)
+        Property.class, Room.class},exportSchema = false, version = 2)
 public abstract class Database extends RoomDatabase {
     private static Database instance;
 
@@ -25,6 +26,7 @@ public abstract class Database extends RoomDatabase {
     public abstract ChamberDao chamberDao();
     public abstract RentDao rentDao();
     public abstract PropertyDao propertyDao();
+    public abstract RoomDao roomDao();
 
     public static synchronized Database getInstance(Context context) {
         if (instance == null) {

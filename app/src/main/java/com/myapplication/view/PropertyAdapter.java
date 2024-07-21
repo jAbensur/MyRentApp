@@ -29,11 +29,12 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
     }
 
     public static class PropertyViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvAddress, tvState;
+        TextView tvName, tvDescription, tvAddress, tvState;
         ImageView ivDelete, ivEdit, ivDisabled;
         public PropertyViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.txtPName);
+            tvDescription = itemView.findViewById(R.id.txtDescription);
             tvAddress = itemView.findViewById(R.id.txtAddress);
             tvState = itemView.findViewById(R.id.txtState);
             ivDelete = itemView.findViewById(R.id.imgDelete);
@@ -53,6 +54,7 @@ public class PropertyAdapter extends RecyclerView.Adapter<PropertyAdapter.Proper
     public void onBindViewHolder(@NonNull PropertyViewHolder holder, int position) {
         Property property = propertyList.get(position);
         holder.tvName.setText(property.nameP);
+        holder.tvDescription.setText(property.description);
         holder.tvAddress.setText(property.address);
         String state = property.state == 1 ? "Activo" : "Inactivo";
         holder.tvState.setText(state);

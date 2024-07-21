@@ -1,30 +1,32 @@
 package com.myapplication.repository;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.myapplication.model.RoomModel;
+import com.myapplication.model.Room;
 
 import java.util.List;
 
+@Dao
 public interface RoomDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRoom(RoomModel roomModel);
+    void insertRoom(Room room);
 
     @Update
-    void updateRoom(RoomModel roomModel);
+    void updateRoom(Room room);
 
     @Delete
-    void deleteRoom(RoomModel roomModel);
+    void deleteRoom(Room room);
 
     @Query("SELECT * FROM room")
-    LiveData<List<RoomModel>> getAllRooms();
+    LiveData<List<Room>> getAllRooms();
 
     @Query("SELECT * FROM room WHERE id=:id")
-    RoomModel getRoomById(int id);
+    Room getRoomById(int id);
 }

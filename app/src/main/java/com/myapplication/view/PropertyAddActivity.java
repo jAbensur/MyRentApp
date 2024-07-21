@@ -22,6 +22,8 @@ public class PropertyAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_property);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         edtProperty = findViewById(R.id.edtProperty);
         edtDescription = findViewById(R.id.edtDescription);
         edtAddress = findViewById(R.id.edtAddress);

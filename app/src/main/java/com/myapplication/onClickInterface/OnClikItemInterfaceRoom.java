@@ -1,10 +1,10 @@
 package com.myapplication.onClickInterface;
 
-import com.myapplication.model.RoomModel;
+import com.myapplication.model.Room;
 
 public interface OnClikItemInterfaceRoom {
 
-    void onClickItem(RoomModel roomModel, boolean isEdit);
+    void onClickItem(Room room, boolean isEdit);
 
-    void onClickItemModel(RoomModel roomModel);
+    void onClickItemModel(Room room);
 }
