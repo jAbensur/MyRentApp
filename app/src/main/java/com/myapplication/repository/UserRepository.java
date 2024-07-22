@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import com.myapplication.database.Database;
+import com.myapplication.model.Tenant;
 import com.myapplication.model.User;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -65,4 +66,12 @@ public class UserRepository {
 
         return isValid[0];
     }
+
+
+    public LiveData<User> getUserById(int userId) {
+
+//            Log.i(TAG, "1: " + userDao.isUserValid(email, password));
+        return userDao.getUserById(userId);
+    }
+
 }

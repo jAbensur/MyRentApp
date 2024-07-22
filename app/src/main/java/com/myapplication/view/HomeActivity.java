@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.myapplication.ManagementAccountActivity;
 import com.myapplication.R;
 
 public class HomeActivity extends AppCompatActivity {
@@ -40,6 +42,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showToast("Usuario");
+                Intent intent = new Intent(HomeActivity.this, ManagementAccountActivity.class);
+                startActivity(intent);
             }
         });
 

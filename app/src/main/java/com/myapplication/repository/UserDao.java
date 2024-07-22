@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.myapplication.model.Tenant;
 import com.myapplication.model.User;
 
 import java.util.List;
@@ -31,5 +32,8 @@ public interface UserDao {
     // Nueva consulta para verificar el login
     @Query("SELECT EXISTS(SELECT 1 FROM users WHERE email = :email AND password = :password)")
     boolean isUserValid(String email, String password);
+
+    @Query("SELECT * FROM users WHERE id = :userId")
+    LiveData<User> getUserById(int userId);
 
 }

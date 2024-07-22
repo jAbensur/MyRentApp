@@ -7,7 +7,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
+import com.myapplication.model.Tenant;
 import com.myapplication.model.User;
 import com.myapplication.repository.UserRepository;
 import com.myapplication.view.LoginActivity;
@@ -41,14 +43,12 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteById(int userId) {
         userRepository.deleteById(userId);
     }
-//    public LiveData<List<User>> getAllUsers() {
-//
-//
-//        Log.i(TAG, "Error al insertar registro de usuario");
-//        return allUsers;
-//    }
+
+    public LiveData<List<User>> getAllUsers() {
+        return allUsers;
+    }
+
     public void logAllUsers() {
-//        Log.i(TAG, "Llego")
         allUsers.observeForever(users -> {
             if (users != null) {
                 for (User user : users) {
@@ -64,4 +64,7 @@ public class UserViewModel extends AndroidViewModel {
         return userRepository.isUserValid(email, password);
     }
 
+    public LiveData<User> getUserById(int userId) {
+        return userRepository.getUserById(userId);
+    }
 }

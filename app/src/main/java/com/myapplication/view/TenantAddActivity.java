@@ -36,8 +36,10 @@ public class TenantAddActivity extends AppCompatActivity {
         emailField = findViewById(R.id.txtTnEmail);
         phoneField = findViewById(R.id.txtTnPhone);
         dniField = findViewById(R.id.txtTnDNI);
+
         genderSpinner = findViewById(R.id.spnrGender);
         typeSpinner = findViewById(R.id.spnrType);
+
         saveButton = findViewById(R.id.btnSave);
         returnButton = findViewById(R.id.btnReturn);
     }
@@ -76,11 +78,6 @@ public class TenantAddActivity extends AppCompatActivity {
         String gender = genderSpinner.getSelectedItem().toString();
 
         tenantViewModel.insert( new Tenant(firstName, lastName, email, phone, dni, status, type, gender));
-/*
-        if (tenantId <= 0) {
-            showToast("ERROR AL GUARDAR REGISTRO");
-            return;
-        }*/
 
         showToast("REGISTRO GUARDADO");
         clearFields();
@@ -93,8 +90,8 @@ public class TenantAddActivity extends AppCompatActivity {
         String email = emailField.getText().toString();
         String phone = phoneField.getText().toString();
         String dni = dniField.getText().toString();
-        String type = typeSpinner.getSelectedItem().toString();
-        String gender = genderSpinner.getSelectedItem().toString();
+//        String type = typeSpinner.getSelectedItem().toString();
+//        String gender = genderSpinner.getSelectedItem().toString();
 
         if (dni.length() < 8) {
             showToast("El DNI debe tener al menos 8 dígitos");
