@@ -1,5 +1,6 @@
 package com.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -12,6 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.myapplication.model.User;
+import com.myapplication.view.HomeActivity;
+import com.myapplication.view.TenantActivity;
 import com.myapplication.viewmodel.UserViewModel;
 
 public class ManagementAccountActivity extends AppCompatActivity {
@@ -26,6 +29,25 @@ public class ManagementAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_management_account);
         initializeFields();
         setupButtons();
+        observeUserById(1);
+    }
+
+    private void observeUserById(int userId) {
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUserById(userId).observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    Log.i(TAG, "User: " + user.toString());
+                    // Set text fields with user data
+                    txtUserName.setText(user.getName());
+                    txtEmail.setText(user.getEmail());
+                    txtPassword.setText(user.getPassword());
+                } else {
+                    Log.i(TAG, "User not found.");
+                }
+            }
+        });
     }
 
     private void initializeFields() {
@@ -40,51 +62,60 @@ public class ManagementAccountActivity extends AppCompatActivity {
     private void setupButtons() {
         btnEdit.setOnClickListener(view -> {
 
-//            if (!validateInputs()) {
-//                return;
-//            }
+            if (!validateInputs()) {
+                return;
+            }
 
-//            int tenantId = 1;
-//            String userName = txtUserName.getText().toString();
-//            String email = txtEmail.getText().toString();
-//            String password = txtPassword.getText().toString();
+            int tenantId = 1;
+            String userName = txtUserName.getText().toString();
+            String email = txtEmail.getText().toString();
+            String password = txtPassword.getText().toString();
 
-            String userName = "Russell";
-            String email = "ruselcucho@gmail.com";
-            String password = "admin";
+//            String userName = "Russell";
+//            String email = "ruselcucho@gmail.com";
+//            String password = "admin";
 
             User updatedUser = new User(userName, email, password);
 
-            int userId = 1; //
+            int userId = 1;
             updatedUser.setId(userId);
-
-            Log.i(TAG, "UserUpdate: " + updatedUser.toString());
 
             UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
             userViewModel.update(updatedUser);
+
+            Log.i(TAG, "UserUpdate: " + updatedUser.toString());
 
 //                String message = "User Name: " + userName + "\n" +
 //                        "Email: " + email + "\n" +
 //                        "Password: " + password;
 //                showToast(message);
+            returnToHome();
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
-            showToast("Boton prueba presionado");
 //            showAllUsers(); // línea para ver todos los usuarios
-
-            UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
-            userViewModel.getUserById(1).observe(this, new Observer<User>() {
-                @Override
-                public void onChanged(User user) {
-                    if (user != null) {
-                        Log.i(TAG, "User: " + user.toString());
-                    } else {
-                        Log.i(TAG, "User not found.");
-                    }
-                }
-            });
+            returnToHome();
+//            mostrarAdmin();
         });
+    }
+
+    private void mostrarAdmin(){
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUserById(1).observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    Log.i(TAG, "User: " + user.toString());
+                } else {
+                    Log.i(TAG, "User not found.");
+                }
+            }
+        });
+    }
+
+    private void returnToHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 
     private void showAllUsers() {

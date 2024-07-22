@@ -81,7 +81,8 @@
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Boton prueba"
+            android:text="@string/btn_back"
+            android:backgroundTint="@color/cardview_dark_background"
             android:textSize="24sp" />
     </LinearLayout>
 
