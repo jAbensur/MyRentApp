@@ -2,17 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="roomModel"
-            type="com.myapplication.model.RoomModel" />
-
-        <variable
-            name="listener"
-            type="com.myapplication.onClickInterface.OnClikItemInterfaceRoom" />
-    </data>
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +28,6 @@
                android:layout_height="wrap_content"
                android:layout_marginVertical="10dp"
                android:layout_marginStart="10dp"
-               android:text="@{roomModel.nameR, default=Room}"
                android:textColor="@color/black"
                android:textSize="20sp"
                android:textStyle="bold" />
@@ -67,7 +55,6 @@
                 android:layout_marginEnd="10dp"
                 android:layout_toEndOf="@+id/lblCapacity"
                 android:drawablePadding="3dp"
-                android:text="@{roomModel.capacity, default=Capacity}"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:drawableTint="@color/black"
@@ -97,7 +84,6 @@
                 android:layout_toEndOf="@+id/lblPricePerMonth"
                 android:drawablePadding="3dp"
                 android:drawableTint="@color/black"
-                android:text= "@{'$' + String.valueOf(roomModel.pricePerMonth), default=Price}"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -140,7 +126,6 @@
                 android:layout_toEndOf="@+id/lblAvailable"
                 android:drawablePadding="3dp"
                 android:drawableTint="@color/black"
-                android:text= '@{roomModel.available == 1 ? "Disponible" : "Ocupado"}'
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -167,7 +152,6 @@
                 android:layout_toEndOf="@+id/lblState"
                 android:drawablePadding="3dp"
                 android:drawableTint="@color/black"
-                android:text= '@{roomModel.state == 1 ? "Activo" : "Inactivo"}'
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -178,7 +162,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginVertical="10dp"
                 android:layout_marginEnd="10dp"
-                android:onClick="@{()->listener.onClickItem(roomModel,false)}"
                 android:src="@drawable/ic_delete"
                 app:tint="#000000" />
 
@@ -190,7 +173,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginVertical="10dp"
                 android:layout_marginEnd="10dp"
-                android:onClick="@{()->listener.onClickItem(roomModel,true)}"
                 android:src="@drawable/ic_edit"
                 app:tint="#000000" />
 
@@ -202,7 +184,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginVertical="10dp"
-                android:onClick="@{()->listener.onClickItemModel(roomModel)}"
                 android:src="@drawable/ic_disabled"
                 app:tint="#000000" />
 
@@ -214,7 +195,6 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="10dp"
                 android:layout_marginVertical="10dp"
-                android:onClick="@{()->listener.onClickItemModel(roomModel)}"
                 android:src="@drawable/ic_info"
                 app:tint="#000000" />
 

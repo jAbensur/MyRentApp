@@ -48,4 +48,9 @@
     <string name="lbl_price_per_month">Precio:</string>
     <string name="lbl_month">mensual</string>
     <string name="lbl_available">Disponible:</string>
+
+    <string name="lbl_room_number">Número:</string>
+    <string name="lbl_room_description">Descripción:</string>
+    <string name="lbl_room_material">Material:</string>
+
 </resources>

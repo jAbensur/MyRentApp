@@ -13,17 +13,26 @@
         android:theme="@style/Theme.MyRentApp"
         tools:targetApi="31">
         <activity
+            android:name=".InfoRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.HomeActivity"
             android:exported="false" />
         <activity
             android:name=".view.LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".view.RoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.AddRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.PropertyActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.PropertyAddActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.RentActivity"
             android:exported="false" />

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InfoRoomActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/black"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                android:id="@+id/txtRName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtRName"
+                android:layout_alignStart="@id/txtRName"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_room_number"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtRName"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@+id/lblNumber"
+                android:drawablePadding="3dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:drawableTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/lblDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblNumber"
+                android:layout_alignStart="@id/lblNumber"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_room_description"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lblDescription"
+                android:layout_alignStart="@id/lblDescription"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:drawablePadding="3dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:drawableTint="@color/black" />
+
+            <TextView
+                android:id="@+id/lblMaterialType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtDescription"
+                android:layout_alignStart="@id/txtDescription"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:drawablePadding="5dp"
+                android:text="@string/lbl_room_material"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtMaterialType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtDescription"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@id/lblMaterialType"
+                android:drawablePadding="3dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:drawableTint="@color/black" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+
+
+
+

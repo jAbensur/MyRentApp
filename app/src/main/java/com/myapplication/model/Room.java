@@ -10,12 +10,11 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "room",
-        foreignKeys = @ForeignKey(  entity = RoomModel.class,
+        foreignKeys = @ForeignKey(  entity = Property.class,
                                     parentColumns = "id",
                                     childColumns = "propertyId",
-                                    onDelete = ForeignKey.CASCADE),
-        indices = {@Index(value = "propertyId")})
-public class RoomModel implements Parcelable {
+                                    onDelete = ForeignKey.CASCADE))
+public class Room implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
@@ -39,10 +38,10 @@ public class RoomModel implements Parcelable {
 
     public int propertyId;
 
-    public RoomModel() {
+    public Room() {
     }
 
-    public RoomModel(Parcel in)
+    public Room(Parcel in)
     {
         id = in.readInt();
         nameR = in.readString();
@@ -73,11 +72,15 @@ public class RoomModel implements Parcelable {
         dest.writeInt(propertyId);
     }
 
-    public static final Creator<RoomModel> CREATOR = new Creator<RoomModel>() {
+    public static final Creator<Room> CREATOR = new Creator<Room>() {
         @Override
-        public RoomModel createFromParcel(Parcel in) { return new RoomModel(in); }
+        public Room createFromParcel(Parcel in) { return new Room(in); }
 
         @Override
-        public RoomModel[] newArray(int size) { return new RoomModel[size];}
+        public Room[] newArray(int size) { return new Room[size];}
     };
+
+    public String getMaterialType() {
+        return materialType;
+    }
 }
