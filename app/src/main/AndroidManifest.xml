@@ -37,7 +37,7 @@
             android:name=".view.RentUpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".view.TenantActivity"
             android:exported="false" />
         <activity
             android:name=".view.TenantAddActivity"
@@ -49,7 +49,7 @@
             android:name=".view.ViewTenantActivity"
             android:exported="false" />
         <activity
-            android:name=".view.TenantActivity"
+            android:name=".view.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

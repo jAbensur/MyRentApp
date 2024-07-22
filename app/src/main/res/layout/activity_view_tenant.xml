@@ -8,157 +8,177 @@
     android:orientation="vertical"
     tools:context=".view.ViewTenantActivity">
 
-    <TextView
-        android:id="@+id/viewNombre"
+    <!-- Espacio vacío arriba -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hint_TnFirstName" />
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/txtTnFirstName"
+        <TextView
+            android:id="@+id/viewNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnFirstName" />
+
+        <EditText
+            android:id="@+id/txtTnFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/viewApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnLastName" />
+
+        <EditText
+            android:id="@+id/txtTnLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/viewCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnEmail" />
+
+        <EditText
+            android:id="@+id/txtTnEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/viewTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnPhone" />
+
+        <EditText
+            android:id="@+id/txtTnPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/viewDNI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnDNI" />
+
+        <EditText
+            android:id="@+id/txtTnDNI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize="24sp" />
+
+        <!--    <TextView-->
+        <!--        android:id="@+id/viewStatus"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:text="@string/hint_TnStatus" />-->
+
+        <!--    <EditText-->
+        <!--        android:id="@+id/txtTnStatus"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:ems="10"-->
+        <!--        android:inputType="text"-->
+        <!--        android:textSize="24sp" />-->
+
+        <TextView
+            android:id="@+id/viewTipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnType" />
+
+        <!--    <EditText-->
+        <!--        android:id="@+id/txtTnType"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:ems="10"-->
+        <!--        android:inputType="text"-->
+        <!--        android:textSize="24sp" />-->
+
+        <Spinner
+            android:id="@+id/spnrType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/viewGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hint_TnGender" />
+
+        <Spinner
+            android:id="@+id/spnrGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_edit"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnReturn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cardview_dark_background"
+            android:text="@string/btn_back"
+            android:textSize="24sp" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:clickable="true"
+            android:src="@drawable/ic_edit" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fatDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:clickable="true"
+            android:src="@drawable/ic_delete" />
+    </LinearLayout>
+
+    <!-- Espacio vacío arriba -->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/viewApellido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnLastName" />
-
-    <EditText
-        android:id="@+id/txtTnLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/viewCorreo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnEmail" />
-
-    <EditText
-        android:id="@+id/txtTnEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/viewTelefono"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnPhone" />
-
-    <EditText
-        android:id="@+id/txtTnPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/viewDNI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnDNI" />
-
-    <EditText
-        android:id="@+id/txtTnDNI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:textSize="24sp" />
-
-<!--    <TextView-->
-<!--        android:id="@+id/viewStatus"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/hint_TnStatus" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/txtTnStatus"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="text"-->
-<!--        android:textSize="24sp" />-->
-
-    <TextView
-        android:id="@+id/viewTipo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnType" />
-
-<!--    <EditText-->
-<!--        android:id="@+id/txtTnType"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="text"-->
-<!--        android:textSize="24sp" />-->
-
-    <Spinner
-        android:id="@+id/spnrType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="24sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:id="@+id/viewGenero"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hint_TnGender" />
-
-    <Spinner
-        android:id="@+id/spnrGender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textSize="24sp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"/>
-
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_edit"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/btnReturn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_back"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:textSize="24sp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:clickable="true"
-        android:src="@drawable/ic_edit" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fatDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:clickable="true"
-        android:src="@drawable/ic_delete" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
