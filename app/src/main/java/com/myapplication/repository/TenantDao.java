@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
 
 import java.util.List;
@@ -29,6 +30,6 @@ public interface TenantDao {
     @Query("SELECT * FROM tenants WHERE dni LIKE :filter")
     LiveData<List<Tenant>> getTenants(String filter);
 
-    @Query("SELECT * FROM tenants WHERE id = :tenantId")
-    LiveData<Tenant> getTenantById(int tenantId);
+    @Query("SELECT * FROM tenants WHERE id=:id")
+    Tenant getTenantById(int id);
 }

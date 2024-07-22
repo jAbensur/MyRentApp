@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,8 +71,24 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
         holder.tvStartDate.setText(rent.getStartDate());
         holder.tvEndDate.setText(rent.getEndDate());
         holder.tvPrice.setText(String.valueOf(rent.getPrice()));
-        holder.tvTenant.setText(String.valueOf(rent.getTenantId()));
-        holder.tvChamber.setText(String.valueOf(rent.getChamberId()));
+
+        tenantViewModel.getTenntById(rent.getTenantId()).observe((LifecycleOwner) context, new Observer<Tenant>() {
+            @Override
+            public void onChanged(Tenant tenant) {
+                if (tenant != null) {
+                    holder.tvTenant.setText(tenant.getDni());
+                }
+            }
+        });
+
+        roomViewModel.getRoomById(rent.getChamberId()).observe((LifecycleOwner) context, new Observer<Room>() {
+            @Override
+            public void onChanged(Room room) {
+                if (room != null) {
+                    holder.tvChamber.setText(room.getNameR());
+                }
+            }
+        });
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -64,8 +64,7 @@ public class RentCreateActivity extends AppCompatActivity {
                     if (tenants == null || tenants.isEmpty()) {
                         Toast.makeText(RentCreateActivity.this, "No hay inquilinos disponibles", Toast.LENGTH_LONG).show();
                     } else {
-                        ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, tenants);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        TenantSpinnerAdapter adapter = new TenantSpinnerAdapter(RentCreateActivity.this, tenants);
                         tenantSpinner.setAdapter(adapter);
                     }
                 }
@@ -77,8 +76,7 @@ public class RentCreateActivity extends AppCompatActivity {
                     if (rooms == null || rooms.isEmpty()) {
                         Toast.makeText(RentCreateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
                     } else {
-                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, rooms);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(RentCreateActivity.this, rooms);
                         chamberSpinner.setAdapter(adapter);
                     }
                 }

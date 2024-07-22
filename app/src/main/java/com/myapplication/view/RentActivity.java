@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,8 +32,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.HashMap;
 import java.util.Map;
-import android.os.Handler;
-import android.os.Looper;
+import java.util.concurrent.Future;
 
 public class RentActivity extends AppCompatActivity {
     private EditText etSearch;
@@ -114,13 +112,9 @@ public class RentActivity extends AppCompatActivity {
         Toast.makeText(RentActivity.this, text, Toast.LENGTH_LONG).show();
     }
 
+    /*
     public void generatePDF(List<Rent> rents) {
         String pdfPath = getExternalFilesDir(null).toString() + "/rents.pdf";
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        CountDownLatch latch = new CountDownLatch(rents.size() * 2);
-        Map<Integer, Tenant> tenantMap = new HashMap<>();
-        Map<Integer, Room> roomMap = new HashMap<>();
-        Handler mainHandler = new Handler(Looper.getMainLooper());
 
         try {
             PdfWriter writer = new PdfWriter(pdfPath);
@@ -138,57 +132,17 @@ public class RentActivity extends AppCompatActivity {
             table.addCell(new Cell().add(new Paragraph("Estado")));
 
             for (Rent rent : rents) {
-                executor.execute(() -> {
-                    LiveData<Tenant> liveData = tenantViewModel.getTenantById(rent.getTenantId());
-                    mainHandler.post(() -> {
-                        liveData.observeForever(new Observer<Tenant>() {
-                            @Override
-                            public void onChanged(Tenant tenant) {
-                                if (tenant != null) {
-                                    tenantMap.put(rent.getTenantId(), tenant);
-                                }
-                                latch.countDown();
-                            }
-                        });
-                    });
-                });
-                /*
-                executor.execute(() -> {
-                    LiveData<Room> liveData = roomViewModel.getRoomById(rent.getChamberId());
-                    mainHandler.post(() -> {
-                        liveData.observeForever(new Observer<Room>() {
-                            @Override
-                            public void onChanged(Room room) {
-                                if (room != null) {
-                                    roomMap.put(rent.getChamberId(), room);
-                                }
-                                latch.countDown();
-                            }
-                        });
-                    });
-                });*/
-                latch.countDown();
-            }
-
-            try {
-                latch.await();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            for (Rent rent : rents) {
                 String state = (rent.getState() == 1) ? "Activo" : "Concluido";
 
                 table.addCell(new Cell().add(new Paragraph(rent.getStartDate())));
                 table.addCell(new Cell().add(new Paragraph(rent.getEndDate())));
                 table.addCell(new Cell().add(new Paragraph(String.valueOf(rent.getPrice()))));
-                Tenant tenant = tenantMap.get(rent.getTenantId());
+                Tenant tenant = tenantViewModel.getTenantById(rent.getTenantId());
                 if (tenant != null) {
                     table.addCell(new Cell().add(new Paragraph(tenant.getDni())));
                 } else {
                     table.addCell(new Cell().add(new Paragraph("N/A")));
                 }
-                //Room room = roomMap.get(rent.getChamberId());
                 Room room = roomViewModel.getRoomById(rent.getChamberId());
                 if (room != null) {
                     table.addCell(new Cell().add(new Paragraph(room.getNameR())));
@@ -198,7 +152,64 @@ public class RentActivity extends AppCompatActivity {
                 table.addCell(new Cell().add(new Paragraph(state)));
             }
 
-            executor.shutdown();
+            document.add(table);
+            document.close();
+
+            runOnUiThread(() -> Toast.makeText(this, "PDF generated at " + pdfPath, Toast.LENGTH_SHORT).show());
+        } catch (Exception e) {
+            e.printStackTrace();
+            runOnUiThread(() -> Toast.makeText(this, "Error generating PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        }
+    }*/
+
+    public void generatePDF(List<Rent> rents) {
+        String pdfPath = getExternalFilesDir(null).toString() + "/rents.pdf";
+
+        ExecutorService executorService = Executors.newFixedThreadPool(4);  // Crear un pool de hilos
+        List<Future<Map<String, String>>> futures = new ArrayList<>();
+
+        try {
+            for (Rent rent : rents) {
+                futures.add(executorService.submit(() -> {
+                    Map<String, String> rentDetails = new HashMap<>();
+                    rentDetails.put("startDate", rent.getStartDate());
+                    rentDetails.put("endDate", rent.getEndDate());
+                    rentDetails.put("price", String.valueOf(rent.getPrice()));
+                    rentDetails.put("state", (rent.getState() == 1) ? "Activo" : "Concluido");
+
+                    Tenant tenant = tenantViewModel.getTenntById(rent.getTenantId()).getValue();
+                    Room room = roomViewModel.getRoomById(rent.getChamberId()).getValue();
+
+                    rentDetails.put("tenantDni", tenant != null ? tenant.getDni() : "N/A");
+                    rentDetails.put("roomName", room != null ? room.getNameR() : "N/A");
+
+                    return rentDetails;
+                }));
+            }
+
+            PdfWriter writer = new PdfWriter(pdfPath);
+            PdfDocument pdfDocument = new PdfDocument(writer);
+            Document document = new Document(pdfDocument);
+
+            float[] columnWidths = {1, 2, 3, 4, 5, 6};
+            Table table = new Table(columnWidths);
+
+            table.addCell(new Cell().add(new Paragraph("Fecha inicial")));
+            table.addCell(new Cell().add(new Paragraph("Fecha final")));
+            table.addCell(new Cell().add(new Paragraph("Monto")));
+            table.addCell(new Cell().add(new Paragraph("Inquilino")));
+            table.addCell(new Cell().add(new Paragraph("Habitación")));
+            table.addCell(new Cell().add(new Paragraph("Estado")));
+
+            for (Future<Map<String, String>> future : futures) {
+                Map<String, String> rentDetails = future.get();
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("startDate"))));
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("endDate"))));
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("price"))));
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("tenantDni"))));
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("roomName"))));
+                table.addCell(new Cell().add(new Paragraph(rentDetails.get("state"))));
+            }
 
             document.add(table);
             document.close();
@@ -207,6 +218,8 @@ public class RentActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
             runOnUiThread(() -> Toast.makeText(this, "Error generating PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        } finally {
+            executorService.shutdown();
         }
     }
 

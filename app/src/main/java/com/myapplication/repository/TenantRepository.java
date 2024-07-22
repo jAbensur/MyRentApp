@@ -2,12 +2,10 @@ package com.myapplication.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
-
+import androidx.lifecycle.MutableLiveData;
 import com.myapplication.database.Database;
 import com.myapplication.model.Tenant;
-
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,7 +19,7 @@ public class TenantRepository {
         Database database = Database.getInstance(application);
         tenantDao = database.tenantDao();
         allTenants = tenantDao.getAllTenants();
-        executorService = Executors.newFixedThreadPool(2);
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public void update(Tenant tenant) {
@@ -40,8 +38,13 @@ public class TenantRepository {
         return tenantDao.getTenants("%" + filter + "%");
     }
 
-    public LiveData<Tenant> getTenantById(int tenantId) {
-        return tenantDao.getTenantById(tenantId);
+    public LiveData<Tenant> getTenantById(int id) {
+        final MutableLiveData<Tenant> tenantData = new MutableLiveData<>();
+        executorService.execute(() -> {
+            Tenant tenant = tenantDao.getTenantById(id);
+            tenantData.postValue(tenant);
+        });
+        return tenantData;
     }
 
     public void insert(Tenant tenant) {

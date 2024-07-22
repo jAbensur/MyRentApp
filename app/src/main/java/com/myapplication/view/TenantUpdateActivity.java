@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -42,21 +43,19 @@ public class TenantUpdateActivity extends AppCompatActivity {
 
         TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
-        tenantViewModel.getTenantById(tenantId).observe(TenantUpdateActivity.this,new Observer<Tenant>() {
+        tenantViewModel.getTenntById(tenantId).observe((LifecycleOwner) TenantUpdateActivity.this, new Observer<Tenant>() {
             @Override
-            public void onChanged(Tenant tenantT) {
-                tenant = tenantT;
-//                showToast("TnID: " + tenant.toString());
-//                Log.i(TAG, "TnID: " + tenant.toString());
-
-                if (tenant != null) {
+            public void onChanged(Tenant _tenant) {
+                if (_tenant != null) {
+                    tenant = _tenant;
                     populateFields();
                 }
             }
         });
-//        if (tenant != null) {
-//            populateFields();
-//        }
+        /*
+        if (tenant != null) {
+            populateFields();
+        }*/
     }
 
     private void initializeFields() {

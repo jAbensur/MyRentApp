@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -49,19 +50,22 @@ public class ViewTenantActivity extends AppCompatActivity {
 
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
 
-        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this, new Observer<Tenant>() {
-            @Override
-            public void onChanged(Tenant tenantT) {
-                tenant = tenantT; // el tenant ya tiene los datos
-//                showToast("TnID: " + tenant.toString());
-//                Log.i(TAG, "User: " + tenant.toString());
+        //tenant = tenantViewModel.getTenantById(tenantId);
 
+        tenantViewModel.getTenntById(tenantId).observe((LifecycleOwner) ViewTenantActivity.this, new Observer<Tenant>() {
+            @Override
+            public void onChanged(Tenant _tenant) {
                 if (tenant != null) {
                     populateFields();
                     disableInputFields();
                 }
             }
         });
+        /*
+        if (tenant != null) {
+            populateFields();
+            disableInputFields();
+        }*/
     }
 
     private void initializeFields() {

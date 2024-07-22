@@ -2,6 +2,8 @@ package com.myapplication.repository;
 
 import android.app.Application;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.myapplication.database.Database;
 import com.myapplication.model.Room;
 import java.util.List;
@@ -16,7 +18,7 @@ public class RoomRepository {
     public RoomRepository(Application application) {
         Database database = Database.getInstance(application);
         _roomDao = database.roomDao();
-        _executorService = Executors.newFixedThreadPool(2);
+        _executorService = Executors.newSingleThreadExecutor();
     }
 
     public void insertRoom(Room room)
@@ -40,5 +42,12 @@ public class RoomRepository {
         return _roomDao.getRooms("%" + filter + "%");
     }
 
-    public Room getRoomById(int id){ return  _roomDao.getRoomById(id);}
+    public LiveData<Room> getRoomById(int id) {
+        final MutableLiveData<Room> roomData = new MutableLiveData<>();
+        _executorService.execute(() -> {
+            Room room = _roomDao.getRoomById(id);
+            roomData.postValue(room);
+        });
+        return roomData;
+    }
 }

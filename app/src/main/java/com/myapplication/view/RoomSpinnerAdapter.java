@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
 import java.util.List;
 
-public class TenantSpinnerAdapter extends ArrayAdapter<Tenant> {
-    public TenantSpinnerAdapter(Context context, List<Tenant> tenants){
-        super(context, android.R.layout.simple_spinner_item, tenants);
+public class RoomSpinnerAdapter extends ArrayAdapter<Room> {
+    public RoomSpinnerAdapter(Context context, List<Room> rooms){
+        super(context, android.R.layout.simple_spinner_item, rooms);
         setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
     @Override
@@ -20,9 +21,9 @@ public class TenantSpinnerAdapter extends ArrayAdapter<Tenant> {
             convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_item, parent, false);
         }
 
-        Tenant tenant = getItem(position);
+        Room room = getItem(position);
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(tenant.getDni());
+        textView.setText(room.getNameR());
 
         return convertView;
     }
@@ -33,9 +34,9 @@ public class TenantSpinnerAdapter extends ArrayAdapter<Tenant> {
             convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
         }
 
-        Tenant tenant = getItem(position);
+        Room room = getItem(position);
         TextView textView = convertView.findViewById(android.R.id.text1);
-        textView.setText(tenant.getDni());
+        textView.setText(room.getNameR());
 
         return convertView;
     }
