@@ -6,16 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.R;
-import com.myapplication.model.Rent;
 import com.myapplication.model.Tenant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TenantAdapter extends RecyclerView.Adapter<TenantAdapter.TenantViewHolder> {
@@ -40,7 +37,7 @@ public class TenantAdapter extends RecyclerView.Adapter<TenantAdapter.TenantView
                 @Override
                 public void onClick(View view) {
                     Context context = view.getContext();
-                    Intent intent = new Intent(context, ViewTenantActivity.class);
+                    Intent intent = new Intent(context, TenantViewActivity.class);
                     intent.putExtra("TnID", tenantList.get(getAdapterPosition()).getId()); //envia correctamente el id
                     context.startActivity(intent);
 

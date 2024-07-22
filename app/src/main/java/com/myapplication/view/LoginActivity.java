@@ -8,11 +8,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.myapplication.R;
-import com.myapplication.model.Tenant;
 import com.myapplication.model.User;
-import com.myapplication.viewmodel.TenantViewModel;
 import com.myapplication.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -43,24 +40,18 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeFields() {
         emailLoginField = findViewById(R.id.txtEmail_Login);
         passwordLoginField = findViewById(R.id.txtPassword_Login);
-
         btnInsertDefaultUser = findViewById(R.id.button);
         btnLogin = findViewById(R.id.btnLogin);
     }
 
     private void setupButtons() {
         btnLogin.setOnClickListener(view -> {
-
-//            showToast("Boton login presionado");
             handleLogin();
-
-//            insertDefaultUser("Prueba", "prueba@gmail.com", "prueba"); // línea para probar inserción
-//            deleteUser(2); // linea para eliminar
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
             showToast("Boton prueba presionado");
-            showAllUsers(); // línea para ver todos los usuarios
+            showAllUsers();
         });
     }
 
@@ -73,13 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailLoginField.getText().toString();
         String password = passwordLoginField.getText().toString();
 
-//        String email = "prueba@gmail.com";
-//        String password = "prueba";
         if (!validateLoginInputs(email, password)) {
             return;
         }
-//        String message = "Email: " + email + "\nPassword: " + password;
-//        showToast(message);
 
         UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
         boolean valid = userViewModel.isUserValid(email, password);
@@ -111,12 +98,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void showAllUsers() {
-//        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-
-//        TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
-
         UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
-
         userViewModel.logAllUsers();
     }
 

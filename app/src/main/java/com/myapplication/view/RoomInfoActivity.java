@@ -1,19 +1,13 @@
-package com.myapplication;
+package com.myapplication.view;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.myapplication.databinding.ActivityInfoRoomBinding;
 import com.myapplication.model.Room;
-import com.myapplication.viewmodel.RoomViewModel;
 
-public class InfoRoomActivity extends AppCompatActivity {
+public class RoomInfoActivity extends AppCompatActivity {
 
     private ActivityInfoRoomBinding binding;
     private Room room;

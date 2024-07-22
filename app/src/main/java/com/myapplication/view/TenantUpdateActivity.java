@@ -2,7 +2,6 @@ package com.myapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,6 +33,8 @@ public class TenantUpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_tenant);
+        getSupportActionBar().setTitle("Actualizar Inquilino");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initializeFields();
         setupSpinners();
@@ -194,8 +195,14 @@ public class TenantUpdateActivity extends AppCompatActivity {
     }
 
     private void viewRecord() {
-        Intent intent = new Intent(this, ViewTenantActivity.class);
+        Intent intent = new Intent(this, TenantViewActivity.class);
         intent.putExtra("TnID", tenantId);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

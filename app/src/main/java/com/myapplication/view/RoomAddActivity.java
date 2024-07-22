@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -24,7 +23,7 @@ import com.myapplication.viewmodel.RoomViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddRoomActivity extends AppCompatActivity {
+public class RoomAddActivity extends AppCompatActivity {
 
     private ActivityAddRoomBinding binding;
     private PropertyViewModel propertyViewModel;
@@ -113,7 +112,7 @@ public class AddRoomActivity extends AppCompatActivity {
                 }
 
                 if(propertyId == 0){
-                    Toast.makeText(AddRoomActivity.this,"Por favor ingrese una propiedad", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RoomAddActivity.this,"Por favor ingrese una propiedad", Toast.LENGTH_LONG).show();
                     return;
                 }
 

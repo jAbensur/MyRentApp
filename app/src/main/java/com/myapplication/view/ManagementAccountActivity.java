@@ -1,4 +1,4 @@
-package com.myapplication;
+package com.myapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.myapplication.R;
 import com.myapplication.model.User;
-import com.myapplication.view.HomeActivity;
-import com.myapplication.view.TenantActivity;
 import com.myapplication.viewmodel.UserViewModel;
 
 public class ManagementAccountActivity extends AppCompatActivity {

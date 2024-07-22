@@ -63,6 +63,10 @@ public class Room implements Parcelable {
         return id;
     }
 
+    public double getPricePerMonth() {
+        return pricePerMonth;
+    }
+
     @Override
     public int describeContents() { return 0; }
 

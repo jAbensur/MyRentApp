@@ -1,7 +1,5 @@
 package com.myapplication.view;
 
-import static com.myapplication.R.*;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.myapplication.ManagementAccountActivity;
 import com.myapplication.R;
 
 public class HomeActivity extends AppCompatActivity {

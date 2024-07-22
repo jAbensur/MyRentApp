@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2"
-    tools:context=".view.AddRoomActivity">
+    tools:context=".view.RoomAddActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

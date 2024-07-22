@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.myapplication.InfoRoomActivity;
 import com.myapplication.R;
 import com.myapplication.model.Room;
 import com.myapplication.viewmodel.RoomViewModel;
@@ -81,7 +80,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         holder.ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddRoomActivity.class);
+                Intent intent = new Intent(context, RoomAddActivity.class);
                 intent.putExtra("model",room);
                 context.startActivity(intent);
             }
@@ -130,7 +129,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
         holder.ivInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, InfoRoomActivity.class);
+                Intent intent = new Intent(context, RoomInfoActivity.class);
                 intent.putExtra("model",room);
                 context.startActivity(intent);
             }

@@ -112,56 +112,6 @@ public class RentActivity extends AppCompatActivity {
         Toast.makeText(RentActivity.this, text, Toast.LENGTH_LONG).show();
     }
 
-    /*
-    public void generatePDF(List<Rent> rents) {
-        String pdfPath = getExternalFilesDir(null).toString() + "/rents.pdf";
-
-        try {
-            PdfWriter writer = new PdfWriter(pdfPath);
-            PdfDocument pdfDocument = new PdfDocument(writer);
-            Document document = new Document(pdfDocument);
-
-            float[] columnWidths = {1, 2, 3, 4, 5, 6};
-            Table table = new Table(columnWidths);
-
-            table.addCell(new Cell().add(new Paragraph("Fecha inicial")));
-            table.addCell(new Cell().add(new Paragraph("Fecha final")));
-            table.addCell(new Cell().add(new Paragraph("Monto")));
-            table.addCell(new Cell().add(new Paragraph("Inquilino")));
-            table.addCell(new Cell().add(new Paragraph("Habitación")));
-            table.addCell(new Cell().add(new Paragraph("Estado")));
-
-            for (Rent rent : rents) {
-                String state = (rent.getState() == 1) ? "Activo" : "Concluido";
-
-                table.addCell(new Cell().add(new Paragraph(rent.getStartDate())));
-                table.addCell(new Cell().add(new Paragraph(rent.getEndDate())));
-                table.addCell(new Cell().add(new Paragraph(String.valueOf(rent.getPrice()))));
-                Tenant tenant = tenantViewModel.getTenantById(rent.getTenantId());
-                if (tenant != null) {
-                    table.addCell(new Cell().add(new Paragraph(tenant.getDni())));
-                } else {
-                    table.addCell(new Cell().add(new Paragraph("N/A")));
-                }
-                Room room = roomViewModel.getRoomById(rent.getChamberId());
-                if (room != null) {
-                    table.addCell(new Cell().add(new Paragraph(room.getNameR())));
-                } else {
-                    table.addCell(new Cell().add(new Paragraph("N/A")));
-                }
-                table.addCell(new Cell().add(new Paragraph(state)));
-            }
-
-            document.add(table);
-            document.close();
-
-            runOnUiThread(() -> Toast.makeText(this, "PDF generated at " + pdfPath, Toast.LENGTH_SHORT).show());
-        } catch (Exception e) {
-            e.printStackTrace();
-            runOnUiThread(() -> Toast.makeText(this, "Error generating PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-        }
-    }*/
-
     public void generatePDF(List<Rent> rents) {
         String pdfPath = getExternalFilesDir(null).toString() + "/rents.pdf";
 

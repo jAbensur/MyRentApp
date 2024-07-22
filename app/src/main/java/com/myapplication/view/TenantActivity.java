@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,7 +25,9 @@ public class TenantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_tenant);
+        setContentView(R.layout.activity_tenant);
+        getSupportActionBar().setTitle("Gestión de Inquilinos");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fabRegister = findViewById(R.id.fabRegister);
         recyclerView = findViewById(R.id.listTenant);
@@ -38,9 +39,8 @@ public class TenantActivity extends AppCompatActivity {
 
             @Override
             public void onChanged(List<Tenant> tenants) {
-                tenantAdapter = new TenantAdapter(tenants); // entrega todos los tenant
+                tenantAdapter = new TenantAdapter(tenants);
                 recyclerView.setAdapter(tenantAdapter);
-//                message("Aca 1");
             }
         });
 
@@ -57,9 +57,14 @@ public class TenantActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     private void message(String text){
         Toast.makeText(TenantActivity.this, text, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
 }

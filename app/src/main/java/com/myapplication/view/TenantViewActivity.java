@@ -3,7 +3,6 @@ package com.myapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +21,7 @@ import com.myapplication.R;
 import com.myapplication.model.Tenant;
 import com.myapplication.viewmodel.TenantViewModel;
 
-public class ViewTenantActivity extends AppCompatActivity {
+public class TenantViewActivity extends AppCompatActivity {
 
     private EditText firstNameField, lastNameField, emailField, phoneField, dniField;
     private Button saveButton, returnButton;
@@ -52,7 +51,7 @@ public class ViewTenantActivity extends AppCompatActivity {
 
         //tenant = tenantViewModel.getTenantById(tenantId);
 
-        tenantViewModel.getTenntById(tenantId).observe((LifecycleOwner) ViewTenantActivity.this, new Observer<Tenant>() {
+        tenantViewModel.getTenntById(tenantId).observe((LifecycleOwner) TenantViewActivity.this, new Observer<Tenant>() {
             @Override
             public void onChanged(Tenant _tenant) {
                 if (tenant != null) {
@@ -100,7 +99,7 @@ public class ViewTenantActivity extends AppCompatActivity {
         returnButton.setOnClickListener(view -> returnToMain());
 
         updateButton.setOnClickListener(view -> {
-            Intent intent = new Intent(ViewTenantActivity.this, TenantUpdateActivity.class);
+            Intent intent = new Intent(TenantViewActivity.this, TenantUpdateActivity.class);
             intent.putExtra("TnID", tenantId);
             startActivity(intent);
         });
@@ -152,7 +151,7 @@ public class ViewTenantActivity extends AppCompatActivity {
     }
 
     private void showDeleteConfirmationDialog() {
-        new AlertDialog.Builder(ViewTenantActivity.this)
+        new AlertDialog.Builder(TenantViewActivity.this)
                 .setMessage("¿Desea eliminar este contacto?")
                 .setPositiveButton("Sí", (dialogInterface, i) -> {
 //                    showToast("eliminandi");
@@ -174,7 +173,7 @@ public class ViewTenantActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        Toast.makeText(ViewTenantActivity.this, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(TenantViewActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
 }

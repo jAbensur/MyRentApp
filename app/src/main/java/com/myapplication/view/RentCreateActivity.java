@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -144,6 +145,20 @@ public class RentCreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerRental();
+            }
+        });
+        chamberSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Room selectedRoom = (Room) parent.getSelectedItem();
+                if (selectedRoom != null) {
+                    etPrice.setText(String.valueOf(selectedRoom.getPricePerMonth()));
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
             }
         });
     }

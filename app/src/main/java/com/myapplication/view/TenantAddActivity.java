@@ -24,7 +24,9 @@ public class TenantAddActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_tenant);
+        setContentView(R.layout.activity_tenant_add);
+        getSupportActionBar().setTitle("Registrar Inquilino");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initializeFields();
         setupSpinners();
         setupButtons();
@@ -131,5 +133,10 @@ public class TenantAddActivity extends AppCompatActivity {
     private void returnToMain() {
         Intent intent = new Intent(this, TenantActivity.class);
         startActivity(intent);
+    }
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }
