@@ -2,7 +2,6 @@ package com.myapplication.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 @Entity(tableName = "tenants")
 public class Tenant {
     @PrimaryKey(autoGenerate = true)
