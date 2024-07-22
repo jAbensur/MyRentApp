@@ -150,16 +150,22 @@ public class ViewTenantActivity extends AppCompatActivity {
     private void showDeleteConfirmationDialog() {
         new AlertDialog.Builder(ViewTenantActivity.this)
                 .setMessage("¿Desea eliminar este contacto?")
-                .setPositiveButton("SI", (dialogInterface, i) -> {
-                    /*
-                    tenantViewModel.delete();
-                    if (tenantViewModel.delete(tenantId)) {
+                .setPositiveButton("Sí", (dialogInterface, i) -> {
+                    showToast("eliminandi");
+
+                    TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+                    tenantViewModel.delete(tenant);
+
+
+//                    showToast("User: " + tenant.toString());
+
+//                    if (tenantViewModel.delete(tenantId)) {
                         returnToMain();
-                        showToast("Se eliminó el registro");
-                    }*/
+//                        showToast("Se eliminó el registro");
+//                    }
 
                 })
-                .setNegativeButton("NO", (dialogInterface, i) -> showToast("No se eliminó el registro"))
+                .setNegativeButton("No", (dialogInterface, i) -> showToast("No se eliminó el registro"))
                 .show();
     }
 
@@ -171,4 +177,5 @@ public class ViewTenantActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(ViewTenantActivity.this, message, Toast.LENGTH_LONG).show();
     }
+
 }
