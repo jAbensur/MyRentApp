@@ -13,18 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
-import com.myapplication.model.Chamber;
+
 import com.myapplication.model.Rent;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import com.myapplication.R;
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
+import com.myapplication.viewmodel.RoomViewModel;
 import com.myapplication.viewmodel.TenantViewModel;
 
 public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder>{
@@ -32,15 +31,15 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
     private Context context;
     private RentViewModel rentViewModel;
     private TenantViewModel tenantViewModel;
-    private ChamberViewModel chamberViewModel;
+    private RoomViewModel roomViewModel;
 
     public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel,
-                       TenantViewModel tenantViewModel, ChamberViewModel chamberViewModel) {
+                       TenantViewModel tenantViewModel, RoomViewModel roomViewModel) {
         this.context = context;
         this.rentList = rentList;
         this.rentViewModel = rentViewModel;
         this.tenantViewModel = tenantViewModel;
-        this.chamberViewModel = chamberViewModel;
+        this.roomViewModel = roomViewModel;
     }
 
     public static class RentViewHolder extends RecyclerView.ViewHolder {
@@ -92,7 +91,10 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
                 });
             });
 
-            LiveData<Chamber> chamberLiveData = chamberViewModel.getChamberById(rent.getChamberId());
+            Room room = roomViewModel.getRoomById(rent.getChamberId());
+            holder.tvChamber.setText(room.getNameR());
+            /*
+            LiveData<Chamber> chamberLiveData = roomViewModel.getChamberById(rent.getChamberId());
             mainHandler.post(() -> {
                 chamberLiveData.observeForever(new Observer<Chamber>() {
                     @Override
@@ -104,7 +106,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
                         }
                     }
                 });
-            });
+            });*/
         });
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {

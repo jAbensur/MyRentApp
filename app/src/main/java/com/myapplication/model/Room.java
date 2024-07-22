@@ -55,6 +55,14 @@ public class Room implements Parcelable {
         propertyId = in.readInt();
     }
 
+    public String getNameR() {
+        return nameR;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     @Override
     public int describeContents() { return 0; }
 

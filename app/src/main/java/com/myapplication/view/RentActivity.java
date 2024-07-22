@@ -18,12 +18,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.myapplication.model.Chamber;
 import com.myapplication.model.Rent;
 import com.myapplication.R;
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
+import com.myapplication.viewmodel.RoomViewModel;
 import com.myapplication.viewmodel.TenantViewModel;
 import androidx.lifecycle.Observer;
 import java.util.ArrayList;
@@ -44,8 +44,8 @@ public class RentActivity extends AppCompatActivity {
     private RentAdapter rentAdapter;
     private List<Rent> rentList;
     private RentViewModel rentViewModel;
-    private ChamberViewModel chamberViewModel;
     private TenantViewModel tenantViewModel;
+    private RoomViewModel roomViewModel;
     private List<Tenant> tenants = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +63,14 @@ public class RentActivity extends AppCompatActivity {
         btnPdf = findViewById(R.id.btnPdf);
 
         rentViewModel =  new ViewModelProvider(this).get(RentViewModel.class);
-        chamberViewModel = new ViewModelProvider(this).get(ChamberViewModel.class);
+        roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
-        //chamberViewModel.insert(new Chamber("A1"));
-        //chamberViewModel.insert(new Chamber("A2"));
-        //chamberViewModel.insert(new Chamber("A3"));
+
         rentViewModel.getAllRents().observe(this, new Observer<List<Rent>>() {
             @Override
             public void onChanged(List<Rent> rents) {
                 rentAdapter = new RentAdapter(RentActivity.this, rents, rentViewModel,
-                        tenantViewModel, chamberViewModel);
+                        tenantViewModel, roomViewModel);
                 recyclerView.setAdapter(rentAdapter);
                 rentList = rents;
             }
@@ -121,7 +119,7 @@ public class RentActivity extends AppCompatActivity {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         CountDownLatch latch = new CountDownLatch(rents.size() * 2);
         Map<Integer, Tenant> tenantMap = new HashMap<>();
-        Map<Integer, Chamber> chamberMap = new HashMap<>();
+        Map<Integer, Room> roomMap = new HashMap<>();
         Handler mainHandler = new Handler(Looper.getMainLooper());
 
         try {
@@ -154,21 +152,22 @@ public class RentActivity extends AppCompatActivity {
                         });
                     });
                 });
-
+                /*
                 executor.execute(() -> {
-                    LiveData<Chamber> liveData = chamberViewModel.getChamberById(rent.getChamberId());
+                    LiveData<Room> liveData = roomViewModel.getRoomById(rent.getChamberId());
                     mainHandler.post(() -> {
-                        liveData.observeForever(new Observer<Chamber>() {
+                        liveData.observeForever(new Observer<Room>() {
                             @Override
-                            public void onChanged(Chamber chamber) {
-                                if (chamber != null) {
-                                    chamberMap.put(rent.getChamberId(), chamber);
+                            public void onChanged(Room room) {
+                                if (room != null) {
+                                    roomMap.put(rent.getChamberId(), room);
                                 }
                                 latch.countDown();
                             }
                         });
                     });
-                });
+                });*/
+                latch.countDown();
             }
 
             try {
@@ -189,9 +188,10 @@ public class RentActivity extends AppCompatActivity {
                 } else {
                     table.addCell(new Cell().add(new Paragraph("N/A")));
                 }
-                Chamber chamber = chamberMap.get(rent.getChamberId());
-                if (chamber != null) {
-                    table.addCell(new Cell().add(new Paragraph(chamber.getName())));
+                //Room room = roomMap.get(rent.getChamberId());
+                Room room = roomViewModel.getRoomById(rent.getChamberId());
+                if (room != null) {
+                    table.addCell(new Cell().add(new Paragraph(room.getNameR())));
                 } else {
                     table.addCell(new Cell().add(new Paragraph("N/A")));
                 }

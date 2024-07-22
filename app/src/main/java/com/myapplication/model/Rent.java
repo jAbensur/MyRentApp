@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
                         parentColumns = "id",
                         childColumns = "tenantId",
                         onDelete = ForeignKey.CASCADE),
-                @ForeignKey(entity = Chamber.class,
+                @ForeignKey(entity = Room.class,
                         parentColumns = "id",
                         childColumns = "chamberId",
                         onDelete = ForeignKey.CASCADE)

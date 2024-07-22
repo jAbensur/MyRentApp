@@ -8,17 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.myapplication.R;
-import com.myapplication.model.Chamber;
 import com.myapplication.model.Rent;
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
+import com.myapplication.viewmodel.RoomViewModel;
 import com.myapplication.viewmodel.TenantViewModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,13 +28,13 @@ public class RentUpdateActivity extends AppCompatActivity {
     private EditText etStartDate, etEndDate, etPrice;
     private Button btnCancel, btnRegister;
     private TenantViewModel tenantViewModel;
-    private ChamberViewModel chamberViewModel;
+    private RoomViewModel roomViewModel;
     private RentViewModel rentViewModel;
     private Spinner tenantSpinner, chamberSpinner;
     private int rentId;
     private Rent rent;
     private List<Tenant> tenantList;
-    private List<Chamber> chamberList;
+    private List<Room> chamberList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +56,7 @@ public class RentUpdateActivity extends AppCompatActivity {
         rentId = getIntent().getIntExtra("id", -1);
 
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
-        chamberViewModel = new ViewModelProvider(this).get(ChamberViewModel.class);
+        roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
         rentViewModel = new ViewModelProvider(this).get(RentViewModel.class);
 
         tenantViewModel.getAllTenants().observe(this, new Observer<List<Tenant>>() {
@@ -94,14 +93,14 @@ public class RentUpdateActivity extends AppCompatActivity {
             }
 
         });
-        chamberViewModel.getAllChambers().observe(this, new Observer<List<Chamber>>() {
+        roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
             @Override
-            public void onChanged(List<Chamber> chambers) {
+            public void onChanged(List<Room> chambers) {
                 if (chambers == null || chambers.isEmpty()) {
                     Toast.makeText(RentUpdateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
                 } else {
                     chamberList = chambers;
-                    ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                    ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     chamberSpinner.setAdapter(adapter);
                     rentViewModel.getRentById(rentId).observe(RentUpdateActivity.this,new Observer<Rent>() {
@@ -151,10 +150,10 @@ public class RentUpdateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                chamberViewModel.getChambers(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Chamber>>() {
+                roomViewModel.getRooms(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Room>>() {
                     @Override
-                    public void onChanged(List<Chamber> chambers) {
-                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                    public void onChanged(List<Room> chambers) {
+                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         chamberSpinner.setAdapter(adapter);
                     }
@@ -189,7 +188,7 @@ public class RentUpdateActivity extends AppCompatActivity {
         String endDate = etEndDate.getText().toString();
         String price = etPrice.getText().toString();
         Tenant selectedTenant = (Tenant) tenantSpinner.getSelectedItem();
-        Chamber selectedChamber = (Chamber) chamberSpinner.getSelectedItem();
+        Room selectedChamber = (Room) chamberSpinner.getSelectedItem();
 
         if(isValidInputs(startDate, endDate, price, selectedTenant.getId(), selectedChamber.getId())){
             message("Success");

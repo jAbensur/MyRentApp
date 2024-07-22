@@ -30,5 +30,10 @@ public class RoomViewModel extends AndroidViewModel {
 
     public LiveData<List<Room>> getAllRooms(){ return _allRooms; }
 
+    public LiveData<List<Room>> getRooms(String filter) {
+        return _repository.getRooms(filter);
+    }
+
     public Room getRoomById(int id){ return _repository.getRoomById(id); }
+
 }

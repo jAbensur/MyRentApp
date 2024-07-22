@@ -9,17 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.Observer;
 import com.myapplication.R;
-import com.myapplication.model.Chamber;
 import com.myapplication.model.Rent;
+import com.myapplication.model.Room;
 import com.myapplication.model.Tenant;
-import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
+import com.myapplication.viewmodel.RoomViewModel;
 import com.myapplication.viewmodel.TenantViewModel;
 import java.text.ParseException;
 import java.util.Date;
@@ -32,7 +31,7 @@ public class RentCreateActivity extends AppCompatActivity {
     private EditText etStartDate, etEndDate, etPrice;
     private Button btnCancel, btnRegister;
     private TenantViewModel tenantViewModel;
-    private ChamberViewModel chamberViewModel;
+    private RoomViewModel roomViewModel;
     private RentViewModel rentViewModel;
     private Spinner tenantSpinner, chamberSpinner;
 
@@ -55,7 +54,7 @@ public class RentCreateActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
 
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
-        chamberViewModel = new ViewModelProvider(this).get(ChamberViewModel.class);
+        roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
         rentViewModel = new ViewModelProvider(this).get(RentViewModel.class);
 
         try {
@@ -72,13 +71,13 @@ public class RentCreateActivity extends AppCompatActivity {
                 }
 
             });
-            chamberViewModel.getAllChambers().observe(this, new Observer<List<Chamber>>() {
+            roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
                 @Override
-                public void onChanged(List<Chamber> chambers) {
-                    if (chambers == null || chambers.isEmpty()) {
+                public void onChanged(List<Room> rooms) {
+                    if (rooms == null || rooms.isEmpty()) {
                         Toast.makeText(RentCreateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
                     } else {
-                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, rooms);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         chamberSpinner.setAdapter(adapter);
                     }
@@ -122,10 +121,10 @@ public class RentCreateActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                chamberViewModel.getChambers(s.toString()).observe(RentCreateActivity.this, new Observer<List<Chamber>>() {
+                roomViewModel.getRooms(s.toString()).observe(RentCreateActivity.this, new Observer<List<Room>>() {
                     @Override
-                    public void onChanged(List<Chamber> chambers) {
-                        ArrayAdapter<Chamber> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, chambers);
+                    public void onChanged(List<Room> rooms) {
+                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentCreateActivity.this, android.R.layout.simple_spinner_item, rooms);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         chamberSpinner.setAdapter(adapter);
                     }
@@ -159,7 +158,7 @@ public class RentCreateActivity extends AppCompatActivity {
         String endDate = etEndDate.getText().toString();
         String price = etPrice.getText().toString();
         Tenant selectedTenant = (Tenant) tenantSpinner.getSelectedItem();
-        Chamber selectedChamber = (Chamber) chamberSpinner.getSelectedItem();
+        Room selectedChamber = (Room) chamberSpinner.getSelectedItem();
 
         if(isValidInputs(startDate, endDate, price, selectedTenant.getId(), selectedChamber.getId())){
             message("Success");
