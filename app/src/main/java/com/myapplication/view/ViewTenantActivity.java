@@ -10,10 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.R;
 import com.myapplication.model.Tenant;
@@ -45,21 +47,21 @@ public class ViewTenantActivity extends AppCompatActivity {
 
 //        showToast("TnID: "+tenantId);
 
-        tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+        tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
 
-        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this,new Observer<Tenant>() {
+        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this, new Observer<Tenant>() {
             @Override
             public void onChanged(Tenant tenantT) {
                 tenant = tenantT; // el tenant ya tiene los datos
-                showToast("TnID: "+tenant.toString());
-                Log.i(TAG, "User: " + tenant.toString());
+//                showToast("TnID: " + tenant.toString());
+//                Log.i(TAG, "User: " + tenant.toString());
+
+                if (tenant != null) {
+                    populateFields();
+                    disableInputFields();
+                }
             }
         });
-
-        if (tenant != null) {
-            populateFields();
-            disableInputFields();
-        }
     }
 
     private void initializeFields() {
@@ -112,6 +114,7 @@ public class ViewTenantActivity extends AppCompatActivity {
 
     private void populateFields() {
         firstNameField.setText(tenant.getFirstName());
+
         lastNameField.setText(tenant.getLastName());
         emailField.setText(tenant.getEmail());
         phoneField.setText(tenant.getPhone());
@@ -154,6 +157,7 @@ public class ViewTenantActivity extends AppCompatActivity {
                         returnToMain();
                         showToast("Se eliminó el registro");
                     }*/
+
                 })
                 .setNegativeButton("NO", (dialogInterface, i) -> showToast("No se eliminó el registro"))
                 .show();

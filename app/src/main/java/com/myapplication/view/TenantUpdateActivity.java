@@ -2,6 +2,7 @@ package com.myapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,7 @@ public class TenantUpdateActivity extends AppCompatActivity {
 
     private Tenant tenant;
     private int tenantId = 0;
+    private static final String TAG = "ViewTenantActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +44,19 @@ public class TenantUpdateActivity extends AppCompatActivity {
 
         tenantViewModel.getTenantById(tenantId).observe(TenantUpdateActivity.this,new Observer<Tenant>() {
             @Override
-            public void onChanged(Tenant tenant) {
-                tenant = tenant;
+            public void onChanged(Tenant tenantT) {
+                tenant = tenantT;
+//                showToast("TnID: " + tenant.toString());
+//                Log.i(TAG, "TnID: " + tenant.toString());
+
+                if (tenant != null) {
+                    populateFields();
+                }
             }
         });
-        if (tenant != null) {
-            populateFields();
-        }
+//        if (tenant != null) {
+//            populateFields();
+//        }
     }
 
     private void initializeFields() {
@@ -142,14 +150,9 @@ public class TenantUpdateActivity extends AppCompatActivity {
         tenant.setGender(gender);
 
         tenantViewModel.update(tenant);
-        //boolean isUpdated = tenantViewModel.update(tenant);
-        /*
-        if (isUpdated) {
-            showToast("Registro actualizado correctamente");
-            viewRecord();
-        } else {
-            showToast("Error al actualizar registro");
-        }*/
+        showToast("Registro actualizado correctamente");
+
+        returnToMain();
     }
 
     private boolean validateInputs() {
