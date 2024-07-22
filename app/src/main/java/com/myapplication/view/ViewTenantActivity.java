@@ -3,16 +3,19 @@ package com.myapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.myapplication.R;
 import com.myapplication.model.Tenant;
@@ -29,6 +32,8 @@ public class ViewTenantActivity extends AppCompatActivity {
     private int tenantId = 0;
     private TenantViewModel tenantViewModel;
 
+    private static final String TAG = "ViewTenantActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,19 +45,23 @@ public class ViewTenantActivity extends AppCompatActivity {
 
         tenantId = getTenantIdFromIntent(savedInstanceState);
 
-        tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+//        showToast("TnID: "+tenantId);
 
-        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this,new Observer<Tenant>() {
+        tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
+
+        tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this, new Observer<Tenant>() {
             @Override
-            public void onChanged(Tenant tenant) {
-                tenant = tenant;
+            public void onChanged(Tenant tenantT) {
+                tenant = tenantT; // el tenant ya tiene los datos
+//                showToast("TnID: " + tenant.toString());
+//                Log.i(TAG, "User: " + tenant.toString());
+
+                if (tenant != null) {
+                    populateFields();
+                    disableInputFields();
+                }
             }
         });
-
-        if (tenant != null) {
-            populateFields();
-            disableInputFields();
-        }
     }
 
     private void initializeFields() {
@@ -105,6 +114,7 @@ public class ViewTenantActivity extends AppCompatActivity {
 
     private void populateFields() {
         firstNameField.setText(tenant.getFirstName());
+
         lastNameField.setText(tenant.getLastName());
         emailField.setText(tenant.getEmail());
         phoneField.setText(tenant.getPhone());
@@ -140,15 +150,17 @@ public class ViewTenantActivity extends AppCompatActivity {
     private void showDeleteConfirmationDialog() {
         new AlertDialog.Builder(ViewTenantActivity.this)
                 .setMessage("¿Desea eliminar este contacto?")
-                .setPositiveButton("SI", (dialogInterface, i) -> {
-                    /*
-                    tenantViewModel.delete();
-                    if (tenantViewModel.delete(tenantId)) {
+                .setPositiveButton("Sí", (dialogInterface, i) -> {
+//                    showToast("eliminandi");
+
+                    TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+                    tenantViewModel.delete(tenant);
+//                    showToast("User: " + tenant.toString());
                         returnToMain();
                         showToast("Se eliminó el registro");
-                    }*/
+
                 })
-                .setNegativeButton("NO", (dialogInterface, i) -> showToast("No se eliminó el registro"))
+                .setNegativeButton("No", (dialogInterface, i) -> showToast("No se eliminó el registro"))
                 .show();
     }
 
@@ -160,4 +172,5 @@ public class ViewTenantActivity extends AppCompatActivity {
     private void showToast(String message) {
         Toast.makeText(ViewTenantActivity.this, message, Toast.LENGTH_LONG).show();
     }
+
 }

@@ -7,21 +7,28 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
+
 import com.myapplication.model.Tenant;
+
 import java.util.List;
 
 @Dao
 public interface TenantDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Tenant tenant);
+
     @Update
     void update(Tenant tenant);
+
     @Delete
     void delete(Tenant tenant);
+
     @Query("SELECT * FROM tenants")
     LiveData<List<Tenant>> getAllTenants();
+
     @Query("SELECT * FROM tenants WHERE dni LIKE :filter")
     LiveData<List<Tenant>> getTenants(String filter);
+
     @Query("SELECT * FROM tenants WHERE id = :tenantId")
     LiveData<Tenant> getTenantById(int tenantId);
 }

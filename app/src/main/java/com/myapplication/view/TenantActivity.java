@@ -3,6 +3,8 @@ package com.myapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,10 +35,12 @@ public class TenantActivity extends AppCompatActivity {
         tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
         tenantViewModel.getAllTenants().observe(this, new Observer<List<Tenant>>() {
+
             @Override
             public void onChanged(List<Tenant> tenants) {
-                tenantAdapter = new TenantAdapter(tenants);
+                tenantAdapter = new TenantAdapter(tenants); // entrega todos los tenant
                 recyclerView.setAdapter(tenantAdapter);
+//                message("Aca 1");
             }
         });
 
@@ -51,6 +55,11 @@ public class TenantActivity extends AppCompatActivity {
     private void newRegistration(){
         Intent intent = new Intent(this, TenantAddActivity.class);
         startActivity(intent);
+    }
+
+
+    private void message(String text){
+        Toast.makeText(TenantActivity.this, text, Toast.LENGTH_LONG).show();
     }
 
 }

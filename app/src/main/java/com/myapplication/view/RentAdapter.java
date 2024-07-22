@@ -73,42 +73,6 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
         holder.tvTenant.setText(String.valueOf(rent.getTenantId()));
         holder.tvChamber.setText(String.valueOf(rent.getChamberId()));
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Handler mainHandler = new Handler(Looper.getMainLooper());
-
-        executor.execute(() -> {
-            LiveData<Tenant> tenantLiveData = tenantViewModel.getTenantById(rent.getTenantId());
-            mainHandler.post(() -> {
-                tenantLiveData.observeForever(new Observer<Tenant>() {
-                    @Override
-                    public void onChanged(Tenant tenant) {
-                        if (tenant != null) {
-                            holder.tvTenant.setText(tenant.getDni());
-                        } else {
-                            holder.tvTenant.setText("N/A");
-                        }
-                    }
-                });
-            });
-
-            Room room = roomViewModel.getRoomById(rent.getChamberId());
-            holder.tvChamber.setText(room.getNameR());
-            /*
-            LiveData<Chamber> chamberLiveData = roomViewModel.getChamberById(rent.getChamberId());
-            mainHandler.post(() -> {
-                chamberLiveData.observeForever(new Observer<Chamber>() {
-                    @Override
-                    public void onChanged(Chamber chamber) {
-                        if (chamber != null) {
-                            holder.tvChamber.setText(chamber.getName());
-                        } else {
-                            holder.tvChamber.setText("N/A");
-                        }
-                    }
-                });
-            });*/
-        });
-
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -7,8 +7,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.myapplication.R;
+import com.myapplication.model.Tenant;
+import com.myapplication.model.User;
+import com.myapplication.viewmodel.TenantViewModel;
 import com.myapplication.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -22,6 +26,18 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeFields();
         setupButtons();
+        inserUser();
+    }
+
+    private void inserUser(){
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getAllUsers().observe(this, users -> {
+            if (users == null || users.isEmpty()) {
+                // Agregar usuario por defecto si la lista está vacía
+                insertDefaultUser("Default User", "admin@gmail.com", "admin");
+                showToast("Usuario por defecto agregado.");
+            }
+        });
     }
 
     private void initializeFields() {
@@ -34,50 +50,44 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupButtons() {
         btnLogin.setOnClickListener(view -> {
+
+//            showToast("Boton login presionado");
             handleLogin();
 
-//            deleteUser(1); // linea para eliminar
+//            insertDefaultUser("Prueba", "prueba@gmail.com", "prueba"); // línea para probar inserción
+//            deleteUser(2); // linea para eliminar
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
-//             insertDefaultUser("Russell Nobaru", "Prueba", "Prueba", "admin", "ruselcucho@gmail.com"); // línea para probar inserción
+            showToast("Boton prueba presionado");
             showAllUsers(); // línea para ver todos los usuarios
-//            showToast("Boton presionado");
         });
     }
 
-    private void deleteUser(int userId) {
-        /*
-        UserViewModel tenantViewModel = new UserViewModel(LoginActivity.this);
-        if (tenantViewModel.deleteUser(userId)) {
-//        returnToMain();
-            showToast("Se eliminó el registro");
-        }*/
+    private void deleteUser(int indice) {
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.deleteById(indice);
     }
 
     private void handleLogin() {
         String email = emailLoginField.getText().toString();
         String password = passwordLoginField.getText().toString();
 
-//        if (validateLoginInputs(email, password)) {
-//            String message = "Email: " + email + "\nPassword: " + password;
-//            showToast(message);
-//        }
-
+//        String email = "prueba@gmail.com";
+//        String password = "prueba";
         if (!validateLoginInputs(email, password)) {
             return;
         }
+//        String message = "Email: " + email + "\nPassword: " + password;
+//        showToast(message);
 
-        //UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-        //boolean isLoggedIn = userViewModel.login(email, password);
-        /*
-        if (isLoggedIn) {
-            showToast("Inicio de sesión exitoso");
-            goToHome();
-        } else {
-            showToast("Credenciales incorrectas");
-        }*/
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        boolean valid = userViewModel.isUserValid(email, password);
 
+        if (!valid) {
+            showToast("Credenciales incorrectas.");
+            return;
+        }
         showToast("Inicio de sesión exitoso");
         goToHome();
     }
@@ -95,22 +105,19 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    private void insertDefaultUser(String firstName, String lastName, String userName, String password, String email) {
-        /*
-        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-
-        long userId = userViewModel.insertUser(firstName, lastName, userName, password, email);
-
-        if (userId <= 0) {
-            showToast("ERROR AL GUARDAR REGISTRO");
-            return;
-        }
-        showToast("REGISTRO GUARDADO");*/
+    private void insertDefaultUser(String name, String email, String password) {
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.insert( new User(name, email, password));
     }
 
     private void showAllUsers() {
-        //UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
-        //userViewModel.getAllUsers();
+//        UserViewModel userViewModel = new UserViewModel(LoginActivity.this);
+
+//        TenantViewModel tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
+
+        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
+
+        userViewModel.logAllUsers();
     }
 
     private void showToast(String message) {
