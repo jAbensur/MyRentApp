@@ -26,6 +26,18 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeFields();
         setupButtons();
+        inserUser();
+    }
+
+    private void inserUser(){
+        UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getAllUsers().observe(this, users -> {
+            if (users == null || users.isEmpty()) {
+                // Agregar usuario por defecto si la lista está vacía
+                insertDefaultUser("Default User", "admin@gmail.com", "admin");
+                showToast("Usuario por defecto agregado.");
+            }
+        });
     }
 
     private void initializeFields() {

@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonUserIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Usuario");
+//                showToast("Usuario");
                 Intent intent = new Intent(HomeActivity.this, ManagementAccountActivity.class);
                 startActivity(intent);
             }

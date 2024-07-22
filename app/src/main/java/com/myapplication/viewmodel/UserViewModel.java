@@ -67,4 +67,5 @@ public class UserViewModel extends AndroidViewModel {
     public LiveData<User> getUserById(int userId) {
         return userRepository.getUserById(userId);
     }
+
 }
