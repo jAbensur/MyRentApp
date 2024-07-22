@@ -126,14 +126,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.ViewHolder> {
             }
         });
 
-        holder.ivInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, PropertyAddActivity.class);
-                intent.putExtra("model",room);
-                context.startActivity(intent);
-            }
-        });
+//        holder.ivInfo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context, PropertyAddActivity.class);
+//                intent.putExtra("model",room);
+//                context.startActivity(intent);
+//            }
+//        });
 
     }
 
