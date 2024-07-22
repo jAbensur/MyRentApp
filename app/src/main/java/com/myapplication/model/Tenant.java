@@ -103,6 +103,16 @@ public class Tenant {
 
     @Override
     public String toString() {
-        return dni;
+        return "Tenant{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", dni='" + dni + '\'' +
+                ", status='" + status + '\'' +
+                ", type='" + type + '\'' +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

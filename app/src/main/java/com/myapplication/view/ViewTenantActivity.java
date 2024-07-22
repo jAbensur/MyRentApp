@@ -3,6 +3,7 @@ package com.myapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,6 +30,8 @@ public class ViewTenantActivity extends AppCompatActivity {
     private int tenantId = 0;
     private TenantViewModel tenantViewModel;
 
+    private static final String TAG = "ViewTenantActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +43,16 @@ public class ViewTenantActivity extends AppCompatActivity {
 
         tenantId = getTenantIdFromIntent(savedInstanceState);
 
+//        showToast("TnID: "+tenantId);
+
         tenantViewModel =  new ViewModelProvider(this).get(TenantViewModel.class);
 
         tenantViewModel.getTenantById(tenantId).observe(ViewTenantActivity.this,new Observer<Tenant>() {
             @Override
-            public void onChanged(Tenant tenant) {
-                tenant = tenant;
+            public void onChanged(Tenant tenantT) {
+                tenant = tenantT; // el tenant ya tiene los datos
+                showToast("TnID: "+tenant.toString());
+                Log.i(TAG, "User: " + tenant.toString());
             }
         });
 

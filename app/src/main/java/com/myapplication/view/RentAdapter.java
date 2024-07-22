@@ -2,11 +2,14 @@ package com.myapplication.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.myapplication.model.Rent;
@@ -18,6 +21,8 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
     private List<Rent> rentList;
     private Context context;
     private RentViewModel rentViewModel;
+
+    private final String TAG = "RentAdapter";
 
     public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel) {
         this.context = context;
@@ -32,6 +37,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
         TextView tvTenant;
         TextView tvChamber;
         Button btnEdit, btnDelete;
+
         public RentViewHolder(@NonNull View itemView) {
             super(itemView);
             tvStartDate = itemView.findViewById(R.id.tvStartDate);
@@ -67,6 +73,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
                 intent.putExtra("id", rent.getId());
                 context.startActivity(intent);
             }
+//            Log.i(TAG, "Llego"); // aca chatgpt
         });
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -82,4 +89,5 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
     public int getItemCount() {
         return rentList.size();
     }
+
 }
