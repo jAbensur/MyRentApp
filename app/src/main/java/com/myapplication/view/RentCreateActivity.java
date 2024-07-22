@@ -30,18 +30,18 @@ import java.util.Locale;
 
 public class RentCreateActivity extends AppCompatActivity {
     private EditText etStartDate, etEndDate, etPrice;
-    private TextView tvTitle;
     private Button btnCancel, btnRegister;
     private TenantViewModel tenantViewModel;
     private ChamberViewModel chamberViewModel;
     private RentViewModel rentViewModel;
-    private Spinner tenantSpinner;
-    private Spinner chamberSpinner;
+    private Spinner tenantSpinner, chamberSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_create);
+        getSupportActionBar().setTitle("Registrar Alquiler");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         EditText editTextFilterTenant = findViewById(R.id.searchTenant);
         EditText editTextFilterChamber = findViewById(R.id.searchChamber);
@@ -53,21 +53,12 @@ public class RentCreateActivity extends AppCompatActivity {
         etPrice = findViewById(R.id.etPrice);
         btnCancel = findViewById(R.id.btnCancel);
         btnRegister = findViewById(R.id.btnRegister);
-        tvTitle = findViewById(R.id.tvTitle);
 
         tenantViewModel = new ViewModelProvider(this).get(TenantViewModel.class);
         chamberViewModel = new ViewModelProvider(this).get(ChamberViewModel.class);
         rentViewModel = new ViewModelProvider(this).get(RentViewModel.class);
 
         try {
-
-            //tenantViewModel.insert(new Tenant("Tenant 1"));
-            //tenantViewModel.insert(new Tenant("Tenant 2"));
-            //tenantViewModel.insert(new Tenant("Tenant 3"));
-            //chamberViewModel.insert(new Chamber("Chamber 1"));
-            //chamberViewModel.insert(new Chamber("Chamber 2"));
-            //chamberViewModel.insert(new Chamber("Chamber 3"));
-
             tenantViewModel.getAllTenants().observe(this, new Observer<List<Tenant>>() {
                 @Override
                 public void onChanged(List<Tenant> tenants) {
@@ -93,8 +84,6 @@ public class RentCreateActivity extends AppCompatActivity {
                     }
                 }
             });
-
-            tvTitle.setText("Registrar Alquiler");
 
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
@@ -224,5 +213,11 @@ public class RentCreateActivity extends AppCompatActivity {
         } catch (ParseException e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

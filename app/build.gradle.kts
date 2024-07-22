@@ -55,4 +55,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata:$lifecycle_version")
+
+    // iText for PDF generation
+    implementation("com.itextpdf:itext7-core:7.1.15")
+    implementation("com.itextpdf:forms:7.1.15")
 }

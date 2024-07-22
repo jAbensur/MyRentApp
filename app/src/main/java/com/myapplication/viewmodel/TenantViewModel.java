@@ -4,6 +4,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
 import com.myapplication.model.Tenant;
 import com.myapplication.repository.TenantRepository;
 import java.util.List;
@@ -11,6 +14,8 @@ import java.util.List;
 public class TenantViewModel extends AndroidViewModel {
     private TenantRepository tenantRepository;
     private LiveData<List<Tenant>> allTenants;
+    private LiveData<Tenant> tenant;
+    private MutableLiveData<String> tenantDni = new MutableLiveData<>();
     public TenantViewModel(@NonNull Application application) {
         super(application);
         tenantRepository = new TenantRepository(application);
@@ -32,6 +37,10 @@ public class TenantViewModel extends AndroidViewModel {
         return allTenants;
     }
     public LiveData<Tenant> getTenantById(int tenantId){
-        return tenantRepository.getTenantById(tenantId);
+        tenant = tenantRepository.getTenantById(tenantId);
+        return tenant;
+    }
+    public LiveData<String> getTenantDni() {
+        return tenantDni;
     }
 }

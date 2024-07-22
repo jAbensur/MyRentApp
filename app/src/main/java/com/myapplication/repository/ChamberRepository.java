@@ -28,6 +28,9 @@ public class ChamberRepository {
     public LiveData<List<Chamber>> getChambers(String filter) {
         return chamberDao.getChambers("%" + filter + "%");
     }
+    public LiveData<Chamber> getChamberById(int chamberId){
+        return chamberDao.getChamberById(chamberId);
+    }
     public void insert(Chamber chamber) {
         new insertAsyncTask(chamberDao).execute(chamber);
     }

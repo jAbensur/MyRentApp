@@ -2,35 +2,49 @@ package com.myapplication.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
+import com.myapplication.model.Chamber;
 import com.myapplication.model.Rent;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import com.myapplication.R;
+import com.myapplication.model.Tenant;
+import com.myapplication.viewmodel.ChamberViewModel;
 import com.myapplication.viewmodel.RentViewModel;
+import com.myapplication.viewmodel.TenantViewModel;
 
 public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder>{
     private List<Rent> rentList;
     private Context context;
     private RentViewModel rentViewModel;
+    private TenantViewModel tenantViewModel;
+    private ChamberViewModel chamberViewModel;
 
-    public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel) {
+    public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel,
+                       TenantViewModel tenantViewModel, ChamberViewModel chamberViewModel) {
         this.context = context;
         this.rentList = rentList;
         this.rentViewModel = rentViewModel;
+        this.tenantViewModel = tenantViewModel;
+        this.chamberViewModel = chamberViewModel;
     }
 
     public static class RentViewHolder extends RecyclerView.ViewHolder {
-        TextView tvStartDate;
-        TextView tvEndDate;
-        TextView tvPrice;
-        TextView tvTenant;
-        TextView tvChamber;
+        TextView tvStartDate, tvEndDate, tvPrice, tvTenant, tvChamber;
         Button btnEdit, btnDelete;
         public RentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +73,39 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
         holder.tvPrice.setText(String.valueOf(rent.getPrice()));
         holder.tvTenant.setText(String.valueOf(rent.getTenantId()));
         holder.tvChamber.setText(String.valueOf(rent.getChamberId()));
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+
+        executor.execute(() -> {
+            LiveData<Tenant> tenantLiveData = tenantViewModel.getTenantById(rent.getTenantId());
+            mainHandler.post(() -> {
+                tenantLiveData.observeForever(new Observer<Tenant>() {
+                    @Override
+                    public void onChanged(Tenant tenant) {
+                        if (tenant != null) {
+                            holder.tvTenant.setText(tenant.getDni());
+                        } else {
+                            holder.tvTenant.setText("N/A");
+                        }
+                    }
+                });
+            });
+
+            LiveData<Chamber> chamberLiveData = chamberViewModel.getChamberById(rent.getChamberId());
+            mainHandler.post(() -> {
+                chamberLiveData.observeForever(new Observer<Chamber>() {
+                    @Override
+                    public void onChanged(Chamber chamber) {
+                        if (chamber != null) {
+                            holder.tvChamber.setText(chamber.getName());
+                        } else {
+                            holder.tvChamber.setText("N/A");
+                        }
+                    }
+                });
+            });
+        });
 
         holder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override

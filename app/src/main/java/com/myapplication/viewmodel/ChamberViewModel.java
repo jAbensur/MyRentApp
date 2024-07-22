@@ -25,4 +25,7 @@ public class ChamberViewModel extends AndroidViewModel {
     public LiveData<List<Chamber>> getChambers(String filter) {
         return chamberRepository.getChambers(filter);
     }
+    public LiveData<Chamber> getChamberById(int chamberId){
+        return chamberRepository.getChamberById(chamberId);
+    }
 }

@@ -8,26 +8,14 @@
     tools:context=".view.RentCreateActivity">
 
     <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
         android:id="@+id/tvStartDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Fecha inicial"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="16dp" />
 
     <EditText

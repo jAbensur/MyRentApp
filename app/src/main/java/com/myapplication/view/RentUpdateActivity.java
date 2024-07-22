@@ -27,13 +27,11 @@ import java.util.List;
 
 public class RentUpdateActivity extends AppCompatActivity {
     private EditText etStartDate, etEndDate, etPrice;
-    private TextView tvTitle;
     private Button btnCancel, btnRegister;
     private TenantViewModel tenantViewModel;
     private ChamberViewModel chamberViewModel;
     private RentViewModel rentViewModel;
-    private Spinner tenantSpinner;
-    private Spinner chamberSpinner;
+    private Spinner tenantSpinner, chamberSpinner;
     private int rentId;
     private Rent rent;
     private List<Tenant> tenantList;
@@ -42,6 +40,8 @@ public class RentUpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_update);
+        getSupportActionBar().setTitle("Actualizar Alquiler");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         EditText editTextFilterTenant = findViewById(R.id.searchTenant);
         EditText editTextFilterChamber = findViewById(R.id.searchChamber);
@@ -53,7 +53,6 @@ public class RentUpdateActivity extends AppCompatActivity {
         etPrice = findViewById(R.id.etPrice);
         btnCancel = findViewById(R.id.btnCancel);
         btnRegister = findViewById(R.id.btnRegister);
-        tvTitle = findViewById(R.id.tvTitle);
 
         rentId = getIntent().getIntExtra("id", -1);
 
@@ -246,5 +245,11 @@ public class RentUpdateActivity extends AppCompatActivity {
 
     private void message(String text){
         Toast.makeText(RentUpdateActivity.this, text, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        getOnBackPressedDispatcher().onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }

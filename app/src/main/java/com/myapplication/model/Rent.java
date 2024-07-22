@@ -1,5 +1,6 @@
 package com.myapplication.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -18,6 +19,7 @@ import androidx.room.PrimaryKey;
 public class Rent {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    @ColumnInfo(name = "startDate")
     private String startDate;
     private String endDate;
     private double price;
