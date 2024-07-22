@@ -45,7 +45,6 @@ public class AddRoomActivity extends AppCompatActivity {
 
         binding = ActivityAddRoomBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        initDropDown();
 
         edtNameRoom = findViewById(R.id.edtNameR);
         edtNumberRoom = findViewById(R.id.edtRoomNumber);
@@ -61,10 +60,20 @@ public class AddRoomActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
         propertyViewModel = new ViewModelProvider(this).get(PropertyViewModel.class);
         roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
+
+        if (getIntent().hasExtra("model")){
+            room = getIntent().getParcelableExtra("model");
+            edtNameRoom.setText(room.nameR);
+            edtNumberRoom.setText(String.valueOf(room.number));
+            edtCapacity.setText(String.valueOf(room.capacity));
+            edtDescription.setText(room.description);
+            edtPrice.setText(String.valueOf(room.pricePerMonth));
+            isEdit=true;
+        }
+
+        initDropDown();
 
         propertyViewModel.getAllPropertiesLive().observe(this, new Observer<List<Property>>() {
             @Override
@@ -77,19 +86,12 @@ public class AddRoomActivity extends AppCompatActivity {
                 selectPropertyAdapter.clear();
                 selectPropertyAdapter.addAll(propertyNames);
                 selectPropertyAdapter.notifyDataSetChanged();
+
+                if(room != null){
+                    setDefaultProperty(room.propertyId);
+                }
             }
         });
-
-        if (getIntent().hasExtra("model")){
-            room = getIntent().getParcelableExtra("model");
-            edtNameRoom.setText(room.nameR);
-            edtNumberRoom.setText(String.valueOf(room.number));
-            edtCapacity.setText(String.valueOf(room.capacity));
-            edtDescription.setText(room.description);
-            edtPrice.setText(String.valueOf(room.pricePerMonth));
-            setDefaultProperty(room.propertyId);
-            isEdit=true;
-        }
 
         if (isEdit)
         {
@@ -104,11 +106,15 @@ public class AddRoomActivity extends AppCompatActivity {
 
                 Property property = selectedProperty(selectPropertyAutocomplete);
 
-                int propertyId = property.getId();
+                int propertyId = 0;
+
+                if(property != null){
+                    propertyId = property.getId();
+                }
 
                 if(propertyId == 0){
                     Toast.makeText(AddRoomActivity.this,"Por favor ingrese una propiedad", Toast.LENGTH_LONG).show();
-                    finish();
+                    return;
                 }
 
                 if (isEdit){
@@ -145,15 +151,19 @@ public class AddRoomActivity extends AppCompatActivity {
     private void initDropDown(){
         ArrayAdapter<String> arrayAdapter =new ArrayAdapter<>(this, android.R.layout.select_dialog_item, roomMaterials);
         binding.edtRoomMaterial.setAdapter(arrayAdapter);
-        binding.edtRoomMaterial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                roomMaterial = (String) adapterView.getItemAtPosition(position);
+
+        if(room != null && room.getMaterialType() != null){
+            int position = arrayAdapter.getPosition(room.getMaterialType());
+
+            if (position >= 0){
+                binding.edtRoomMaterial.setText(room.getMaterialType(), false);
             }
+        }
 
+        binding.edtRoomMaterial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                roomMaterial = (String) adapterView.getItemAtPosition(position);
             }
         });
     }

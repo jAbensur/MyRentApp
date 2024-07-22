@@ -11,13 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.myapplication.R;
-import com.myapplication.databinding.RoomItemLayoutBinding;
 import com.myapplication.model.Room;
-import com.myapplication.onClickInterface.OnClikItemInterfaceRoom;
 import com.myapplication.viewmodel.RoomViewModel;
 
 import java.util.List;

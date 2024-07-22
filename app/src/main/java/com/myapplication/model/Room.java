@@ -79,4 +79,8 @@ public class Room implements Parcelable {
         @Override
         public Room[] newArray(int size) { return new Room[size];}
     };
+
+    public String getMaterialType() {
+        return materialType;
+    }
 }
