@@ -15,7 +15,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_weight="1.5"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,7 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name Room"
-                    android:inputType="text|textCapSentences" />
+                    android:inputType="text|textCapSentences"
+                    tools:ignore="HardcodedText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Number"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    tools:ignore="HardcodedText" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

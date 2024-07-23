@@ -37,6 +37,7 @@ public class RoomRepository {
     }
 
     public LiveData<List<Room>> getAllRooms(){ return  _roomDao.getAllRooms(); }
+    public LiveData<List<Room>> getAllAvailableRooms(){ return  _roomDao.getAllAvailableRooms(); }
 
     public LiveData<List<Room>> getRooms(String filter) {
         return _roomDao.getRooms("%" + filter + "%");

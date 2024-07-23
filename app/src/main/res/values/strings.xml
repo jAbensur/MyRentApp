@@ -53,4 +53,6 @@
     <string name="lbl_room_description">Descripción:</string>
     <string name="lbl_room_material">Material:</string>
 
+    <string name="rest_search">Buscar...</string>
+
 </resources>

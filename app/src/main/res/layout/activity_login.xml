@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -35,7 +34,8 @@
             android:hint="@string/hint_Email_Login"
             android:inputType="textEmailAddress"
             android:maxLength="25"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/Password_Login"
@@ -51,7 +51,8 @@
             android:hint="@string/hint_Password_Login"
             android:inputType="textPassword"
             android:maxLength="10"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="Autofill" />
 
         <Button
             android:id="@+id/btnLogin"
@@ -60,12 +61,6 @@
             android:text="@string/btn_Ingresar_Login"
             android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Boton prueba"
-            android:textSize="24sp" />
     </LinearLayout>
 
     <!-- Espacio vacío abajo -->

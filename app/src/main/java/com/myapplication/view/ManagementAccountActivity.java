@@ -7,11 +7,9 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.myapplication.R;
 import com.myapplication.model.User;
 import com.myapplication.viewmodel.UserViewModel;
@@ -70,10 +68,6 @@ public class ManagementAccountActivity extends AppCompatActivity {
             String email = txtEmail.getText().toString();
             String password = txtPassword.getText().toString();
 
-//            String userName = "Russell";
-//            String email = "ruselcucho@gmail.com";
-//            String password = "admin";
-
             User updatedUser = new User(userName, email, password);
 
             int userId = 1;
@@ -83,18 +77,11 @@ public class ManagementAccountActivity extends AppCompatActivity {
             userViewModel.update(updatedUser);
 
             Log.i(TAG, "UserUpdate: " + updatedUser.toString());
-
-//                String message = "User Name: " + userName + "\n" +
-//                        "Email: " + email + "\n" +
-//                        "Password: " + password;
-//                showToast(message);
             returnToHome();
         });
 
         btnInsertDefaultUser.setOnClickListener(view -> {
-//            showAllUsers(); // línea para ver todos los usuarios
             returnToHome();
-//            mostrarAdmin();
         });
     }
 
@@ -115,11 +102,6 @@ public class ManagementAccountActivity extends AppCompatActivity {
     private void returnToHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
-    }
-
-    private void showAllUsers() {
-        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.logAllUsers();
     }
 
     private boolean validateInputs() {

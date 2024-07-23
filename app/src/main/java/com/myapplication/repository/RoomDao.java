@@ -26,7 +26,8 @@ public interface RoomDao {
 
     @Query("SELECT * FROM room")
     LiveData<List<Room>> getAllRooms();
-
+    @Query("SELECT * FROM room WHERE r_state = 1")
+    LiveData<List<Room>> getAllAvailableRooms();
     @Query("SELECT * FROM room WHERE r_name LIKE :filter")
     LiveData<List<Room>> getRooms(String filter);
 

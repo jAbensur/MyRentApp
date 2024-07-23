@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -16,7 +17,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="24dp"/>
+        android:layout_marginBottom="24dp"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:id="@+id/button_chambers_container"
@@ -29,21 +31,24 @@
         app:layout_constraintEnd_toStartOf="@+id/button_properties_container"
         app:layout_constraintBottom_toTopOf="@+id/button_user_container"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="80dp">
+        android:layout_marginTop="80dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/button_chambers_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/room"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/button_chambers_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Habitaciones"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,21 +62,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/button_user_container"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="70dp">
+        android:layout_marginTop="70dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/button_properties_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/property"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/button_properties_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Propiedades"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,21 +92,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/button_tenants_container"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/button_user_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/user"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/button_user_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Usuario"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -112,21 +123,24 @@
         app:layout_constraintEnd_toStartOf="@+id/button_rentals_container"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/button_tenants_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/tenant"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/button_tenants_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inquilinos"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,21 +154,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:id="@+id/button_rentals_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/rent"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/button_rentals_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alquileres"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

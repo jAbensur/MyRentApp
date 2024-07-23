@@ -35,6 +35,7 @@ public class RentCreateActivity extends AppCompatActivity {
     private RoomViewModel roomViewModel;
     private RentViewModel rentViewModel;
     private Spinner tenantSpinner, chamberSpinner;
+    private Room room;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class RentCreateActivity extends AppCompatActivity {
                 }
 
             });
-            roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
+            roomViewModel.getAllAvailableRooms().observe(this, new Observer<List<Room>>() {
                 @Override
                 public void onChanged(List<Room> rooms) {
                     if (rooms == null || rooms.isEmpty()) {
@@ -152,6 +153,7 @@ public class RentCreateActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Room selectedRoom = (Room) parent.getSelectedItem();
                 if (selectedRoom != null) {
+                    room = selectedRoom;
                     etPrice.setText(String.valueOf(selectedRoom.getPricePerMonth()));
                 }
             }
@@ -177,6 +179,8 @@ public class RentCreateActivity extends AppCompatActivity {
             message("Success");
             rentViewModel.insert(new Rent(startDate,endDate,Double.parseDouble(price),
                     selectedTenant.getId(), selectedChamber.getId()));
+            room.setState(0);
+            roomViewModel.updateRoom(room);
             finish();
         }
     }

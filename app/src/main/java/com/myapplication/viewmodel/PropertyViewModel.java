@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData;
 import com.myapplication.model.Property;
 import com.myapplication.repository.PropertyRepository;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class PropertyViewModel extends AndroidViewModel {
     private final PropertyRepository _repository;
@@ -29,15 +28,8 @@ public class PropertyViewModel extends AndroidViewModel {
     {
         _repository.deleteProperty(property);
     }
-    public List<Property> getAllPropertiesFuture() throws ExecutionException, InterruptedException {
-        return _repository.getAllPropertiesFuture();
-    }
     public LiveData<List<Property>> getAllPropertiesLive()
     {
         return  _allProperties;
-    }
-    public Property getPropertyById(int id)
-    {
-        return  _repository.getPropertyById(id);
     }
 }

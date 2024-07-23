@@ -27,7 +27,7 @@ import com.myapplication.viewmodel.TenantViewModel;
 import androidx.lifecycle.Observer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.HashMap;
@@ -36,29 +36,26 @@ import java.util.concurrent.Future;
 
 public class RentActivity extends AppCompatActivity {
     private EditText etSearch;
-    private Button btnSearch;
     private RecyclerView recyclerView;
-    private FloatingActionButton btnAdd, btnPdf;
     private RentAdapter rentAdapter;
     private List<Rent> rentList;
     private RentViewModel rentViewModel;
     private TenantViewModel tenantViewModel;
     private RoomViewModel roomViewModel;
-    private List<Tenant> tenants = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent);
-        getSupportActionBar().setTitle("Gestión de Alquileres");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Gestión de Alquileres");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = findViewById(R.id.rvRentals);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         etSearch = findViewById(R.id.etSearch);
-        btnSearch = findViewById(R.id.btnSearch);
-        btnAdd = findViewById(R.id.btnAdd);
-        btnPdf = findViewById(R.id.btnPdf);
+        Button btnSearch = findViewById(R.id.btnSearch);
+        FloatingActionButton btnAdd = findViewById(R.id.btnAdd);
+        FloatingActionButton btnPdf = findViewById(R.id.btnPdf);
 
         rentViewModel =  new ViewModelProvider(this).get(RentViewModel.class);
         roomViewModel = new ViewModelProvider(this).get(RoomViewModel.class);
@@ -101,8 +98,38 @@ public class RentActivity extends AppCompatActivity {
         });
 
     }
+
+
     private void searchRentals(String query) {
-        // Implementar lógica de búsqueda
+        if (query.isEmpty()) {
+            rentAdapter.updateRentList(rentList);
+        } else {
+            List<Rent> filteredList = new ArrayList<>();
+            for (Rent rent : rentList) {
+                boolean matchesQuery = false;
+
+                if (rent.getStartDate().toLowerCase().contains(query.toLowerCase()) ||
+                        rent.getEndDate().toLowerCase().contains(query.toLowerCase()) ||
+                        String.valueOf(rent.getPrice()).contains(query) ||
+                        (rent.getState() == 1 ? "Activo" : "Concluido").toLowerCase().contains(query.toLowerCase())) {
+                    matchesQuery = true;
+                } else {
+                    Tenant tenant = tenantViewModel.getTenntById(rent.getTenantId()).getValue();
+                    Room room = roomViewModel.getRoomById(rent.getChamberId()).getValue();
+
+                    if (tenant != null && tenant.getDni().toLowerCase().contains(query.toLowerCase())) {
+                        matchesQuery = true;
+                    } else if (room != null && room.getNameR().toLowerCase().contains(query.toLowerCase())) {
+                        matchesQuery = true;
+                    }
+                }
+
+                if (matchesQuery) {
+                    filteredList.add(rent);
+                }
+            }
+            rentAdapter.updateRentList(filteredList);
+        }
     }
     private void addNewRental() {
         Intent intent = new Intent(this, RentCreateActivity.class);
@@ -113,9 +140,9 @@ public class RentActivity extends AppCompatActivity {
     }
 
     public void generatePDF(List<Rent> rents) {
-        String pdfPath = getExternalFilesDir(null).toString() + "/rents.pdf";
+        String pdfPath = Objects.requireNonNull(getExternalFilesDir(null)).toString() + "/rents.pdf";
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);  // Crear un pool de hilos
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
         List<Future<Map<String, String>>> futures = new ArrayList<>();
 
         try {
@@ -166,7 +193,6 @@ public class RentActivity extends AppCompatActivity {
 
             runOnUiThread(() -> Toast.makeText(this, "PDF generated at " + pdfPath, Toast.LENGTH_SHORT).show());
         } catch (Exception e) {
-            e.printStackTrace();
             runOnUiThread(() -> Toast.makeText(this, "Error generating PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         } finally {
             executorService.shutdown();

@@ -9,8 +9,8 @@ import com.myapplication.repository.RentRepository;
 import java.util.List;
 
 public class RentViewModel extends AndroidViewModel {
-    private RentRepository rentRepository;
-    private LiveData<List<Rent>> allRents;
+    private final RentRepository rentRepository;
+    private final LiveData<List<Rent>> allRents;
     public RentViewModel(@NonNull Application application) {
         super(application);
         rentRepository = new RentRepository(application);

@@ -1,14 +1,11 @@
 package com.myapplication.viewmodel;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import com.myapplication.model.Room;
 import com.myapplication.repository.RoomRepository;
-
 import java.util.List;
 
 public class RoomViewModel extends AndroidViewModel {
@@ -29,6 +26,7 @@ public class RoomViewModel extends AndroidViewModel {
     public void deleteRoom(Room room){ _repository.deleteRoom(room); }
 
     public LiveData<List<Room>> getAllRooms(){ return _allRooms; }
+    public LiveData<List<Room>> getAllAvailableRooms(){ return _repository.getAllAvailableRooms(); }
 
     public LiveData<List<Room>> getRooms(String filter) {
         return _repository.getRooms(filter);

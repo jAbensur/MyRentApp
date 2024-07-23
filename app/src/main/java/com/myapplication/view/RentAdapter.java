@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
@@ -33,6 +35,7 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
     private RentViewModel rentViewModel;
     private TenantViewModel tenantViewModel;
     private RoomViewModel roomViewModel;
+    private Room room;
 
     public RentAdapter(Context context,List<Rent> rentList, RentViewModel rentViewModel,
                        TenantViewModel tenantViewModel, RoomViewModel roomViewModel) {
@@ -83,9 +86,10 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
 
         roomViewModel.getRoomById(rent.getChamberId()).observe((LifecycleOwner) context, new Observer<Room>() {
             @Override
-            public void onChanged(Room room) {
-                if (room != null) {
-                    holder.tvChamber.setText(room.getNameR());
+            public void onChanged(Room _room) {
+                if (_room != null) {
+                    room = _room;
+                    holder.tvChamber.setText(_room.getNameR());
                 }
             }
         });
@@ -102,10 +106,20 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.RentViewHolder
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rent.setState(0);
-                rentViewModel.update(rent);
+                if (room != null) {
+                    rentViewModel.update(rent);
+                    room.setState(1);
+                    roomViewModel.updateRoom(room);
+                } else {
+                    Toast.makeText(context, "Los datos de la habitación aún no están cargados", Toast.LENGTH_LONG).show();
+                }
             }
         });
+    }
+
+    public void updateRentList(List<Rent> newRentList) {
+        this.rentList = newRentList;
+        notifyDataSetChanged();
     }
 
     @Override

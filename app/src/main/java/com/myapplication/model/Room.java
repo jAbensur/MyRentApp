@@ -67,6 +67,10 @@ public class Room implements Parcelable {
         return pricePerMonth;
     }
 
+    public void setState(int state) {
+        this.state = state;
+    }
+
     @Override
     public int describeContents() { return 0; }
 

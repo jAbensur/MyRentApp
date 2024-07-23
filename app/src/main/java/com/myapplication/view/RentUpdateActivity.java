@@ -66,8 +66,7 @@ public class RentUpdateActivity extends AppCompatActivity {
                     Toast.makeText(RentUpdateActivity.this, "No hay inquilinos disponibles", Toast.LENGTH_LONG).show();
                 } else {
                     tenantList = tenants;
-                    ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, tenants);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    TenantSpinnerAdapter adapter = new TenantSpinnerAdapter(RentUpdateActivity.this, tenants);
                     tenantSpinner.setAdapter(adapter);
                     rentViewModel.getRentById(rentId).observe(RentUpdateActivity.this,new Observer<Rent>() {
                         @Override
@@ -95,13 +94,12 @@ public class RentUpdateActivity extends AppCompatActivity {
         });
         roomViewModel.getAllRooms().observe(this, new Observer<List<Room>>() {
             @Override
-            public void onChanged(List<Room> chambers) {
-                if (chambers == null || chambers.isEmpty()) {
+            public void onChanged(List<Room> rooms) {
+                if (rooms == null || rooms.isEmpty()) {
                     Toast.makeText(RentUpdateActivity.this, "No hay habitaciones disponibles", Toast.LENGTH_LONG).show();
                 } else {
-                    chamberList = chambers;
-                    ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    chamberList = rooms;
+                    RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(RentUpdateActivity.this, rooms);
                     chamberSpinner.setAdapter(adapter);
                     rentViewModel.getRentById(rentId).observe(RentUpdateActivity.this,new Observer<Rent>() {
                         @Override
@@ -133,8 +131,7 @@ public class RentUpdateActivity extends AppCompatActivity {
                 tenantViewModel.getTenants(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Tenant>>() {
                     @Override
                     public void onChanged(List<Tenant> tenants) {
-                        ArrayAdapter<Tenant> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, tenants);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        TenantSpinnerAdapter adapter = new TenantSpinnerAdapter(RentUpdateActivity.this, tenants);
                         tenantSpinner.setAdapter(adapter);
                     }
                 });
@@ -152,9 +149,8 @@ public class RentUpdateActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 roomViewModel.getRooms(s.toString()).observe(RentUpdateActivity.this, new Observer<List<Room>>() {
                     @Override
-                    public void onChanged(List<Room> chambers) {
-                        ArrayAdapter<Room> adapter = new ArrayAdapter<>(RentUpdateActivity.this, android.R.layout.simple_spinner_item, chambers);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    public void onChanged(List<Room> rooms) {
+                        RoomSpinnerAdapter adapter = new RoomSpinnerAdapter(RentUpdateActivity.this, rooms);
                         chamberSpinner.setAdapter(adapter);
                     }
                 });

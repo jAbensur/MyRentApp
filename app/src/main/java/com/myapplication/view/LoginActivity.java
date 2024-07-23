@@ -13,7 +13,7 @@ import com.myapplication.model.User;
 import com.myapplication.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btnInsertDefaultUser, btnLogin;
+    private Button btnLogin;
     private EditText emailLoginField, passwordLoginField;
 
     @Override
@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
             if (users == null || users.isEmpty()) {
                 // Agregar usuario por defecto si la lista está vacía
                 insertDefaultUser("Default User", "admin@gmail.com", "admin");
-                showToast("Usuario por defecto agregado.");
             }
         });
     }
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private void initializeFields() {
         emailLoginField = findViewById(R.id.txtEmail_Login);
         passwordLoginField = findViewById(R.id.txtPassword_Login);
-        btnInsertDefaultUser = findViewById(R.id.button);
         btnLogin = findViewById(R.id.btnLogin);
     }
 
@@ -48,16 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(view -> {
             handleLogin();
         });
-
-        btnInsertDefaultUser.setOnClickListener(view -> {
-            showToast("Boton prueba presionado");
-            showAllUsers();
-        });
-    }
-
-    private void deleteUser(int indice) {
-        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.deleteById(indice);
     }
 
     private void handleLogin() {
@@ -95,11 +83,6 @@ public class LoginActivity extends AppCompatActivity {
     private void insertDefaultUser(String name, String email, String password) {
         UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.insert( new User(name, email, password));
-    }
-
-    private void showAllUsers() {
-        UserViewModel userViewModel =  new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.logAllUsers();
     }
 
     private void showToast(String message) {

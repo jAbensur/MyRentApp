@@ -53,7 +53,7 @@ public class TenantAdapter extends RecyclerView.Adapter<TenantAdapter.TenantView
     @NonNull
     @Override
     public TenantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_tenant, null, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tenant_list_item, null, false);
         return new TenantViewHolder(view);
     }
 

@@ -14,7 +14,8 @@
         android:layout_marginHorizontal="20dp"
         android:layout_weight="1.5"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -29,7 +30,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Property"
-                android:inputType="text|textCapSentences" />
+                android:inputType="text|textCapSentences"
+                tools:ignore="HardcodedText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

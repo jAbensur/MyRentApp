@@ -23,6 +23,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         android:src="@drawable/ic_add"
-        app:fabSize="normal" />
+        app:fabSize="normal"
+        tools:ignore="ContentDescription" />
 
 </RelativeLayout>

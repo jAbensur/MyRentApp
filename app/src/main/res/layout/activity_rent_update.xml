@@ -16,7 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/etStartDate"
@@ -27,7 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        android:inputType="date"/>
+        android:inputType="date"
+        tools:ignore="Autofill,HardcodedText" />
 
     <TextView
         android:id="@+id/tvEndDate"
@@ -38,7 +40,8 @@
         app:layout_constraintTop_toBottomOf="@id/etStartDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/etEndDate"
@@ -49,7 +52,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        android:inputType="date"/>
+        android:inputType="date"
+        tools:ignore="Autofill,HardcodedText" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -60,7 +64,8 @@
         app:layout_constraintTop_toBottomOf="@id/etEndDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/etPrice"
@@ -71,7 +76,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp"
-        android:inputType="numberDecimal"/>
+        android:inputType="numberDecimal"
+        tools:ignore="Autofill,HardcodedText" />
 
     <EditText
         android:id="@+id/searchTenant"
@@ -81,7 +87,8 @@
         app:layout_constraintTop_toBottomOf="@id/etPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="Autofill,HardcodedText,TextFields" />
 
     <Spinner
         android:id="@+id/spinnerTenants"
@@ -91,7 +98,8 @@
         app:layout_constraintTop_toBottomOf="@id/searchTenant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/searchChamber"
@@ -101,7 +109,8 @@
         app:layout_constraintTop_toBottomOf="@id/spinnerTenants"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="Autofill,HardcodedText,TextFields" />
 
     <Spinner
         android:id="@+id/spinnerChambers"
@@ -111,7 +120,8 @@
         app:layout_constraintTop_toBottomOf="@id/searchChamber"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnCancel"
@@ -121,7 +131,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnRegister"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnRegister"
@@ -131,6 +142,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
